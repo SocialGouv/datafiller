@@ -18,11 +18,9 @@ const DragHandle = SortableHandle(({ style }) => (
 ));
 
 //
-const TableBodySortable = SortableContainer(
-  ({ children, displayRowCheckbox }) => (
-    <TableBody displayRowCheckbox={displayRowCheckbox}>{children}</TableBody>
-  )
-);
+const TableBodySortable = SortableContainer(({ children }) => (
+  <TableBody>{children}</TableBody>
+));
 
 TableBodySortable.muiName = "TableBody";
 
@@ -32,7 +30,7 @@ const Row = SortableElement(({ children, ...other }) => {
       <TableCell style={{ width: "5%" }}>
         <DragHandle />
       </TableCell>
-      <TableCell>{children}</TableCell>
+      {children}
     </TableRow>
   );
 });
@@ -67,7 +65,9 @@ class SortableResults extends React.Component {
         <TableHead>
           <TableRow>
             <TableCell style={{ width: "5%" }}>&nbsp;</TableCell>
-            <TableCell>Résultats</TableCell>
+            {this.props.columns.map(col => (
+              <TableCell key={col}>{col}</TableCell>
+            ))}
           </TableRow>
         </TableHead>
         <TableBodySortable
@@ -78,7 +78,7 @@ class SortableResults extends React.Component {
           {this.state.results.map((row, index) => {
             return (
               row && (
-                <Row index={index} key={row.url + index}>
+                <Row index={index} key={row + index}>
                   {this.props.renderRow(row)}
                 </Row>
               )

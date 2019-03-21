@@ -1,10 +1,24 @@
 import React from "react";
 import App, { Container } from "next/app";
 import Head from "next/head";
+import KintoClient from "kinto-http";
+import getConfig from "next/config";
+
+import JssProvider from "react-jss/lib/JssProvider";
 import { MuiThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import JssProvider from "react-jss/lib/JssProvider";
+
 import getPageContext from "../src/getPageContext";
+import KintoContext from "../src/kinto/KintoContext";
+import Layout from "../src/Layout";
+
+const { publicRuntimeConfig } = getConfig();
+
+const API_URL = publicRuntimeConfig.API_URL;
+
+const kintoClient = url => {
+  return new KintoClient(url);
+};
 
 class MyApp extends App {
   constructor() {
@@ -13,7 +27,7 @@ class MyApp extends App {
   }
 
   componentDidMount() {
-    // Remove the server-side injected CSS.
+    // Remove the server-side injected CSS
     const jssStyles = document.querySelector("#jss-server-side");
     if (jssStyles && jssStyles.parentNode) {
       jssStyles.parentNode.removeChild(jssStyles);
@@ -22,6 +36,7 @@ class MyApp extends App {
 
   render() {
     const { Component, pageProps } = this.props;
+    const client = kintoClient(API_URL);
     return (
       <Container>
         <Head>
@@ -42,7 +57,11 @@ class MyApp extends App {
             <CssBaseline />
             {/* Pass pageContext to the _document though the renderPage enhancer
                 to render collected styles on server-side. */}
-            <Component pageContext={this.pageContext} {...pageProps} />
+            <KintoContext.Provider value={{ client }}>
+              <Layout>
+                <Component pageContext={this.pageContext} {...pageProps} />
+              </Layout>
+            </KintoContext.Provider>
           </MuiThemeProvider>
         </JssProvider>
       </Container>

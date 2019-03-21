@@ -1,13 +1,19 @@
-import React from "react";
+import Grid from "@material-ui/core/Grid";
 import { withRouter } from "next/router";
 
-import Grid from "@material-ui/core/Grid";
+import QueryList from "../src/QueryList";
+
+const DefaultLeftComponent = withRouter(props => {
+  return <QueryList selectedQuery={props.router.query.query} />;
+});
+
+import React from "react";
+
 import { withStyles } from "@material-ui/core/styles";
+
 import { CssBaseline } from "@material-ui/core";
 
-import { Router } from "./routes";
-import ListRecordsView from "../src/ListRecordsView";
-import Drawer from "./Drawer";
+import AppBar from "./AppBar";
 
 const drawerWidth = 300;
 
@@ -80,22 +86,6 @@ const styles = theme => ({
   }
 });
 
-const debug = props => console.log("debug", props);
-
-const DefaultLeftComponent = props => (
-  <ListRecordsView
-    {...Router.query} // pass bucket, collection, record?
-    onRecordClick={record => {
-      Router.pushRoute("record", {
-        bucket: Router.query.bucket,
-        collection: Router.query.collection,
-        record: record.id
-      });
-    }}
-    intro="Restant à compléter"
-  />
-);
-
 class Layout extends React.Component {
   state = {
     drawerOpen: !!this.props.LeftComponent
@@ -103,10 +93,6 @@ class Layout extends React.Component {
   handleDrawerToggle = () => {
     this.setState(curState => ({ drawerOpen: !curState.drawerOpen }));
   };
-  shouldComponentUpdate(nextProps) {
-    console.log("shouldComponentUpdate", nextProps, this.props);
-    return true;
-  }
   render() {
     const {
       config,
@@ -119,18 +105,16 @@ class Layout extends React.Component {
     return (
       <div className={classes.root}>
         <CssBaseline />
-        {LeftComponent && (
-          <Drawer
-            config={config}
-            classes={classes}
-            handleDrawerToggle={this.handleDrawerToggle}
-            drawerOpen={this.state.drawerOpen}
-          >
-            <LeftComponent />
-          </Drawer>
-        )}
+        <AppBar
+          config={config}
+          classes={classes}
+          handleDrawerToggle={this.handleDrawerToggle}
+          drawerOpen={this.state.drawerOpen}
+        >
+          {LeftComponent && <LeftComponent />}
+        </AppBar>
         <main className={classes.content}>
-          {RightComponent && <RightComponent />}
+          <RightComponent />
           {children}
         </main>
       </div>
@@ -139,7 +123,7 @@ class Layout extends React.Component {
 }
 
 Layout.defaultProps = {
-  LeftComponent: DefaultLeftComponent,
+  LeftComponent: null,
   RightComponent: null
 };
 
