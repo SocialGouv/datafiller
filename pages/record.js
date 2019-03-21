@@ -1,7 +1,7 @@
 import React from "react";
+import Head from "next/head";
 
 import KintoFetch from "../src/kinto/KintoFetch";
-import KintoContext from "../src/kinto/KintoContext";
 
 import EditRecord from "../src/EditRecord";
 
@@ -39,22 +39,16 @@ const Record = ({ client, bucket, collection, record, onSubmit }) => (
 );
 
 const RecordPage = props => {
-  const onSubmit = (client, formData) => {
-    client
-      .bucket(props.bucket)
-      .collection(props.collection)
-      .updateRecord({ ...formData, id: props.record })
-      .then(console.log)
-      .catch(console.log);
-  };
   return (
-    <div>
-      <KintoContext.Consumer>
-        {({ client }) => <EditRecord {...props} />}
-      </KintoContext.Consumer>
-    </div>
+    <React.Fragment>
+      <Head>
+        <title>Dataset: {props.record ? props.record : props.collection}</title>
+      </Head>
+      <EditRecord {...props} />;
+    </React.Fragment>
   );
 };
+
 RecordPage.getInitialProps = async ({ query }) => {
   return {
     bucket: query.bucket,

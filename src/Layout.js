@@ -80,8 +80,6 @@ const styles = theme => ({
   }
 });
 
-const debug = props => console.log("debug", props);
-
 const DefaultLeftComponent = props => (
   <ListRecordsView
     {...Router.query} // pass bucket, collection, record?

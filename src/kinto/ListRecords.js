@@ -5,6 +5,7 @@ import KintoFetch from "./KintoFetch";
 // cache by bucket+collection
 const cache = {};
 
+// render prop that render with `result` from `collection.listRecords`
 const ListRecords = ({ bucket, collection, render }) => (
   <KintoFetch
     fetch={async ({ client }) => {

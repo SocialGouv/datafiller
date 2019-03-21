@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import Head from "next/head";
 
-import EditRecord from "../src/EditRecord";
-
 import { withStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
@@ -21,7 +19,6 @@ const rightStyles = theme => ({
 
 const NewSearchInput = ({ onSubmit }) => {
   const [state, setState] = useState("");
-  let input;
   const onKeyUp = e => {
     if (e.nativeEvent.keyCode === 13) {
       onSubmit(e.target.value);
@@ -74,18 +71,16 @@ const CollectionIntro = withStyles(rightStyles)(({ classes }) => (
 const CollectionPage = props => (
   <React.Fragment>
     <Head>
-      <title>Dataset: {props.record ? props.record : props.collection}</title>
+      <title>Dataset: {props.collection}</title>
     </Head>
-    {!props.record && <CollectionIntro />}
-    {props.record && <EditRecord {...props} />}
+    <CollectionIntro />
   </React.Fragment>
 );
 
 CollectionPage.getInitialProps = async ({ query }) => {
   return {
     bucket: query.bucket,
-    collection: query.collection,
-    record: query.record
+    collection: query.collection
   };
 };
 

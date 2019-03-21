@@ -1,16 +1,15 @@
 import React from "react";
-import PropTypes from "prop-types";
 import Autosuggest from "react-autosuggest";
 import styled from "styled-components";
 
 import TextField from "@material-ui/core/TextField";
 
-import { getLabelBySource } from "./sources";
+import { getLabelBySource } from "../sources";
 
 // handle query + results state
 class SuggestionState extends React.Component {
   state = { query: this.props.query, hits: [] };
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({ query: nextProps.query, hits: [] });
   }
   updateQuery = query => {
@@ -128,7 +127,8 @@ const SuggestionsContainer = styled.div`
   overflow: "hidden";
 
   ul {
-    z-index: 100;
+    position: absolute;
+    z-index: 99999;
   }
   li[role="option"]:nth-child(2n + 1) {
     background: #f7f7f7;
