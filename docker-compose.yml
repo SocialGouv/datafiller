@@ -1,0 +1,32 @@
+version: '3.0'
+
+services:
+  kinto:
+    image: kinto/kinto-server:13.0.1
+    restart: always
+    environment:
+     # - KINTO_PERMISSION_BACKEND=kinto.core.permission.postgresql
+      - KINTO_PERMISSION_URL=postgresql://postgres:postgres@db/postgres
+      - KINTO_BUCKET_CREATE_PRINCIPALS=system.Everyone
+  db:
+    image: postgres:10.3
+    restart: always
+    environment:
+      # master password
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./packages/api/db/postgres-init.sh:/docker-entrypoint-initdb.d/postgres-init.sh
+  # prod only
+  front:
+    restart: always
+    build:
+      dockerfile: ./Dockerfile
+      context: .
+    environment:
+      - KINTO_URL=/kinto/v1
+    ports:
+      - 3001:3000
+volumes:
+  pgdata:

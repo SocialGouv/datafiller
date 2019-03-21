@@ -1,0 +1,11 @@
+version: '3.0'
+
+services:
+  front:
+    restart: always
+    build:
+      dockerfile: ./Dockerfile
+      context: .
+    environment:
+      - KINTO_URL=/kinto
+

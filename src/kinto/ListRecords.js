@@ -14,7 +14,7 @@ const ListRecords = ({ bucket, collection, render }) => (
         cache[key] = await client
           .bucket(bucket)
           .collection(collection)
-          .listRecords();
+          .listRecords({ sort: "title" });
       }
       return cache[key];
     }}

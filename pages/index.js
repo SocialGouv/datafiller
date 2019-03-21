@@ -3,31 +3,57 @@ import getConfig from "next/config";
 
 import { Link } from "../src/routes";
 import ListCollections from "../src/kinto/ListCollections";
+import KintoFetch from "../src/kinto/KintoFetch";
 
+import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import Chip from "@material-ui/core/Chip";
 
-import {
-  Card,
-  CardContent,
-  Table,
-  TableHead,
-  TableRow,
-  TableFooter,
-  TableBody,
-  TableCell,
-  IconButton
-} from "@material-ui/core";
+import { Card, CardContent } from "@material-ui/core";
 
 const { publicRuntimeConfig } = getConfig();
 
+// const StyledAvatar = withStyles(theme => ({
+//   avatar: {
+//     color: theme.palette.primary.contrastText,
+//     backgroundColor: theme.palette.primary.light,
+//     display: "inline",
+//     padding: "5px 10px"
+//   }
+// }))(({ classes, ...props }) => (
+//   <Avatar className={classes.avatar} {...props} />
+// ));
+
+const RecordCount = ({ bucket, collection }) => (
+  <KintoFetch
+    fetch={({ client }) =>
+      client
+        .bucket(bucket)
+        .collection(collection)
+        .getTotalRecords()
+    }
+    render={({ status, result }) => {
+      if (status === "success" && result) {
+        return <Chip label={result} color="primary" />;
+      }
+      return null;
+    }}
+  />
+);
+
 const BucketView = ({ bucket, collections = [] }) =>
   collections.map(collection => (
-    <Card style={{ marginTop: 15 }}>
+    <Card key={collection.id} style={{ marginTop: 15 }}>
       <CardContent>
-        <Typography variant="title">{collection.id}</Typography>
+        <Typography variant="h6">
+          {collection.id}{" "}
+          <RecordCount bucket={bucket} collection={collection.id} />
+        </Typography>
+        <Typography variant="subtitle1">{collection.schema.title}</Typography>
+
         <Link route="collection" params={{ bucket, collection: collection.id }}>
-          <Button variant="contained" color="primary" style={{ topMargin: 15 }}>
+          <Button variant="contained" color="primary" style={{ marginTop: 20 }}>
             Ouvrir
           </Button>
         </Link>

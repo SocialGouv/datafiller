@@ -14,7 +14,7 @@ import Layout from "../src/Layout";
 
 const { publicRuntimeConfig } = getConfig();
 
-const API_URL = publicRuntimeConfig.API_URL;
+const KINTO_URL = publicRuntimeConfig.KINTO_URL;
 
 const kintoClient = url => {
   return new KintoClient(url);
@@ -36,7 +36,7 @@ class MyApp extends App {
 
   render() {
     const { Component, pageProps } = this.props;
-    const client = kintoClient(API_URL);
+    const client = kintoClient(KINTO_URL);
     return (
       <Container>
         <Head>

@@ -3,9 +3,9 @@ import React from "react";
 import withKinto from "./kinto/withKinto";
 import KintoFetch from "./kinto/KintoFetch";
 
-// map kinto collections to components
+// todo: map kinto collections to components
 const forms = {
-  dataset1: require("./forms/Dataset1").default
+  requetes: require("./forms/Dataset1").default
 };
 
 const onSubmit = ({ client, bucket, collection, data }) =>
@@ -17,6 +17,13 @@ const onSubmit = ({ client, bucket, collection, data }) =>
 const EditRecord = withKinto(({ client, bucket, collection, record }) => {
   // todo: use json-schema-form when no schema defined
   const Component = forms[collection];
+  if (!Component) {
+    throw new Error(
+      `Cannot find editor component for collection ${collection}. Valid collections : ${Object.keys(
+        forms
+      ).join(", ")}`
+    );
+  }
 
   return (
     <KintoFetch
