@@ -22,15 +22,10 @@ const BucketView = ({ bucket, collections = [] }) => (
   </ul>
 );
 
-// Index.getInitialProps = async ({ query }) => {
-//   return {};
-// };
-
 // by default we list the process.env.KINTO_BUCKET
 class Home extends React.Component {
   static async getInitialProps({ query }) {
     const results = [];
-    //getData(query.query).children || [];
     return { query: query.query, results };
   }
   render() {

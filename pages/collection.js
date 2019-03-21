@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Head from "next/head";
 
 import EditRecord from "../src/EditRecord";
 
@@ -17,20 +18,6 @@ const rightStyles = theme => ({
     marginBottom: "1em"
   }
 });
-
-/*
- client
-              .bucket(props.bucket)
-              .collection(props.collection)
-              .createRecord({ title })
-              .then(result => {
-                Router.pushRoute("record", {
-                  bucket: props.bucket,
-                  collection: props.collection,
-                  record: result.data.id
-                });
-              })
-*/
 
 const NewSearchInput = ({ onSubmit }) => {
   const [state, setState] = useState("");
@@ -86,6 +73,9 @@ const CollectionIntro = withStyles(rightStyles)(({ classes }) => (
 
 const CollectionPage = props => (
   <React.Fragment>
+    <Head>
+      <title>Dataset: {props.record ? props.record : props.collection}</title>
+    </Head>
     {!props.record && <CollectionIntro />}
     {props.record && <EditRecord {...props} />}
   </React.Fragment>
@@ -100,19 +90,3 @@ CollectionPage.getInitialProps = async ({ query }) => {
 };
 
 export default CollectionPage;
-
-/*<AddRecord
-          onAdd={title =>
-            client
-              .bucket(props.bucket)
-              .collection(props.collection)
-              .createRecord({ title })
-              .then(result => {
-                Router.pushRoute("record", {
-                  bucket: props.bucket,
-                  collection: props.collection,
-                  record: result.data.id
-                });
-              })
-          }
-        />*/

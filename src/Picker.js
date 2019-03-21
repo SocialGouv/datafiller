@@ -82,7 +82,8 @@ export const Picker = ({ query, onSelect, fetchSuggestions }) => {
   );
 };
 
-const getSuggestionValue = suggestion => suggestion._source.title;
+const getSuggestionValue = suggestion =>
+  `${suggestion._source.source}/${suggestion._source.id}`;
 
 const cleanHtml = html =>
   html

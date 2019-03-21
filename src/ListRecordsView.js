@@ -20,7 +20,7 @@ const ListRecordsView = ({
   intro,
   onRecordClick
 }) => {
-  console.log("record", record);
+  console.log("ListRecordsView", record);
   return (
     <ListRecords
       bucket={bucket}

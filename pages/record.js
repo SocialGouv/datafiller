@@ -1,35 +1,9 @@
 import React from "react";
-import { Formik } from "formik";
-//import Form from "react-jsonschema-form";
 
-import { Link } from "../src/routes";
 import KintoFetch from "../src/kinto/KintoFetch";
 import KintoContext from "../src/kinto/KintoContext";
-import Collection from "../src/kinto/Collection";
 
 import EditRecord from "../src/EditRecord";
-
-// const schema = {
-//   title: "Todo",
-//   type: "object",
-//   required: ["title"],
-//   properties: {
-//     title: { type: "string", title: "Title", default: "A new task" },
-//     done: { type: "boolean", title: "Done?", default: false }
-//   }
-// };
-
-// const log = message => () => console.log(message);
-
-// const RecordForm = ({ onSubmit, ...formData }) => (
-//   <Form
-//     schema={schema}
-//     formData={formData}
-//     onChange={log("changed")}
-//     onSubmit={onSubmit}
-//     onError={log("errors")}
-//   />
-// );
 
 const RecordView = ({ bucket, collection, record }) => (
   <div>

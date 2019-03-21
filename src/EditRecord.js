@@ -37,6 +37,11 @@ import { suggestResults } from "./api";
 
 const range = (min, max) => Array.from({ length: max - min }).fill(false);
 
+const getRowId = row =>
+  console.log("getRowLabel", row) || (row.source && row.slug)
+    ? `${row.source}/${row.slug}`
+    : row.url;
+
 const colors = [
   "hsla(1, 100%, 70%, 1)",
   "hsla(25, 100%, 70%, 1)",
@@ -174,8 +179,10 @@ const Dataset1Form = ({ data, onSubmit }) => {
                   name="refs"
                   render={({ push, remove }) => {
                     const setRowValue = (i, value) => {
-                      values.refs[i].url = value._source.url;
-                      values.refs[i].title = value._source.title;
+                      const rowId = getRowId(value._source); //return source/slug or url
+                      values.refs[i].url = rowId;
+                      values.refs[i].title = rowId;
+                      //value._source.title;
                       setFieldValue("refs", values.refs);
                       setFieldTouched("refs");
                     };
@@ -194,6 +201,7 @@ const Dataset1Form = ({ data, onSubmit }) => {
                             <TableCell key="remove">-</TableCell>
                           </TableRow>
                         </TableHead>
+
                         <TableBody>
                           {values.refs &&
                             values.refs.map(
@@ -202,7 +210,7 @@ const Dataset1Form = ({ data, onSubmit }) => {
                                   <TableRow index={index} key={row + index}>
                                     <TableCell>
                                       <Picker
-                                        query={row.title || ""}
+                                        query={getRowId(row) || ""}
                                         fetchSuggestions={suggestResults}
                                         onSelect={value =>
                                           setRowValue(index, value)

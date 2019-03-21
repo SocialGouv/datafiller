@@ -2,14 +2,21 @@ import React from "react";
 
 import KintoFetch from "./KintoFetch";
 
+// cache by bucket+collection
+const cache = {};
+
 const ListRecords = ({ bucket, collection, render }) => (
   <KintoFetch
-    fetch={({ client }) =>
-      client
-        .bucket(bucket)
-        .collection(collection)
-        .listRecords()
-    }
+    fetch={async ({ client }) => {
+      const key = `${bucket}.${collection}`;
+      if (!cache[key]) {
+        cache[key] = await client
+          .bucket(bucket)
+          .collection(collection)
+          .listRecords();
+      }
+      return cache[key];
+    }}
     render={({ status, result }) => (
       <React.Fragment>
         {status === "error" && (
