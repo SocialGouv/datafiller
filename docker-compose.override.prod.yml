@@ -8,4 +8,5 @@ services:
       context: .
     environment:
       - KINTO_URL=/kinto/v1
-
+    ports:
+      - 3001:3000
