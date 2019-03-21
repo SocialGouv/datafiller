@@ -7,5 +7,5 @@ services:
       dockerfile: ./Dockerfile
       context: .
     environment:
-      - KINTO_URL=/kinto
+      - KINTO_URL=/kinto/v1
 
