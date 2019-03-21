@@ -8,6 +8,9 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import SaveIcon from "@material-ui/icons/Save";
 
+import { Router } from "../src/routes";
+import KintoContext from "../src/kinto/KintoContext";
+
 const rightStyles = theme => ({
   info: {
     ...theme.mixins.gutters(),
@@ -19,6 +22,7 @@ const rightStyles = theme => ({
 
 const NewSearchInput = ({ onSubmit }) => {
   const [state, setState] = useState("");
+  let input; // used on InputProps
   const onKeyUp = e => {
     if (e.nativeEvent.keyCode === 13) {
       onSubmit(e.target.value);
@@ -51,29 +55,53 @@ const NewSearchInput = ({ onSubmit }) => {
   );
 };
 
-const CollectionIntro = withStyles(rightStyles)(({ classes }) => (
-  <React.Fragment>
-    <Paper className={classes.info} elevation={1}>
-      <Typography variant="h5" component="h3">
-        Requètes utilisateur.
-      </Typography>
-      <Typography component="p">Définissez les réponses attendues</Typography>
-    </Paper>
-    <Paper className={classes.info} elevation={1}>
-      <Typography variant="h5" component="h3">
-        Créer une nouvelle recherche
-      </Typography>
-      <NewSearchInput onSubmit={val => alert(val)} />
-    </Paper>
-  </React.Fragment>
-));
+// add new entry in
+const addEntry = async ({ client, bucket, collection, value }) => {
+  const result = await client
+    .bucket(bucket)
+    .collection(collection)
+    .createRecord({ title: value });
+
+  Router.pushRoute("record", {
+    bucket,
+    collection,
+    record: result.data.id
+  });
+};
+
+const CollectionIntro = withStyles(rightStyles)(
+  ({ classes, bucket, collection }) => (
+    <React.Fragment>
+      <Paper className={classes.info} elevation={1}>
+        <Typography variant="h5" component="h3">
+          Requètes utilisateur.
+        </Typography>
+        <Typography component="p">Définissez les réponses attendues</Typography>
+      </Paper>
+      <Paper className={classes.info} elevation={1}>
+        <Typography variant="h5" component="h3">
+          Créer une nouvelle entrée
+        </Typography>
+        <KintoContext.Consumer>
+          {({ client }) => (
+            <NewSearchInput
+              onSubmit={value =>
+                addEntry({ client, bucket, collection, value })
+              }
+            />
+          )}
+        </KintoContext.Consumer>
+      </Paper>
+    </React.Fragment>
+  )
+);
 
 const CollectionPage = props => (
   <React.Fragment>
     <Head>
       <title>Dataset: {props.collection}</title>
     </Head>
-    <CollectionIntro />
+    <CollectionIntro {...props} />
   </React.Fragment>
 );
 

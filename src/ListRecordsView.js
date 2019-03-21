@@ -1,57 +1,73 @@
 import React from "react";
 
 import ListRecords from "../src/kinto/ListRecords";
+import KintoContext from "../src/kinto/KintoContext";
 
-import Badge from "@material-ui/core/Badge";
+//import Badge from "@material-ui/core/Badge";
 
 import List from "@material-ui/core/List";
+import Fab from "@material-ui/core/Fab";
 import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import { QuestionAnswer as QuestionAnswerIcon } from "@material-ui/icons";
+import {
+  Add as AddIcon,
+  QuestionAnswer as QuestionAnswerIcon,
+  Home as HomeIcon
+} from "@material-ui/icons";
+
+import { Link } from "./routes";
 
 const ListRecordsView = ({
   bucket,
   collection,
   record,
   intro,
+  onAddClick,
   onRecordClick
 }) => (
   <ListRecords
     bucket={bucket}
     collection={collection}
     render={({ result }) => (
-      <List dense={true} component="nav">
-        {intro && (
-          <React.Fragment>
+      <React.Fragment>
+        <List dense={true} component="nav">
+          <Link to="/">
             <ListItem button>
-              <Badge color="primary" badgeContent={4}>
-                <ListItemText primary="En attente" />
-              </Badge>
+              <ListItemIcon>
+                <HomeIcon />
+              </ListItemIcon>
+              <ListItemText primary="Accueil" />
             </ListItem>
-            <ListItem button>
-              <Badge color="secondary" badgeContent={12}>
-                <ListItemText primary="Traités" />
-              </Badge>
+          </Link>
+          <Divider />
+          {result.data.map(item => (
+            <ListItem
+              selected={item.id === record}
+              key={item.id}
+              button
+              onClick={() => onRecordClick(item)}
+            >
+              <ListItemIcon style={{ margin: 0 }}>
+                <QuestionAnswerIcon />
+              </ListItemIcon>
+              <ListItemText primary={item.title} />
             </ListItem>
-            <Divider />
-          </React.Fragment>
-        )}
-        {result.data.map(item => (
-          <ListItem
-            selected={item.id === record}
-            key={item.id}
-            button
-            onClick={() => onRecordClick(item)}
-          >
-            <ListItemIcon style={{ margin: 0 }}>
-              <QuestionAnswerIcon />
-            </ListItemIcon>
-            <ListItemText primary={item.title} />
-          </ListItem>
-        ))}
-      </List>
+          ))}
+        </List>
+        <KintoContext.Consumer>
+          {({ client }) => (
+            <Fab
+              onClick={() => onAddClick({ client })}
+              color="primary"
+              style={{ bottom: 10, right: 10, position: "absolute" }}
+            >
+              <AddIcon />
+            </Fab>
+          )}
+        </KintoContext.Consumer>
+      </React.Fragment>
     )}
   />
 );

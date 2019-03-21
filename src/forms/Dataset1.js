@@ -38,7 +38,6 @@ const getRowId = row =>
 const DataSchema = Yup.object().shape({
   title: Yup.string()
     .min(10, "Titre trop court")
-    .max(50, "Titre trop long")
     .required("Titre requis"),
   refs: Yup.array()
     .of(Yup.object())

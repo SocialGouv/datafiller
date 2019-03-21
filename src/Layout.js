@@ -1,7 +1,5 @@
 import React from "react";
-import { withRouter } from "next/router";
 
-import Grid from "@material-ui/core/Grid";
 import { withStyles } from "@material-ui/core/styles";
 import { CssBaseline } from "@material-ui/core";
 
@@ -80,19 +78,41 @@ const styles = theme => ({
   }
 });
 
-const DefaultLeftComponent = props => (
-  <ListRecordsView
-    {...Router.query} // pass bucket, collection, record?
-    onRecordClick={record => {
-      Router.pushRoute("record", {
-        bucket: Router.query.bucket,
-        collection: Router.query.collection,
-        record: record.id
-      });
-    }}
-    intro="Restant à compléter"
-  />
-);
+const DefaultLeftComponent = props =>
+  (Router.query.bucket && Router.query.collection && (
+    <ListRecordsView
+      {...Router.query} // pass bucket, collection, record?
+      onAddClick={async ({ client }) => {
+        const result = await client
+          .bucket(Router.query.bucket)
+          .collection(Router.query.collection)
+          .createRecord({});
+
+        Router.pushRoute("record", {
+          bucket: Router.query.bucket,
+          collection: Router.query.collection,
+          record: result.data.id
+        });
+
+        // hack
+        setTimeout(() => {
+          const target = document.querySelector("textarea[name='title']");
+          if (target) {
+            target.focus();
+          }
+        }, 200);
+      }}
+      onRecordClick={record => {
+        Router.pushRoute("record", {
+          bucket: Router.query.bucket,
+          collection: Router.query.collection,
+          record: record.id
+        });
+      }}
+      intro="Restant à compléter"
+    />
+  )) ||
+  null;
 
 class Layout extends React.Component {
   state = {
