@@ -502,7 +502,7 @@ const updateDatabase = async () => {
     });
 
     // create bucket
-    await fetch(`http://127.0.0.1:8888/v1/buckets/${BUCKET}`, {
+    await fetch(`${KINTO_URL}/buckets/${BUCKET}`, {
       headers: {
         "Content-Type": "application/json",
         authorization: `Basic ${btoa("admin:s3cr3t")}`
