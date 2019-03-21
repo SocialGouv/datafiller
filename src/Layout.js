@@ -122,7 +122,6 @@ class Layout extends React.Component {
     this.setState(curState => ({ drawerOpen: !curState.drawerOpen }));
   };
   shouldComponentUpdate(nextProps) {
-    console.log("shouldComponentUpdate", nextProps, this.props);
     return true;
   }
   render() {
