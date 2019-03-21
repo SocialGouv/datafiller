@@ -10,6 +10,9 @@ import { getLabelBySource } from "./sources";
 // handle query + results state
 class SuggestionState extends React.Component {
   state = { query: this.props.query, hits: [] };
+  componentWillReceiveProps(nextProps) {
+    this.setState({ query: nextProps.query, hits: [] });
+  }
   updateQuery = query => {
     this.setState({ query, hits: [] }, () => {
       this.props
@@ -22,7 +25,8 @@ class SuggestionState extends React.Component {
     return this.props.render({
       query: this.state.query,
       hits: this.state.hits,
-      updateQuery: this.updateQuery
+      updateQuery: this.updateQuery,
+      forceUpdate: this.forceUpdate.bind(this)
     });
   }
 }
@@ -33,18 +37,18 @@ const renderInputComponent = inputProps => (
 
 export const Picker = ({ query, onSelect, fetchSuggestions }) => {
   const originalQuery = query;
-
   return (
     <SuggestionState
       fetchSuggestions={fetchSuggestions}
       query={originalQuery}
-      render={({ query, hits, updateQuery }) => {
+      render={({ query, hits, updateQuery, forceUpdate }) => {
         const _onChange = args => {};
         const _onSearch = e => {
           updateQuery(e.value);
         };
         const _onSelect = (event, data) => {
           onSelect(data.suggestion);
+          forceUpdate();
         };
         const _onClear = args => {
           updateQuery(originalQuery);

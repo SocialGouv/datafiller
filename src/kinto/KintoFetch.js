@@ -1,17 +1,14 @@
 import React from "react";
-import KintoContext from "./KintoContext";
+
+import withKinto from "./withKinto";
 import AsyncFetch from "../lib/AsyncFetch";
 
-const KintoFetch = ({ fetch, render }) => (
-  <KintoContext.Consumer>
-    {({ client }) => (
-      <AsyncFetch
-        fetch={() => fetch({ client })}
-        autoFetch={true}
-        render={render}
-      />
-    )}
-  </KintoContext.Consumer>
-);
+const KintoFetch = withKinto(({ client, fetch, render }) => (
+  <AsyncFetch
+    fetch={() => fetch({ client })}
+    autoFetch={true}
+    render={render}
+  />
+));
 
 export default KintoFetch;
