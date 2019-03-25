@@ -1,7 +1,10 @@
 import React from "react";
 
+import Typography from "@material-ui/core/Typography";
+
 import withKinto from "./kinto/withKinto";
 import KintoFetch from "./kinto/KintoFetch";
+import { Router } from "./routes";
 
 // todo: map kinto collections to components
 const forms = {
@@ -13,6 +16,12 @@ const onSubmit = ({ client, bucket, collection, data }) =>
     .bucket(bucket)
     .collection(collection)
     .updateRecord({ ...data });
+
+const onDelete = ({ client, bucket, collection, id }) =>
+  client
+    .bucket(bucket)
+    .collection(collection)
+    .deleteRecord(id);
 
 const EditRecord = withKinto(({ client, bucket, collection, record }) => {
   // todo: use json-schema-form when no schema defined
@@ -42,6 +51,16 @@ const EditRecord = withKinto(({ client, bucket, collection, record }) => {
                 data={result.data}
                 onSubmit={data =>
                   onSubmit({ client, bucket, collection, data })
+                }
+                onDelete={() =>
+                  onDelete({
+                    client,
+                    bucket,
+                    collection,
+                    id: result.data.id
+                  }).then(() =>
+                    Router.pushRoute("collection", { bucket, collection })
+                  )
                 }
               />
             </React.Fragment>

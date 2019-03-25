@@ -149,7 +149,7 @@ const References = ({
   />
 );
 
-const Dataset1Form = ({ data, onSubmit }) => {
+const Dataset1Form = ({ data, onSubmit, onDelete }) => {
   let root;
 
   const focusLastInput = () => {
@@ -285,22 +285,43 @@ const Dataset1Form = ({ data, onSubmit }) => {
                 </CardContent>
               </Card>
             )}
-            <Button
-              color="primary"
-              size="large"
-              style={{ whiteSpace: "nowrap", marginTop: 20 }}
-              variant="contained"
-              type="submit"
-              disabled={
-                // disable when errors, nothing changed or while submitting
-                !!Object.keys(errors).length ||
-                !Object.keys(touched).length ||
-                isSubmitting
-              }
-            >
-              <SaveIcon size={16} style={{ marginRight: 10 }} />
-              Enregistrer
-            </Button>
+
+            <Grid container spacing={24}>
+              <Grid item xs={6}>
+                <Button
+                  color="primary"
+                  size="large"
+                  style={{ whiteSpace: "nowrap", marginTop: 20 }}
+                  variant="contained"
+                  type="submit"
+                  disabled={
+                    // disable when errors, nothing changed or while submitting
+                    !!Object.keys(errors).length ||
+                    !Object.keys(touched).length ||
+                    isSubmitting
+                  }
+                >
+                  <SaveIcon size={16} style={{ marginRight: 10 }} />
+                  Enregistrer
+                </Button>
+              </Grid>
+              <Grid item xs={6} style={{ textAlign: "right" }}>
+                <Button
+                  size="large"
+                  style={{
+                    marginLeft: 20,
+                    whiteSpace: "nowrap",
+                    marginTop: 20
+                  }}
+                  variant="contained"
+                  type="button"
+                  onClick={onDelete}
+                >
+                  <DeleteIcon size={16} style={{ marginRight: 10 }} />
+                  Supprimer
+                </Button>
+              </Grid>
+            </Grid>
           </form>
         )}
       />
