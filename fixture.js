@@ -1,191 +1,193 @@
 // from google docs TSV
 // raw.split("\n").map(row => row.split('\t')).map(row => [row[0], row[1], row[3], row[5], row[7]])
 
+const fs = require("fs");
 const btoa = require("btoa");
 const fetch = require("node-fetch");
 
+// queries from TU
 const data = [
   [
     "rupture conventionnelle",
-    "/fiches_service_public/rupture-conventionnelle",
+    "/fiche-service-public/rupture-conventionnelle",
     "",
     "",
     ""
   ],
   [
     "rupture conventionnelle individuelle",
-    "/fiches_service_public/rupture-conventionnelle",
+    "/fiche-service-public/rupture-conventionnelle",
     "",
     "",
     ""
   ],
   [
     "rupture conventionnelle individuelle indemnité de rupture",
-    "/fiches_ministere_travail/la-rupture-conventionnelle-du-contrat-de-travail-a-duree-indeterminee-quelles-sont-les-indemnites-dues-au-salarie",
-    "/fiches_service_public/rupture-conventionnelle",
+    "/fiche-ministere-travail/la-rupture-conventionnelle-du-contrat-de-travail-a-duree-indeterminee-quelles-sont-les-indemnites-dues-au-salarie",
+    "/fiche-service-public/rupture-conventionnelle",
     "https://www.telerc.travail.gouv.fr/RuptureConventionnellePortailPublic/jsp/site/Portal.jsp?page_id=14",
     ""
   ],
   [
     "rupture conventionnelle collective",
-    "/fiches_service_public/rupture-conventionnelle-dun-cdi",
+    "/fiche-service-public/rupture-conventionnelle-dun-cdi",
     "",
     "",
     ""
   ],
   [
     "rupture conventionnelle collective comment le contester ?",
-    "/code_du_travail/article-l1237-19-8",
+    "/code-du-travail/article-l1237-19-8",
     "",
     "",
     ""
   ],
   [
     "lettre de demission",
-    "/fiches_ministere_travail/la-demission-comment-presenter-une-demission",
-    "/fiches_service_public/demission-dun-salarie",
-    "/fiches_service_public/abandon-de-poste-quelles-sont-les-regles-dans-le-secteur-prive",
+    "/fiche-ministere-travail/la-demission-comment-presenter-une-demission",
+    "/fiche-service-public/demission-dun-salarie",
+    "/fiche-service-public/abandon-de-poste-quelles-sont-les-regles-dans-le-secteur-prive",
     ""
   ],
   [
     "inspection du travail",
-    "/fiches_ministere_travail/linspection-du-travail-quels-sont-les-droits-et-obligations-des-agents-de-linspection-du-travail",
+    "/fiche-ministere-travail/linspection-du-travail-quels-sont-les-droits-et-obligations-des-agents-de-linspection-du-travail",
     "",
     "",
     ""
   ],
-  ["cheque vacances", "/code_du_travail/article-l3263-1", "", "", ""],
+  ["cheque vacances", "/code-du-travail/article-l3263-1", "", "", ""],
   [
     "contrat de professionnalisation",
-    "/fiches_service_public/contrat-de-professionnalisation",
-    "/fiches_service_public/contrat-de-professionnalisation-ou-apprentissage-quelles-differences",
-    "/fiches_ministere_travail/le-contrat-de-professionnalisation-quels-contrats-et-conditions-de-travail-du-contrat-de-professionnalisation",
-    "/fiches_ministere_travail/le-contrat-de-professionnalisation-quelles-demarches-pour-formaliser-un-contrat-de-professionnalisation"
+    "/fiche-service-public/contrat-de-professionnalisation",
+    "/fiche-service-public/contrat-de-professionnalisation-ou-apprentissage-quelles-differences",
+    "/fiche-ministere-travail/le-contrat-de-professionnalisation-quels-contrats-et-conditions-de-travail-du-contrat-de-professionnalisation",
+    "/fiche-ministere-travail/le-contrat-de-professionnalisation-quelles-demarches-pour-formaliser-un-contrat-de-professionnalisation"
   ],
-  ["CDI", "/fiches_ministere_travail/quel-est-le-contenu-du-cdi", "", "", ""],
+  ["CDI", "/fiche-ministere-travail/quel-est-le-contenu-du-cdi", "", "", ""],
   [
     "dpae",
-    "/fiches_ministere_travail/les-obligations-de-lemployeur-lors-de-lembauche-quest-ce-que-la-declaration-prealable-a-lembauche",
-    "/fiches_ministere_travail/les-obligations-de-lemployeur-lors-de-lembauche-quels-sont-les-documents-a-remettre-au-salarie",
+    "/fiche-ministere-travail/les-obligations-de-lemployeur-lors-de-lembauche-quest-ce-que-la-declaration-prealable-a-lembauche",
+    "/fiche-ministere-travail/les-obligations-de-lemployeur-lors-de-lembauche-quels-sont-les-documents-a-remettre-au-salarie",
     "",
     ""
   ],
   [
     "cpf",
-    "/fiches_service_public/compte-personnel-de-formation-cpf",
+    "/fiche-service-public/compte-personnel-de-formation-cpf",
     "",
     "",
     ""
   ],
   [
     "chsct",
-    "/fiches_service_public/comite-dhygiene-de-securite-et-des-conditions-de-travail-chsct",
+    "/fiche-service-public/comite-dhygiene-de-securite-et-des-conditions-de-travail-chsct",
     "",
     "",
     ""
   ],
   [
     "vae",
-    "/fiches_ministere_travail/vae-a-quoi-ca-sert-et-pour-quelle-reconnaissance",
+    "/fiche-ministere-travail/vae-a-quoi-ca-sert-et-pour-quelle-reconnaissance",
     "",
     "",
     ""
   ],
   [
     "kbis",
-    "/fiches_service_public/comment-se-procurer-un-extrait-k-ou-kbis",
+    "/fiche-service-public/comment-se-procurer-un-extrait-k-ou-kbis",
     "",
     "",
     ""
   ],
   [
     "abandon de poste",
-    "/fiches_service_public/abandon-de-poste-quelles-sont-les-regles-dans-le-secteur-prive",
-    "/fiches_service_public/demission-dun-salarie",
+    "/fiche-service-public/abandon-de-poste-quelles-sont-les-regles-dans-le-secteur-prive",
+    "/fiche-service-public/demission-dun-salarie",
     "",
     ""
   ],
   [
     "congé parental",
-    "/fiches_service_public/conge-parental-deducation-a-temps-plein-dans-le-secteur-prive",
-    "/fiches_ministere_travail/le-conge-parental-deducation-comment-prendre-le-conge-parental",
+    "/fiche-service-public/conge-parental-deducation-a-temps-plein-dans-le-secteur-prive",
+    "/fiche-ministere-travail/le-conge-parental-deducation-comment-prendre-le-conge-parental",
     "",
     ""
   ],
   [
     "compte personnel de formation",
-    "/fiches_service_public/compte-personnel-de-formation-cpf",
+    "/fiche-service-public/compte-personnel-de-formation-cpf",
     "",
     "",
     ""
   ],
   [
     "solde de tout compte",
-    "/fiches_service_public/solde-de-tout-compte",
+    "/fiche-service-public/solde-de-tout-compte",
     "https://www.service-public.fr/particuliers/vosdroits/F2413",
-    "/code_du_travail/article-l1234-20",
-    "/fiches_service_public/quels-sont-les-documents-remis-au-salarie-a-la-fin-de-son-contrat"
+    "/code-du-travail/article-l1234-20",
+    "/fiche-service-public/quels-sont-les-documents-remis-au-salarie-a-la-fin-de-son-contrat"
   ],
   [
     "licenciement économique conditions",
-    "/fiches_service_public/licenciement-economique-les-obligations-de-lemployeu",
-    "/fiches_service_public/licenciement-economique-information-et-consultation-obligatoires",
-    "/fiches_service_public/licenciement-economique-nul-injustifie-ou-irregulier",
+    "/fiche-service-public/licenciement-economique-les-obligations-de-lemployeu",
+    "/fiche-service-public/licenciement-economique-information-et-consultation-obligatoires",
+    "/fiche-service-public/licenciement-economique-nul-injustifie-ou-irregulier",
     ""
   ],
-  ["congés payés", "/fiches_service_public/conges-payes", "", "", ""],
+  ["congés payés", "/fiche-service-public/conges-payes", "", "", ""],
   [
     "epargne salariale",
     "https://www.service-public.fr/particuliers/vosdroits/N517",
-    "/code_du_travail/article-l3332-1",
+    "/code-du-travail/article-l3332-1",
     "",
     ""
   ],
   [
     "harcèlement moral",
-    "/fiches_ministere_travail/le-harcelement-moral-quels-recours",
-    "/code_du_travail/article-l1152-1",
-    "/fiches_ministere_travail/le-harcelement-moral-qui-organise-la-prevention-en-matiere-de-harcelement-moral",
-    "/fiches_ministere_travail/le-harcelement-moral-quelles-sanctions-a-lencontre-de-lauteur-de-harcelement-moral"
+    "/fiche-ministere-travail/le-harcelement-moral-quels-recours",
+    "/code-du-travail/article-l1152-1",
+    "/fiche-ministere-travail/le-harcelement-moral-qui-organise-la-prevention-en-matiere-de-harcelement-moral",
+    "/fiche-ministere-travail/le-harcelement-moral-quelles-sanctions-a-lencontre-de-lauteur-de-harcelement-moral"
   ],
   [
     "certificat de travail",
-    "/fiches_service_public/certificat-de-travail",
-    "/fiches_ministere_travail/les-documents-remis-aux-salaries-lors-de-la-rupture-du-contrat-de-travail-quand-delivrer-le-certificat-de-travail",
+    "/fiche-service-public/certificat-de-travail",
+    "/fiche-ministere-travail/les-documents-remis-aux-salaries-lors-de-la-rupture-du-contrat-de-travail-quand-delivrer-le-certificat-de-travail",
     "/modeles_de_courriers/modele-de-certificat-de-travail",
     ""
   ],
   [
     "demission cdi chomage",
-    "/fiches_service_public/peut-on-percevoir-lallocation-chomage-en-cas-de-demission",
-    "/fiches_ministere_travail/le-droit-aux-allocations-chomage-du-salarie-demissionnaire-quelles-sont-les-demissions-considerees-comme-legitimes",
-    "/fiches_service_public/demission-dun-salarie",
+    "/fiche-service-public/peut-on-percevoir-lallocation-chomage-en-cas-de-demission",
+    "/fiche-ministere-travail/le-droit-aux-allocations-chomage-du-salarie-demissionnaire-quelles-sont-les-demissions-considerees-comme-legitimes",
+    "/fiche-service-public/demission-dun-salarie",
     ""
   ],
   [
     "ai je droit à l'allocation chômage en cas de rupture conventionnelle",
-    "/fiches_service_public/peut-on-percevoir-lallocation-chomage-en-cas-de-demission",
+    "/fiche-service-public/peut-on-percevoir-lallocation-chomage-en-cas-de-demission",
     "",
     "",
     ""
   ],
   [
     "licenciement pour faute grave",
-    "/fiches_service_public/faute-simple-grave-ou-lourde-quelles-differences-pour-le-salarie-licencie",
-    "/fiches_service_public/indemnite-de-licenciement",
-    "/fiches_service_public/procedure-de-licenciement-pour-motif-personnel",
+    "/fiche-service-public/faute-simple-grave-ou-lourde-quelles-differences-pour-le-salarie-licencie",
+    "/fiche-service-public/indemnite-de-licenciement",
+    "/fiche-service-public/procedure-de-licenciement-pour-motif-personnel",
     ""
   ],
   [
     "calcul indemnité rupture conventionnelle",
     "https://www.telerc.travail.gouv.fr/RuptureConventionnellePortailPublic/jsp/site/Portal.jsp?page_id=14",
-    "/fiches_ministere_travail/la-rupture-conventionnelle-du-contrat-de-travail-a-duree-indeterminee-quelles-sont-les-indemnites-dues-au-salarie",
-    "/code_du_travail/article-l1237-19-1",
+    "/fiche-ministere-travail/la-rupture-conventionnelle-du-contrat-de-travail-a-duree-indeterminee-quelles-sont-les-indemnites-dues-au-salarie",
+    "/code-du-travail/article-l1237-19-1",
     ""
   ],
   [
     "contrat de professionnalisation salaire",
-    "/fiches_ministere_travail/le-contrat-de-professionnalisation-remuneration",
+    "/fiche-ministere-travail/le-contrat-de-professionnalisation-remuneration",
     "",
     "",
     ""
@@ -199,51 +201,51 @@ const data = [
   ],
   [
     "combien est on payé en accident de travail",
-    "/fiches_service_public/accident-du-travail-indemnites-journalieres-pendant-larret-de-travail",
+    "/fiche-service-public/accident-du-travail-indemnites-journalieres-pendant-larret-de-travail",
     "",
     "",
     ""
   ],
   [
     "licenciement économique",
-    "/fiches_service_public/quest-ce-quun-licenciement-pour-motif-economique",
-    "/fiches_service_public/licenciement-economique-les-obligations-de-lemployeur",
+    "/fiche-service-public/quest-ce-quun-licenciement-pour-motif-economique",
+    "/fiche-service-public/licenciement-economique-les-obligations-de-lemployeur",
     "",
     ""
   ],
   [
     "convention collective",
-    "/fiches_service_public/convention-collective",
-    "/fiches_service_public/comment-consulter-une-convention-collective",
+    "/fiche-service-public/convention-collective",
+    "/fiche-service-public/comment-consulter-une-convention-collective",
     "",
     ""
   ],
   [
     "congé maternité",
-    "/fiches_service_public/conge-de-maternite-dune-salariee-du-secteur-prive",
-    "/fiches_ministere_travail/le-conge-de-maternite-quelle-est-la-duree-du-conge-de-maternite",
-    "/fiches_service_public/licenciement-dune-salariee-enceinte-ou-en-conge-de-maternite",
+    "/fiche-service-public/conge-de-maternite-dune-salariee-du-secteur-prive",
+    "/fiche-ministere-travail/le-conge-de-maternite-quelle-est-la-duree-du-conge-de-maternite",
+    "/fiche-service-public/licenciement-dune-salariee-enceinte-ou-en-conge-de-maternite",
     ""
   ],
   [
     "indemnité licenciemenet inaptitude professionnelle",
     "/outils/indemnite-licenciement",
-    "/fiches_service_public/percoit-on-des-indemnites-en-cas-de-licenciement-pour-inaptitude-physique",
+    "/fiche-service-public/percoit-on-des-indemnites-en-cas-de-licenciement-pour-inaptitude-physique",
     "",
     ""
   ],
   [
     "refus congés payés",
-    "/fiches_service_public/conges-payes",
-    "/fiches_service_public/un-employeur-peut-il-refuser-des-conges-demandes-par-le-salarie",
+    "/fiche-service-public/conges-payes",
+    "/fiche-service-public/un-employeur-peut-il-refuser-des-conges-demandes-par-le-salarie",
     "/modeles_de_courriers/reclamation-conges-payes",
     ""
   ],
   [
     "congés payés imposés",
-    "/fiches_service_public/conges-payes",
-    "/fiches_service_public/un-employeur-peut-il-refuser-des-conges-demandes-par-le-salarie",
-    "/fiches_ministere_travail/les-conges-payes-quelles-sont-les-modalites-de-prise-des-conges-payes",
+    "/fiche-service-public/conges-payes",
+    "/fiche-service-public/un-employeur-peut-il-refuser-des-conges-demandes-par-le-salarie",
+    "/fiche-ministere-travail/les-conges-payes-quelles-sont-les-modalites-de-prise-des-conges-payes",
     ""
   ],
   [
@@ -262,105 +264,105 @@ const data = [
   ],
   [
     "comment contester mon licenciement pour faute grave",
-    "/fiches_service_public/faute-simple-grave-ou-lourde-quelles-differences-pour-le-salarie-licencie",
+    "/fiche-service-public/faute-simple-grave-ou-lourde-quelles-differences-pour-le-salarie-licencie",
     "",
     "",
     ""
   ],
   [
     "rendez vous médicaux grossesse",
-    "/fiches_service_public/grossesse-et-autorisation-dabsence-quelles-sont-les-regles",
-    "/code_du_travail/article-l1225-16",
+    "/fiche-service-public/grossesse-et-autorisation-dabsence-quelles-sont-les-regles",
+    "/code-du-travail/article-l1225-16",
     "",
     ""
   ],
   [
     "temps de travail effectif",
-    "/fiches_ministere_travail/la-duree-legale-du-travail-quels-sont-les-temps-de-travail-comptabilises-dans-la-duree-legale",
+    "/fiche-ministere-travail/la-duree-legale-du-travail-quels-sont-les-temps-de-travail-comptabilises-dans-la-duree-legale",
     "",
     "",
     ""
   ],
   [
     "Est ce que mon employeur doit me remettre mon contrat de travail",
-    "/fiches_ministere_travail/quelle-forme-doit-revetir-le-cdi",
+    "/fiche-ministere-travail/quelle-forme-doit-revetir-le-cdi",
     "",
     "",
     ""
   ],
   [
     "A quelle date l'employeur doit il régler mon salaire",
-    "/faq/quelle-est-la-date-a-laquelle-selon-la-loi-mon-employeur-doit-verser-mon-salaire-oabkxegkk-th2g",
+    "/question/quelle-est-la-date-a-laquelle-selon-la-loi-mon-employeur-doit-verser-mon-salaire-oabkxegkk-th2g",
     "",
     "",
     ""
   ],
   [
     "Est-ce que mon employeur peut me licencier durant mon arrêt maladie?",
-    "/fiches_service_public/licenciement-dun-salarie-en-arret-maladie-dans-le-secteur-prive",
-    "/fiches_ministere_travail/les-absences-liees-a-la-maladie-ou-a-laccident-non-professionnel-peut-il-y-avoir-licenciement-pour-maladie",
+    "/fiche-service-public/licenciement-dun-salarie-en-arret-maladie-dans-le-secteur-prive",
+    "/fiche-ministere-travail/les-absences-liees-a-la-maladie-ou-a-laccident-non-professionnel-peut-il-y-avoir-licenciement-pour-maladie",
     "",
     ""
   ],
   [
     "Quelles sont les conséquences si je ne respecte pas mon préavis de démission?",
-    "/fiches_service_public/peut-on-travailler-pour-un-nouvel-employeur-avant-la-fin-du-preavis",
+    "/fiche-service-public/peut-on-travailler-pour-un-nouvel-employeur-avant-la-fin-du-preavis",
     "",
     "",
     ""
   ],
   [
     "Quelles sont les risques encourus si je ne respecte pas mon préavis de démission?",
-    "/fiches_service_public/peut-on-travailler-pour-un-nouvel-employeur-avant-la-fin-du-preavis",
+    "/fiche-service-public/peut-on-travailler-pour-un-nouvel-employeur-avant-la-fin-du-preavis",
     "",
     "",
     ""
   ],
   [
     "A quelle date l'employeur doit il me remettre mes documents de fin de contrat?",
-    "/fiches_ministere_travail/les-documents-remis-aux-salaries-lors-de-la-rupture-du-contrat-de-travail-et-lattestation-pour-pole-emploi",
+    "/fiche-ministere-travail/les-documents-remis-aux-salaries-lors-de-la-rupture-du-contrat-de-travail-et-lattestation-pour-pole-emploi",
     "",
     "",
     ""
   ],
   [
     "remise de mes dcuments de fin de contrat",
-    "/fiches_service_public/quels-sont-les-documents-remis-au-salarie-a-la-fin-de-son-contrat",
+    "/fiche-service-public/quels-sont-les-documents-remis-au-salarie-a-la-fin-de-son-contrat",
     "",
     "",
     ""
   ],
   [
     "je n'ai pas signé de contrat de travail travail illégal",
-    "/fiches_ministere_travail/les-obligations-de-lemployeur-lors-de-lembauche-quest-ce-que-la-declaration-prealable-a-lembauche",
+    "/fiche-ministere-travail/les-obligations-de-lemployeur-lors-de-lembauche-quest-ce-que-la-declaration-prealable-a-lembauche",
     "",
     "",
     ""
   ],
   [
     "L'employeur a t-il le droit de me payer en liquide ou en espèce",
-    "/fiches_service_public/paiement-du-salaire",
+    "/fiche-service-public/paiement-du-salaire",
     "",
     "",
     ""
   ],
   [
     "différencier salarié, indépendant, et faux indépendant?",
-    "/fiches_ministere_travail/les-sanctions-liees-au-travail-illegal-le-travail-dissimule",
+    "/fiche-ministere-travail/les-sanctions-liees-au-travail-illegal-le-travail-dissimule",
     "",
     "",
     ""
   ],
   [
     "je n'ai pas signé de contrat de travail ai-je été emabauché illégalement?",
-    "/fiches_service_public/le-contrat-de-travail-est-il-obligatoirement-ecrit",
-    "/fiches_ministere_travail/contrat-de-travail-le-contrat-doit-il-etre-ecrit",
+    "/fiche-service-public/le-contrat-de-travail-est-il-obligatoirement-ecrit",
+    "/fiche-ministere-travail/contrat-de-travail-le-contrat-doit-il-etre-ecrit",
     "",
     ""
   ],
   [
     "je suis stagiaire, quels sont mes droits?",
-    "/fiches_service_public/stages-les-obligations-de-lemployeur",
+    "/fiche-service-public/stages-les-obligations-de-lemployeur",
     "",
     "",
     ""
@@ -374,77 +376,77 @@ const data = [
   ],
   [
     "modification du contrat de travail, réduction d'horaires",
-    "/fiches_ministere_travail/la-modification-du-contrat-de-travail-la-reduction-du-temps-de-travail-par-voie-daccord-constitue-t-elle-une-modification-du-contrat-de-travail",
+    "/fiche-ministere-travail/la-modification-du-contrat-de-travail-la-reduction-du-temps-de-travail-par-voie-daccord-constitue-t-elle-une-modification-du-contrat-de-travail",
     "",
     "",
     ""
   ],
   [
     "Je suis en CDD quelle est ma période d'essai",
-    "/fiches_service_public/periode-dessai",
+    "/fiche-service-public/periode-dessai",
     "",
     "",
     ""
   ],
   [
     "Comment demander une rupture conventionnelle?",
-    "/fiches_service_public/rupture-conventionnelle-dun-cdi",
+    "/fiche-service-public/rupture-conventionnelle-dun-cdi",
     "",
     "",
     ""
   ],
   [
     "Qui dois-je consulter en cas de harcèlement moral?",
-    "/fiches_ministere_travail/le-harcelement-moral-quels-recours",
+    "/fiche-ministere-travail/le-harcelement-moral-quels-recours",
     "",
     "",
     ""
   ],
   [
     "quelle est la durée du congé de maternité",
-    "/fiches_ministere_travail/le-conge-de-maternite-quelle-est-la-duree-du-conge-de-maternite",
+    "/fiche-ministere-travail/le-conge-de-maternite-quelle-est-la-duree-du-conge-de-maternite",
     "",
     "",
     ""
   ],
   [
     "assistance entretien préalable",
-    "/fiches_ministere_travail/la-procedure-en-cas-de-licenciement-pour-motif-personnel-en-quoi-consiste-lentretien-prealable",
+    "/fiche-ministere-travail/la-procedure-en-cas-de-licenciement-pour-motif-personnel-en-quoi-consiste-lentretien-prealable",
     "",
-    "/code_du_travail/article-l1232-4",
+    "/code-du-travail/article-l1232-4",
     ""
   ],
   [
     "je travaille dans le bâtiment, et mon chef ne relève pas mes heures de travail",
-    "/code_du_travail/article-d3171-8",
+    "/code-du-travail/article-d3171-8",
     "",
     "",
     ""
   ],
   [
     "je travaille dans une entreprise de nettoyage industrielle, mon employeur a perdu le marché est je que conserve mon contrat de travail?",
-    "/faq/je-travaille-dans-le-secteur-de-la-proprete-que-deviennent-les-dispositions-de-mon-contrat-de-travail-en-cas-de-reprise-du-chantier-sur-lequel-je-suis-affecte-emmtfkoy0gf4wa",
+    "/question/je-travaille-dans-le-secteur-de-la-proprete-que-deviennent-les-dispositions-de-mon-contrat-de-travail-en-cas-de-reprise-du-chantier-sur-lequel-je-suis-affecte-emmtfkoy0gf4wa",
     "",
     "",
     ""
   ],
   [
     "je suis employé à domicile, est-il obligatoire d'avoir un contrat de travail?",
-    "/fiches_service_public/contrat-de-travail-du-salarie-a-domicile-services-a-la-personne",
+    "/fiche-service-public/contrat-de-travail-du-salarie-a-domicile-services-a-la-personne",
     "",
     "",
     ""
   ],
   [
     "j'ai négocié d'avancer la fin de mon préavis avec mon employeur, celle ci est elle remis een cause en cas d'absence injustifiée?",
-    "/fiches_ministere_travail/la-demission-faut-il-respecter-un-preavis",
+    "/fiche-ministere-travail/la-demission-faut-il-respecter-un-preavis",
     "",
     "",
     ""
   ],
-  ["L1242-8", "/code_du_travail/article-l1242-8", "", "", ""],
-  ["L.1242-8", "/code_du_travail/article-l1242-8", "", "", ""],
-  ["L 1242-8", "/code_du_travail/article-l1242-8", "", "", ""]
+  ["L1242-8", "/code-du-travail/article-l1242-8", "", "", ""],
+  ["L.1242-8", "/code-du-travail/article-l1242-8", "", "", ""],
+  ["L 1242-8", "/code-du-travail/article-l1242-8", "", "", ""]
 ];
 
 const schema = {
@@ -473,7 +475,7 @@ const schema = {
             $id: "#/properties/refs/items/properties/url",
             type: "string",
             title: "Url de la référence",
-            examples: ["/code_du_travail/article-l1242-8"]
+            examples: ["/code-du-travail/article-l1242-8"]
           }
         }
       }
@@ -491,6 +493,9 @@ const parseResponse = res => {
     throw new Error(`${res.url} [${res.status}] : ${res.statusText}`);
   }
 };
+
+const wait = (delay = 1000) =>
+  new Promise((resolve, _) => setTimeout(resolve, delay * Math.random()));
 
 const updateDatabase = async () => {
   try {
@@ -539,7 +544,7 @@ const updateDatabase = async () => {
       }
     }).then(parseResponse);
 
-    // create records
+    // create records from TUs
     data.forEach(async row => {
       const data = {
         title: row[0],
@@ -559,6 +564,46 @@ const updateDatabase = async () => {
           headers: { "Content-Type": "application/json" }
         }
       ).then(parseResponse);
+
+      await wait();
+    });
+
+    // add frequent queries (from armand file)
+    const frequentQueries = fs
+      .readFileSync("./frequent-queries.tsv")
+      .toString();
+    const rows = frequentQueries
+      .split("\n")
+      .slice(1)
+      .map(row => row.split("\t"))
+      .filter(row => row[1] !== "");
+    const groupByTheme = rows.reduce((a, row) => {
+      if (!a[row[1]]) {
+        a[row[1]] = [];
+      }
+      // prevent duplicates
+      if (a[row[1]].indexOf(row[0]) === -1) {
+        a[row[1]].push(row[0]);
+      }
+      return a;
+    }, {});
+    Object.keys(groupByTheme).forEach(async key => {
+      const data = {
+        title: key,
+        variants: groupByTheme[key].join("\n"),
+        refs: [{}]
+      };
+
+      await fetch(
+        `${KINTO_URL}/buckets/${BUCKET}/collections/${DATASET_NAME}/records`,
+        {
+          method: "POST",
+          body: JSON.stringify({ data }),
+          headers: { "Content-Type": "application/json" }
+        }
+      ).then(parseResponse);
+
+      await wait();
     });
   } catch (e) {
     console.log("e", e);
