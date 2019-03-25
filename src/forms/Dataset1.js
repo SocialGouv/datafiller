@@ -286,8 +286,16 @@ const Dataset1Form = ({ data, onSubmit, onDelete }) => {
                     // todo: HACK
                     setTimeout(focusLastInput, 10);
                   }}
-                  onRefreshClick={() => {
+                  onRefreshClick={async () => {
                     setFieldTouched("refs");
+                    const res = await searchResults(values.title);
+                    setFieldValue(
+                      "refs",
+                      res.hits.hits.map(hit => ({
+                        title: hit._source.title,
+                        url: getRowId(hit._source)
+                      }))
+                    );
                     // todo: load results from CDTN search
                   }}
                 />
