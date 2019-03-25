@@ -142,7 +142,7 @@ const renderSuggestionsContainer = ({ containerProps, children }) => (
 // see https://github.com/moroshko/react-autosuggest#themeProp
 const suggesterTheme = {
   container: {
-    flex: "1 1 80%",
+    flex: "1 1 100%",
     textAlign: "left",
     border: 0,
     position: "relative"

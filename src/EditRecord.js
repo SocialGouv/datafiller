@@ -44,7 +44,9 @@ const EditRecord = withKinto(({ client, bucket, collection, record }) => {
       }
       render={({ status, result }) => (
         <React.Fragment>
-          {status === "error" && <div>error</div>}
+          {status === "error" && (
+            <Typography>Cet enregistrement n'a pas été trouvé :/</Typography>
+          )}
           {status === "success" && (
             <React.Fragment>
               <Component

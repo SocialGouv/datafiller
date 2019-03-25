@@ -61,7 +61,8 @@ const ListRecordsView = ({
             <Fab
               onClick={() => onAddClick({ client })}
               color="primary"
-              style={{ bottom: 10, right: 10, position: "absolute" }}
+              title="Créer un nouvel enregistrement"
+              style={{ bottom: 10, right: 10, position: "fixed" }}
             >
               <AddIcon />
             </Fab>

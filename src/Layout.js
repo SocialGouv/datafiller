@@ -86,7 +86,7 @@ const DefaultLeftComponent = props =>
         const result = await client
           .bucket(Router.query.bucket)
           .collection(Router.query.collection)
-          .createRecord({});
+          .createRecord({ title: "", refs: [{}] });
 
         Router.pushRoute("record", {
           bucket: Router.query.bucket,

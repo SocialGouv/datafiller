@@ -12,6 +12,7 @@ import Relevance from "./Relevance";
 import {
   Card,
   CardContent,
+  Grid,
   Table,
   TableHead,
   TableRow,
@@ -27,13 +28,30 @@ import {
   CheckCircle as CheckCircleIcon,
   Save as SaveIcon,
   AddBox as AddBoxIcon,
-  Refresh as RefreshIcon
+  Refresh as RefreshIcon,
+  OpenInNew as OpenInNewIcon
 } from "@material-ui/icons";
 
-import { suggestResults } from "../cdtn-api";
+import { searchResults } from "../cdtn-api";
+
+const routeBySource = {
+  faq: "question",
+  code_bfc: "fiche-code-bfc",
+  fiches_service_public: "fiche-service-public",
+  fiches_ministere_travail: "fiche-ministere-travail",
+  code_du_travail: "code-du-travail",
+  conventions_collectives: "convention-collective",
+  modeles_de_courriers: "modeles-de-courriers",
+  themes: "themes",
+  outils: "outils",
+  idcc: "idcc",
+  kali: "kali"
+};
 
 const getRowId = row =>
-  row.source && row.slug ? `/${row.source}/${row.slug}` : row.url;
+  row.source && row.slug
+    ? `/${routeBySource[row.source] || row.source}/${row.slug}`
+    : row.url;
 
 const DataSchema = Yup.object().shape({
   title: Yup.string()
@@ -73,6 +91,9 @@ const MyTableFooter = ({ onAddClick, onRefreshClick }) => (
           <AddBoxIcon size={16} style={{ marginRight: 10 }} />
           Ajouter une référence
         </Button>
+      </TableCell>
+      <TableCell />
+      <TableCell>
         <Button
           onClick={onRefreshClick}
           size="small"
@@ -83,6 +104,7 @@ const MyTableFooter = ({ onAddClick, onRefreshClick }) => (
           Charger depuis CDTN
         </Button>
       </TableCell>
+      <TableCell />
     </TableRow>
   </TableFooter>
 );
@@ -98,10 +120,10 @@ const References = ({
   <FieldArray
     name="refs"
     render={({ push, remove }) => (
-      <Table>
+      <Table padding="dense">
         <TableHead>
           <TableRow>
-            {["Résultat", "Pertinence"].map(col => (
+            {["Résultat", "-", "Pertinence"].map(col => (
               <TableCell key={col}>{col}</TableCell>
             ))}
             <TableCell key="remove">-</TableCell>
@@ -116,17 +138,36 @@ const References = ({
                     <TableCell>
                       <Picker
                         query={getRowId(row) || ""}
-                        fetchSuggestions={suggestResults}
+                        fetchSuggestions={searchResults}
                         onSelect={value => setRowValue(index, value)}
                       />
                     </TableCell>
-                    <TableCell width={250} align="center">
+                    <TableCell style={{ width: 25, padding: 0 }}>
+                      <IconButton
+                        aria-label="Preview"
+                        onClick={() => {
+                          const CDTN_URL =
+                            "https://codedutravail-dev.num.social.gouv.fr";
+                          const url =
+                            row.url[0] === "/"
+                              ? `${CDTN_URL}${row.url}`
+                              : row.url;
+                          window.open(url);
+                        }}
+                      >
+                        <OpenInNewIcon size="medium" />
+                      </IconButton>
+                    </TableCell>
+                    <TableCell
+                      style={{ width: 250, padding: 0 }}
+                      align="center"
+                    >
                       <Relevance
                         value={row.relevance}
                         onChange={value => setRowRelevance(index, value)}
                       />
                     </TableCell>
-                    <TableCell width={25}>
+                    <TableCell style={{ width: 25, padding: 0 }}>
                       <IconButton
                         aria-label="Supprimer"
                         onClick={() => {
@@ -241,7 +282,7 @@ const Dataset1Form = ({ data, onSubmit, onDelete }) => {
                   }}
                   onAddClick={({ push }) => {
                     setFieldTouched("refs");
-                    push({ title: "", url: null, relevance: 3 });
+                    push({ title: "", url: null });
                     // todo: HACK
                     setTimeout(focusLastInput, 10);
                   }}
