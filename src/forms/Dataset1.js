@@ -253,17 +253,6 @@ const Dataset1Form = ({ data, onSubmit, onDelete }) => {
                 />
               </CardContent>
             </Card>
-            <Card style={{ marginTop: 15 }}>
-              <CardContent>
-                <MultiLineInput
-                  name="answer"
-                  label="Message direct à afficher"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  defaultValue={(values && values.answer) || ""}
-                />
-              </CardContent>
-            </Card>
             <Card style={{ marginTop: 15, overflow: "visible" }}>
               <CardContent>
                 <Typography>Résultats à afficher</Typography>
