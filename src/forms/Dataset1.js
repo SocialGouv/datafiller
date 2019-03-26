@@ -115,6 +115,7 @@ const References = ({
   setRowRelevance,
   values,
   onAddClick,
+  onRemoveClick,
   onRefreshClick
 }) => (
   <FieldArray
@@ -130,8 +131,8 @@ const References = ({
           </TableRow>
         </TableHead>
         <TableBody>
-          {values.refs &&
-            values.refs.map(
+          {values &&
+            values.map(
               (row, index) =>
                 row && (
                   <TableRow index={index} key={row + index}>
@@ -171,7 +172,7 @@ const References = ({
                       <IconButton
                         aria-label="Supprimer"
                         onClick={() => {
-                          remove(index);
+                          onRemoveClick({ remove, index });
                         }}
                       >
                         <DeleteIcon size="medium" />
@@ -183,7 +184,7 @@ const References = ({
         </TableBody>
         <MyTableFooter
           onAddClick={() => onAddClick({ push })}
-          onRefreshClick={onRefreshClick}
+          onRefreshClick={() => onRefreshClick({ push })}
         />
       </Table>
     )}
@@ -267,7 +268,7 @@ const Dataset1Form = ({ data, onSubmit, onDelete }) => {
               <CardContent>
                 <Typography>Résultats à afficher</Typography>
                 <References
-                  values={values}
+                  values={values.refs}
                   setRowValue={(i, value) => {
                     const rowId = getRowId(value._source); //return source/slug or url
                     values.refs[i].url = rowId;
@@ -282,21 +283,21 @@ const Dataset1Form = ({ data, onSubmit, onDelete }) => {
                   }}
                   onAddClick={({ push }) => {
                     setFieldTouched("refs");
-                    push({ title: "", url: null });
+                    push({ title: "", url: "" });
                     // todo: HACK
                     setTimeout(focusLastInput, 10);
                   }}
-                  onRefreshClick={async () => {
-                    setFieldTouched("refs");
+                  onRemoveClick={({ remove, index }) => {
+                    setTimeout(() => remove(index));
+                  }}
+                  onRefreshClick={async ({ push }) => {
                     const res = await searchResults(values.title);
-                    setFieldValue(
-                      "refs",
-                      res.hits.hits.map(hit => ({
-                        title: hit._source.title,
-                        url: getRowId(hit._source)
-                      }))
-                    );
-                    // todo: load results from CDTN search
+                    const hits = res.hits.hits.map(hit => ({
+                      title: hit._source.title,
+                      url: getRowId(hit._source)
+                    }));
+                    setFieldValue("refs", hits);
+                    //setFieldTouched("refs", true);
                   }}
                 />
               </CardContent>
