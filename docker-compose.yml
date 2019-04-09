@@ -19,7 +19,6 @@ services:
       - POSTGRES_PASSWORD=postgres
     volumes:
       - pgdata:/var/lib/postgresql/data
-      - ./packages/api/db/postgres-init.sh:/docker-entrypoint-initdb.d/postgres-init.sh
 
 volumes:
   pgdata:

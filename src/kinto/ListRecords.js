@@ -2,9 +2,11 @@ import React from "react";
 
 import KintoFetch from "./KintoFetch";
 
-// cache by bucket+collection
+// cache by bucket + collection
+// todo: update when some item change
 const cache = {};
 
+//  🌈 double render prop
 // render prop that render with `result` from `collection.listRecords`
 const ListRecords = ({ bucket, collection, render }) => (
   <KintoFetch
