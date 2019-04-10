@@ -120,7 +120,7 @@ const References = ({
 }) => (
   <FieldArray
     name="refs"
-    render={({ push, remove }) => (
+    render={({ remove }) => (
       <Table padding="dense">
         <TableHead>
           <TableRow>
@@ -183,8 +183,8 @@ const References = ({
             )}
         </TableBody>
         <MyTableFooter
-          onAddClick={() => onAddClick({ push })}
-          onRefreshClick={() => onRefreshClick({ push })}
+          onAddClick={onAddClick}
+          onRefreshClick={onRefreshClick}
         />
       </Table>
     )}
@@ -272,12 +272,16 @@ const Dataset1Form = ({ data, onSubmit, onDelete }) => {
                   }}
                   onAddClick={({ push }) => {
                     setFieldTouched("refs");
-                    push({ title: "", url: "" });
-                    // todo: HACK
+                    setFieldValue(
+                      "refs",
+                      values.refs.concat([{ title: "", url: "" }])
+                    );
                     setTimeout(focusLastInput, 10);
                   }}
                   onRemoveClick={({ remove, index }) => {
-                    setTimeout(() => remove(index));
+                    values.refs.splice(index, 1);
+                    setFieldValue("refs", values.refs);
+                    setFieldTouched("refs");
                   }}
                   onRefreshClick={async ({ push }) => {
                     const res = await searchResults(values.title);
@@ -286,7 +290,6 @@ const Dataset1Form = ({ data, onSubmit, onDelete }) => {
                       url: getRowId(hit._source)
                     }));
                     setFieldValue("refs", hits);
-                    //setFieldTouched("refs", true);
                   }}
                 />
               </CardContent>
