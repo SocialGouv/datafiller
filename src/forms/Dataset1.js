@@ -56,10 +56,7 @@ const getRowId = row =>
 const DataSchema = Yup.object().shape({
   title: Yup.string()
     .min(3, "Titre trop court")
-    .required("Titre requis"),
-  refs: Yup.array()
-    .of(Yup.object())
-    .min(1, "Merci de définir au moins une référence")
+    .required("Titre requis")
 });
 
 const MultiLineInput = props => (
