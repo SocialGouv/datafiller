@@ -16,4 +16,8 @@ Fill the sample data with `node fixture.js` or `docker-compose exec front node f
 
 ## Get the data back
 
-Get a dump of the bucket `datasets` and collection `requetes` : `/kinto/v1/buckets/datasets/collections/requetes/records`
+Get a dump of the bucket `datasets` and collection `requetes` :
+
+```sh
+curl https://xxxxxx/kinto/v1/buckets/datasets/collections/requetes/records > bckp-(date +%m-%d-%y-%H-%M).json
+```
