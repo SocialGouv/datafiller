@@ -19,6 +19,13 @@ import {
 
 import { Link } from "./routes";
 
+const getBgColor = item => {
+  if (item.refs && item.refs.filter(i => !!i.url).length > 0) {
+    return "#edffd1";
+  }
+  return "transparent";
+};
+
 const ListRecordsView = ({
   bucket,
   collection,
@@ -42,19 +49,22 @@ const ListRecordsView = ({
             </ListItem>
           </Link>
           <Divider />
-          {result.data.map(item => (
-            <ListItem
-              selected={item.id === record}
-              key={item.id}
-              button
-              onClick={() => onRecordClick(item)}
-            >
-              <ListItemIcon style={{ margin: 0 }}>
-                <QuestionAnswerIcon />
-              </ListItemIcon>
-              <ListItemText primary={item.title} />
-            </ListItem>
-          ))}
+          <div>
+            {result.data.map(item => (
+              <ListItem
+                selected={item.id === record}
+                key={item.id}
+                button
+                onClick={() => onRecordClick(item)}
+                style={{ backgroundColor: getBgColor(item) }}
+              >
+                <ListItemIcon style={{ margin: 0 }}>
+                  <QuestionAnswerIcon />
+                </ListItemIcon>
+                <ListItemText primary={item.title} />
+              </ListItem>
+            ))}
+          </div>
         </List>
         <KintoContext.Consumer>
           {({ client }) => (
