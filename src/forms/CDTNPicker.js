@@ -6,6 +6,8 @@ import TextField from "@material-ui/core/TextField";
 
 import { getLabelBySource } from "../sources";
 
+const isExternalUrl = url => url.match(/^https?:\/\//);
+
 // handle query + results state
 class SuggestionState extends React.Component {
   state = { query: this.props.query, hits: [] };
@@ -13,12 +15,17 @@ class SuggestionState extends React.Component {
     this.setState({ query: nextProps.query, hits: [] });
   }
   updateQuery = query => {
-    this.setState({ query, hits: [] }, () => {
-      this.props
-        .fetchSuggestions(query)
-        .then(results => results.hits.hits)
-        .then(hits => this.setState({ hits }));
-    });
+    // dont fetch suggestions for urls
+    if (isExternalUrl(query)) {
+      this.setState({ query, hits: [] });
+    } else {
+      this.setState({ query, hits: [] }, () => {
+        this.props
+          .fetchSuggestions(query)
+          .then(results => results.hits.hits)
+          .then(hits => this.setState({ hits }));
+      });
+    }
   };
   render() {
     return this.props.render({
@@ -52,13 +59,22 @@ export const Picker = ({ query, onSelect, fetchSuggestions }) => {
         const _onClear = args => {
           updateQuery(originalQuery);
         };
+        const _onBlur = e => {
+          // note: if we pasted some external url, send it as if it was a suggestion
+          if (e.target && e.target.value && isExternalUrl(e.target.value)) {
+            onSelect({
+              _source: { url: e.target.value }
+            });
+          }
+        };
         const inputProps = {
           name: "query",
           placeholder: "ex: L4212",
           type: "search",
           fullWidth: true,
           value: query,
-          onChange: _onChange
+          onChange: _onChange,
+          onBlur: _onBlur
         };
         return (
           <Autosuggest
