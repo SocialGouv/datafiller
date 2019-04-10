@@ -1,4 +1,5 @@
 import React from "react";
+import ReactDOM from "react-dom";
 
 import ListRecords from "../src/kinto/ListRecords";
 import KintoContext from "../src/kinto/KintoContext";
@@ -39,7 +40,16 @@ const ListRecordsView = ({
     collection={collection}
     render={({ result }) => (
       <React.Fragment>
-        <List dense={true} component="nav">
+        <List
+          dense={true}
+          component="nav"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            overflow: "hidden",
+            height: "100vh"
+          }}
+        >
           <Link to="/">
             <ListItem button>
               <ListItemIcon>
@@ -49,14 +59,25 @@ const ListRecordsView = ({
             </ListItem>
           </Link>
           <Divider />
-          <div>
+          <div style={{ flex: "1 0 100%", overflow: "scroll" }}>
             {result.data.map(item => (
               <ListItem
                 selected={item.id === record}
+                ref={node => {
+                  // hack : position list to the current selected item
+                  if (item.id === record) {
+                    const me = ReactDOM.findDOMNode(node);
+                    if (me) {
+                      me.parentNode.scrollTop = me.offsetTop - me.offsetHeight;
+                    }
+                  }
+                }}
                 key={item.id}
                 button
                 onClick={() => onRecordClick(item)}
-                style={{ backgroundColor: getBgColor(item) }}
+                style={{
+                  backgroundColor: item.id !== record && getBgColor(item)
+                }}
               >
                 <ListItemIcon style={{ margin: 0 }}>
                   <QuestionAnswerIcon />
