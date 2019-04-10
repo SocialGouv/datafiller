@@ -214,9 +214,10 @@ const Dataset1Form = ({ data, onSubmit, onDelete }) => {
         validationSchema={DataSchema}
         onSubmit={(values, actions) => {
           actions.setSubmitting(false);
-          onSubmit(values);
-          actions.setStatus({ msg: "Données enregistrées" });
-          // todo: handle failure
+          onSubmit(values).then(() => {
+            actions.setStatus({ msg: "Données enregistrées" });
+            actions.setTouched(false);
+          });
         }}
         render={({
           values,

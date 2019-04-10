@@ -15,13 +15,21 @@ const onSubmit = ({ client, bucket, collection, data }) =>
   client
     .bucket(bucket)
     .collection(collection)
-    .updateRecord({ ...data });
+    .updateRecord({ ...data })
+    .catch(e => {
+      alert("Impossible d'enregistrer");
+      throw e;
+    });
 
 const onDelete = ({ client, bucket, collection, id }) =>
   client
     .bucket(bucket)
     .collection(collection)
-    .deleteRecord(id);
+    .deleteRecord(id)
+    .catch(e => {
+      alert("Impossible de supprimer");
+      throw e;
+    });
 
 const EditRecord = withKinto(({ client, bucket, collection, record }) => {
   // todo: use json-schema-form when no schema defined
