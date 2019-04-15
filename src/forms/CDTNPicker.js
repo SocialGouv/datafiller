@@ -5,6 +5,7 @@ import styled from "styled-components";
 import TextField from "@material-ui/core/TextField";
 
 import { getLabelBySource } from "../sources";
+import suggesterTheme from "./suggesterTheme";
 
 const isExternalUrl = url => url.match(/^https?:\/\//);
 
@@ -118,9 +119,7 @@ const renderSuggestion = suggestion => {
   const source = getLabelBySource(suggestion._source.source);
   return (
     <SuggestionContainer>
-      <b>
-        {source ? `${source} | ` : ""} {suggestion._source.title}
-      </b>
+      <b>{source ? `${source} | ` : ""}</b> {suggestion._source.title}
       <br />
       <div
         dangerouslySetInnerHTML={{
@@ -137,10 +136,10 @@ const renderSuggestion = suggestion => {
 };
 
 const SuggestionsContainer = styled.div`
-  white-space: "nowrap";
-  text-overflow: "ellipsis";
-  width: "90%";
-  overflow: "hidden";
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 90%;
+  overflow: hidden;
 
   ul {
     position: absolute;
@@ -154,39 +153,5 @@ const SuggestionsContainer = styled.div`
 const renderSuggestionsContainer = ({ containerProps, children }) => (
   <SuggestionsContainer {...containerProps}>{children}</SuggestionsContainer>
 );
-
-// see https://github.com/moroshko/react-autosuggest#themeProp
-const suggesterTheme = {
-  container: {
-    flex: "1 1 100%",
-    textAlign: "left",
-    border: 0,
-    position: "relative"
-  },
-  suggestionsList: {
-    margin: 0,
-    padding: 0,
-    marginTop: ".5em",
-    paddingTop: "0",
-    border: "1px solid silver",
-    borderRadius: "3px",
-    background: "white",
-    position: "absolute",
-    zIndex: 10,
-    left: 0,
-    right: 0,
-    boxShadow: "0 10px 10px -10px #b7bcdf"
-  },
-  suggestion: {
-    listStyleType: "none",
-    borderRadius: "3px",
-    padding: 5,
-    lineHeight: "2rem",
-    cursor: "pointer"
-  },
-  suggestionHighlighted: {
-    background: "#eee"
-  }
-};
 
 export default Picker;
