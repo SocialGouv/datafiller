@@ -22,6 +22,11 @@ import { Link } from "./routes";
 
 const getBgColor = item => {
   if (item.refs && item.refs.filter(i => !!i.url).length > 0) {
+    if (item.theme) {
+      return "#d2ff8d";
+    }
+    return "#edffd1";
+  } else if (item.theme) {
     return "#edffd1";
   }
   return "transparent";

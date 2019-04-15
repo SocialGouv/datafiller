@@ -5,7 +5,7 @@ const API_URL = "https://cdtn-api-dev.num.social.gouv.fr/api/v1";
 const fetchResults = endpoint => (query = "", excludeSources = "") => {
   const url = `${API_URL}/${endpoint}?q=${encodeURIComponent(
     query
-  )}&excludeSources=${encodeURIComponent(excludeSources)}`;
+  )}&excludeSources=${encodeURIComponent(excludeSources)}&size=25`;
   return fetch(url).then(response => {
     if (response.ok) {
       return response.json();
