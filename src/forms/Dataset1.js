@@ -283,11 +283,19 @@ const Dataset1Form = ({ data, onSubmit, onDelete }) => {
                   }}
                   onRefreshClick={async ({ push }) => {
                     const res = await searchResults(values.title);
-                    const hits = res.hits.hits.map(hit => ({
-                      title: hit._source.title,
-                      url: getRowId(hit._source)
-                    }));
-                    setFieldValue("refs", hits);
+                    // concat with current selection, removing duplicates
+                    const hits = res.hits.hits
+                      .filter(
+                        hit =>
+                          values.refs
+                            .map(ref => ref.url)
+                            .indexOf(getRowId(hit._source)) === -1
+                      )
+                      .map(hit => ({
+                        title: hit._source.title,
+                        url: getRowId(hit._source)
+                      }));
+                    setFieldValue("refs", values.refs.concat(hits));
                   }}
                 />
               </CardContent>
