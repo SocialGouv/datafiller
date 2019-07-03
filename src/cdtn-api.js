@@ -1,6 +1,7 @@
 import memoizee from "memoizee";
 
-const API_URL = "https://cdtn-api-dev.num.social.gouv.fr/api/v1";
+const API_URL =
+  "https://api.code-du-travail-numerique.incubateur.social.gouv.fr/api/v1";
 
 const fetchResults = endpoint => (query = "", excludeSources = "") => {
   const url = `${API_URL}/${endpoint}?q=${encodeURIComponent(
