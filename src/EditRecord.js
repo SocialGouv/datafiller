@@ -8,7 +8,8 @@ import { Router } from "./routes";
 
 // todo: map kinto collections to components
 const forms = {
-  requetes: require("./forms/Requete").default
+  requetes: require("./forms/Requete").default,
+  ccns: require("./forms/CCN").default
 };
 
 const onSubmit = ({ client, bucket, collection, data }) =>
