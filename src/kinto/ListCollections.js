@@ -4,7 +4,9 @@ import KintoFetch from "./KintoFetch";
 
 const ListCollections = ({ bucket, render }) => (
   <KintoFetch
-    fetch={({ client }) => client.bucket(bucket).listCollections()}
+    fetch={({ client }) =>
+      client.bucket(bucket, { headers: {} }).listCollections({ headers: {} })
+    }
     render={({ status, result }) => (
       <React.Fragment>
         {status === "error" && (

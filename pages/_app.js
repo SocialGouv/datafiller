@@ -29,7 +29,7 @@ class MyApp extends App {
           <CssBaseline />
           {/* provide a kinto client */}
           <KintoContext.Provider value={{ client: kintoClient }}>
-            <Component pageContext={this.pageContext} {...pageProps} />
+            <Component {...pageProps} />
           </KintoContext.Provider>
         </ThemeProvider>
       </Container>

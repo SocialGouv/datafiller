@@ -36,7 +36,7 @@ const styles = theme => ({
   drawerPaper: {
     whiteSpace: "nowrap",
     background: "#fcfcfc",
-    width: "100%",
+    width: 300,
     position: "relative"
   },
 

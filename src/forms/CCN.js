@@ -194,7 +194,7 @@ const CCNSection = ({
 
 const CCNPreview = ({ id, initialGroups, onGroupsUpdate }) => {
   // import(`@socialgouv/kali-data/data/${id}.json`);
-  const { isLoading, data } = useFetch(`/ccns/${id}.json`, {
+  const { isLoading, data } = useFetch(`/api/ccn/${id}.json`, {
     formatter: response => response.json()
   });
 

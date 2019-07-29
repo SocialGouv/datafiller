@@ -14,9 +14,9 @@ const ListRecords = ({ bucket, collection, render }) => (
       const key = `${bucket}.${collection}`;
       if (!cache[key]) {
         cache[key] = await client
-          .bucket(bucket)
-          .collection(collection)
-          .listRecords({ sort: "title" });
+          .bucket(bucket, { headers: {} })
+          .collection(collection, { headers: {} })
+          .listRecords({ sort: "title", headers: {} });
       }
       return cache[key];
     }}

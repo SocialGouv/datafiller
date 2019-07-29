@@ -18,7 +18,8 @@ import {
   Home as HomeIcon
 } from "@material-ui/icons";
 
-import { Link } from "./routes";
+//import { Link } from "./routes";
+import Link from "next/link";
 
 const getBgColor = item => {
   if (item.refs && item.refs.filter(i => !!i.url).length > 0) {
@@ -48,7 +49,7 @@ const ListRecordsView = ({ bucket, collection, record, intro, onAddClick }) => (
             height: "100vh"
           }}
         >
-          <Link to="/">
+          <Link href="/" as="/">
             <ListItem button>
               <ListItemIcon style={{ minWidth: 30 }}>
                 <HomeIcon />
@@ -61,12 +62,8 @@ const ListRecordsView = ({ bucket, collection, record, intro, onAddClick }) => (
             {result.data.map(item => (
               <Link
                 key={item.id}
-                to="record"
-                params={{
-                  bucket,
-                  collection,
-                  record: item.id
-                }}
+                // href="/bucket/[bucket]/collection/[collection]/record/[record]"
+                href={`/bucket/${bucket}/collection/${collection}/record/${item.id}`}
               >
                 <ListItem
                   selected={item.id === record}

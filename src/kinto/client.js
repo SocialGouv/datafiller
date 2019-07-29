@@ -6,6 +6,7 @@ const { publicRuntimeConfig } = getConfig();
 
 const KINTO_URL = publicRuntimeConfig.KINTO_URL;
 
-const kintoClient = new KintoClient(KINTO_URL);
+console.log("KINTO_URL", KINTO_URL);
+const kintoClient = new KintoClient(KINTO_URL, { headers: {} });
 
 module.exports = kintoClient;
