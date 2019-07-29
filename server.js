@@ -21,6 +21,14 @@ app.prepare().then(() => {
   // setup a kinto proxy
   server.use(proxyMiddleware("/kinto", kintoProxy));
 
+  server.get("/ccns/:ccn.json", async (req, res) => {
+    if (req.params.ccn.match(/^KALICONT/)) {
+      const ccn = require(`@socialgouv/kali-data/data/${req.params.ccn}.json`);
+      res.json(ccn);
+    }
+    res.status(404).end();
+  });
+
   // use next-routes
   server.use(routes.getRequestHandler(app));
 
