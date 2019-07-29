@@ -31,7 +31,8 @@ app.prepare().then(() => {
   });
 
   server.get("*", (req, res) => {
-    handle(req, res);
+    console.log("server handler", req.url);
+    return handle(req, res);
   });
 
   server.listen(PORT, err => {
