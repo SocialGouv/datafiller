@@ -11,6 +11,8 @@ import SaveIcon from "@material-ui/icons/Save";
 import { Router } from "../src/routes";
 import KintoContext from "../src/kinto/KintoContext";
 
+import Layout from "../src/Layout";
+
 const rightStyles = theme => ({
   info: {
     ...theme.mixins.gutters(),
@@ -97,12 +99,13 @@ const CollectionIntro = withStyles(rightStyles)(
 );
 
 const CollectionPage = props => (
-  <React.Fragment>
+  <Layout>
     <Head>
       <title>Dataset: {props.collection}</title>
     </Head>
-    <CollectionIntro {...props} />
-  </React.Fragment>
+    {(props.collection === "requetes" && <CollectionIntro {...props} />) ||
+      null}
+  </Layout>
 );
 
 CollectionPage.getInitialProps = async ({ query }) => {

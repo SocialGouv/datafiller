@@ -1,13 +1,12 @@
 import React from "react";
 
 import { withStyles } from "@material-ui/core/styles";
-import { CssBaseline } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 
-import { Router } from "./routes";
 import ListRecordsView from "../src/ListRecordsView";
 import Drawer from "./Drawer";
 
-const drawerWidth = 300;
+import { withRouter } from "next/router";
 
 const styles = theme => ({
   root: {
@@ -23,21 +22,7 @@ const styles = theme => ({
     padding: "0 8px",
     ...theme.mixins.toolbar
   },
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(["width", "margin"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
-    })
-  },
-  appBarShift: {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(["width", "margin"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen
-    })
-  },
+
   menuButton: {
     marginLeft: 6,
     marginRight: 6
@@ -49,50 +34,34 @@ const styles = theme => ({
     flexGrow: 1
   },
   drawerPaper: {
-    position: "relative",
     whiteSpace: "nowrap",
     background: "#fcfcfc",
-    width: drawerWidth,
-    transition: theme.transitions.create("width", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen
-    })
+    width: "100%",
+    position: "relative"
   },
-  drawerPaperClose: {
-    overflowX: "hidden",
-    transition: theme.transitions.create("width", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
-    }),
-    width: theme.spacing.unit * 7,
-    [theme.breakpoints.up("sm")]: {
-      width: theme.spacing.unit * 9
-    }
-  },
+
   appBarSpacer: theme.mixins.toolbar,
   content: {
     flexGrow: 1,
-    padding: theme.spacing.unit * 3,
+    padding: theme.spacing(3),
     height: "100vh",
     overflow: "auto"
   }
 });
 
-const DefaultLeftComponent = props =>
-  (Router.query.bucket && Router.query.collection && (
+export const _LeftCol = props =>
+  (props.router.query.bucket && props.router.query.collection && (
     <ListRecordsView
-      {...Router.query} // pass bucket, collection, record?
+      {...props.router.query}
       onAddClick={async ({ client }) => {
         const result = await client
-          .bucket(Router.query.bucket)
-          .collection(Router.query.collection)
+          .bucket(props.router.query.bucket)
+          .collection(props.router.query.collection)
           .createRecord({ title: "", refs: [{}] });
 
-        Router.pushRoute("record", {
-          bucket: Router.query.bucket,
-          collection: Router.query.collection,
-          record: result.data.id
-        });
+        props.router.push(
+          `/bucket/${props.router.query.bucket}/collection/${props.router.query.collection}/record/${result.data.id}`
+        );
 
         // hack
         setTimeout(() => {
@@ -102,17 +71,12 @@ const DefaultLeftComponent = props =>
           }
         }, 200);
       }}
-      onRecordClick={record => {
-        Router.pushRoute("record", {
-          bucket: Router.query.bucket,
-          collection: Router.query.collection,
-          record: record.id
-        });
-      }}
       intro="Restant à compléter"
     />
   )) ||
   null;
+
+const LeftCol = withRouter(_LeftCol);
 
 class Layout extends React.Component {
   state = {
@@ -134,29 +98,30 @@ class Layout extends React.Component {
     } = this.props;
 
     return (
-      <div className={classes.root}>
-        <CssBaseline />
-        {LeftComponent && (
+      <Grid container>
+        <Grid item xs={3}>
           <Drawer
             config={config}
             classes={classes}
             handleDrawerToggle={this.handleDrawerToggle}
             drawerOpen={this.state.drawerOpen}
           >
-            <LeftComponent />
+            <LeftCol />
           </Drawer>
-        )}
-        <main className={classes.content}>
-          {RightComponent && <RightComponent />}
-          {children}
-        </main>
-      </div>
+        </Grid>
+        <Grid item xs={9}>
+          <main className={classes.content}>
+            {RightComponent && <RightComponent />}
+            {children}
+          </main>
+        </Grid>
+      </Grid>
     );
   }
 }
 
 Layout.defaultProps = {
-  LeftComponent: DefaultLeftComponent,
+  //LeftComponent: withRouter(DefaultLeftComponent),
   RightComponent: null
 };
 
