@@ -2,28 +2,21 @@ import React from "react";
 import getConfig from "next/config";
 import Link from "next/link";
 
-//import { Link } from "../src/routes";
 import ListCollections from "../src/kinto/ListCollections";
 import KintoFetch from "../src/kinto/KintoFetch";
 
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
-import Chip from "@material-ui/core/Chip";
-
-import { Card, CardContent } from "@material-ui/core";
+import {
+  Badge,
+  Card,
+  CardText,
+  CardBody,
+  CardTitle,
+  CardSubtitle,
+  Container,
+  Button
+} from "reactstrap";
 
 const { publicRuntimeConfig } = getConfig();
-
-// const StyledAvatar = withStyles(theme => ({
-//   avatar: {
-//     color: theme.palette.primary.contrastText,
-//     backgroundColor: theme.palette.primary.light,
-//     display: "inline",
-//     padding: "5px 10px"
-//   }
-// }))(({ classes, ...props }) => (
-//   <Avatar className={classes.avatar} {...props} />
-// ));
 
 const RecordCount = ({ bucket, collection }) => (
   <KintoFetch
@@ -35,31 +28,41 @@ const RecordCount = ({ bucket, collection }) => (
     }
     render={({ status, result }) => {
       if (status === "success" && result) {
-        return <Chip label={result} color="primary" />;
+        return (
+          <Badge style={{ marginRight: 5 }} color="success">
+            {result}
+          </Badge>
+        );
       }
       return null;
     }}
   />
 );
 
-const BucketView = ({ bucket, collections = [] }) =>
-  collections.map(collection => (
-    <Card key={collection.id} style={{ marginTop: 15 }}>
-      <CardContent>
-        <Typography variant="h6">
-          {collection.id}{" "}
-          <RecordCount bucket={bucket} collection={collection.id} />
-        </Typography>
-        <Typography variant="subtitle1">{collection.schema.title}</Typography>
-
-        <Link href={`/bucket/${bucket}/collection/${collection.id}`}>
-          <Button variant="contained" color="primary" style={{ marginTop: 20 }}>
-            Ouvrir
-          </Button>
-        </Link>
-      </CardContent>
-    </Card>
-  ));
+const BucketView = ({ bucket, collections = [] }) => (
+  <Container>
+    {collections.map(collection => (
+      <Card key={collection.id} style={{ marginTop: 15 }}>
+        <CardBody>
+          <CardTitle>
+            <RecordCount bucket={bucket} collection={collection.id} />
+            {collection.id}
+          </CardTitle>
+          <CardText variant="subtitle1">{collection.schema.title}</CardText>
+          <Link href={`/bucket/${bucket}/collection/${collection.id}`}>
+            <Button
+              variant="contained"
+              color="primary"
+              style={{ marginTop: 20 }}
+            >
+              Ouvrir
+            </Button>
+          </Link>
+        </CardBody>
+      </Card>
+    ))}
+  </Container>
+);
 
 // by default we list the process.env.KINTO_BUCKET
 class Home extends React.Component {
@@ -68,7 +71,6 @@ class Home extends React.Component {
     return { query: query.query, results };
   }
   render() {
-    const { query, results } = this.props;
     const bucket = publicRuntimeConfig.KINTO_BUCKET;
     return (
       <ListCollections

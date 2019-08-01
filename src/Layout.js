@@ -1,53 +1,10 @@
 import React from "react";
 
-import { withStyles } from "@material-ui/core/styles";
-import { Grid } from "@material-ui/core";
-
 import ListRecordsView from "../src/ListRecordsView";
-import Drawer from "./Drawer";
+
+import { Container, Row, Col } from "reactstrap";
 
 import { withRouter } from "next/router";
-
-const styles = theme => ({
-  root: {
-    display: "flex"
-  },
-  toolbar: {
-    paddingRight: 24 // keep right padding when drawer closed
-  },
-  toolbarIcon: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "flex-end",
-    padding: "0 8px",
-    ...theme.mixins.toolbar
-  },
-
-  menuButton: {
-    marginLeft: 6,
-    marginRight: 6
-  },
-  menuButtonHidden: {
-    display: "none"
-  },
-  title: {
-    flexGrow: 1
-  },
-  drawerPaper: {
-    whiteSpace: "nowrap",
-    background: "#fcfcfc",
-    width: 300,
-    position: "relative"
-  },
-
-  appBarSpacer: theme.mixins.toolbar,
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
-    height: "100vh",
-    overflow: "auto"
-  }
-});
 
 export const _LeftCol = props =>
   (props.router.query.bucket && props.router.query.collection && (
@@ -89,33 +46,20 @@ class Layout extends React.Component {
     return true;
   }
   render() {
-    const {
-      config,
-      classes,
-      LeftComponent,
-      RightComponent,
-      children
-    } = this.props;
+    const { config, LeftComponent, RightComponent, children } = this.props;
 
     return (
-      <Grid container>
-        <Grid item xs={3}>
-          <Drawer
-            config={config}
-            classes={classes}
-            handleDrawerToggle={this.handleDrawerToggle}
-            drawerOpen={this.state.drawerOpen}
-          >
-            <LeftCol />
-          </Drawer>
-        </Grid>
-        <Grid item xs={9}>
-          <main className={classes.content}>
+      <Row>
+        <Col xs={3}>
+          <LeftCol />
+        </Col>
+        <Col xs={9}>
+          <Container>
             {RightComponent && <RightComponent />}
             {children}
-          </main>
-        </Grid>
-      </Grid>
+          </Container>
+        </Col>
+      </Row>
     );
   }
 }
@@ -125,4 +69,4 @@ Layout.defaultProps = {
   RightComponent: null
 };
 
-export default withStyles(styles)(Layout);
+export default Layout;

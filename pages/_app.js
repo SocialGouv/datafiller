@@ -2,36 +2,27 @@ import React from "react";
 import App, { Container } from "next/app";
 import Head from "next/head";
 
-import { ThemeProvider } from "@material-ui/styles";
-import CssBaseline from "@material-ui/core/CssBaseline";
-
 import KintoContext from "../src/kinto/KintoContext";
 import kintoClient from "../src/kinto/client";
-import theme from "../src/theme";
 
 class MyApp extends App {
-  componentDidMount() {
-    // Remove the server-side injected CSS.
-    const jssStyles = document.querySelector("#jss-server-side");
-    if (jssStyles) {
-      jssStyles.parentNode.removeChild(jssStyles);
-    }
-  }
-
   render() {
     const { Component, pageProps } = this.props;
     return (
       <Container>
         <Head>
           <title>Dataset editor</title>
+          <link
+            rel="stylesheet"
+            href="https://socialgouv.github.io/bootstrap/master/@socialgouv/bootstrap.core/dist/socialgouv-bootstrap.min.css"
+            integrity="grB93+Lj8+H7BK2kCBM0dGAJD+8tE7pYqy6qkcykr8DfCJt7PhJOF998Bwj7BAWc"
+            crossOrigin="anonymous"
+          />
         </Head>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          {/* provide a kinto client */}
-          <KintoContext.Provider value={{ client: kintoClient }}>
-            <Component {...pageProps} />
-          </KintoContext.Provider>
-        </ThemeProvider>
+        {/* provide a kinto client */}
+        <KintoContext.Provider value={{ client: kintoClient }}>
+          <Component {...pageProps} />
+        </KintoContext.Provider>
       </Container>
     );
   }
