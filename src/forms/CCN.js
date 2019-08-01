@@ -2,9 +2,7 @@ import React, { useState, useContext } from "react";
 import useFetch from "react-fetch-hook";
 import Tooltip from "rc-tooltip";
 
-import Typography from "@material-ui/core/Typography";
-import { Search as SearchIcon } from "@material-ui/icons";
-import { Card, Chip, CardContent } from "@material-ui/core";
+import { Badge, Card, CardBody } from "reactstrap";
 
 import "rc-tooltip/assets/bootstrap_white.css";
 
@@ -97,35 +95,33 @@ const Article = ({ article, idTexte, onSelectGroup }) => {
           </div>
         ))}
       </div>
-      <Typography component="span">
-        <Chip
-          color="primary"
-          {...formatEtat(article.etat)}
-          style={{ fontSize: 10, margin: "0 5px", minWidth: 30 }}
-          size="small"
-        />
-        <Tooltip
-          overlayStyle={{ maxWidth: "50%" }}
-          placement="bottom"
-          trigger={["click"]}
-          overlay={
-            <Typography dangerouslySetInnerHTML={{ __html: article.content }} />
-          }
-        >
-          <span style={{ cursor: "pointer" }}>
-            Article {article.num || "-"} {article.surtitre || null}
-          </span>
-        </Tooltip>
+      <Badge
+        color="primary"
+        {...formatEtat(article.etat)}
+        style={{ fontSize: 10, margin: "0 5px", minWidth: 30 }}
+        size="small"
+      />
+      <Tooltip
+        overlayStyle={{ maxWidth: "50%" }}
+        placement="bottom"
+        trigger={["click"]}
+        overlay={<span dangerouslySetInnerHTML={{ __html: article.content }} />}
+      >
+        <span style={{ cursor: "pointer", marginLeft: 10 }}>
+          Article {article.num || "-"} {article.surtitre || null}
+        </span>
+      </Tooltip>
 
-        <a
-          style={{ marginLeft: 5, fontSize: 12 }}
-          href={`https://www.legifrance.gouv.fr/affichIDCCArticle.do?idArticle=${article.id}&cidTexte=${idTexte}`}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Legifrance
-        </a>
-      </Typography>
+      <a
+        style={{ marginLeft: 5, fontSize: 12 }}
+        href={`https://www.legifrance.gouv.fr/affichIDCCArticle.do?idArticle=${
+          article.id
+        }&cidTexte=${idTexte}`}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Legifrance
+      </a>
     </div>
   );
 };
@@ -154,21 +150,21 @@ const CCNSection = ({
       }}
       className="card--section"
     >
-      <CardContent>
-        <Typography variant={depth === 0 ? `h6` : `subtitle1`}>
-          {section.title}
-          {(depth === 0 && (
-            <a
-              style={{ marginLeft: 5, fontSize: 12 }}
-              href={`https://www.legifrance.gouv.fr/affichIDCC.do?cidTexte=${section.id}&idConvention=${idConvention}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Legifrance
-            </a>
-          )) ||
-            null}
-        </Typography>
+      <CardBody>
+        {depth === 0 ? <h5>{section.title}</h5> : <h6>{section.title}</h6>}
+        {(depth === 0 && (
+          <a
+            style={{ marginLeft: 5, fontSize: 12 }}
+            href={`https://www.legifrance.gouv.fr/affichIDCC.do?cidTexte=${
+              section.id
+            }&idConvention=${idConvention}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Legifrance
+          </a>
+        )) ||
+          null}
         {section.sections.map(section => (
           <CCNSection
             key={section.id}
@@ -187,7 +183,7 @@ const CCNSection = ({
             onSelectGroup={group => onSelect(article, group)}
           />
         ))}
-      </CardContent>
+      </CardBody>
     </Card>
   );
 };

@@ -11,7 +11,7 @@ import {
   CardText,
   CardBody,
   CardTitle,
-  CardSubtitle,
+  Jumbotron,
   Container,
   Button
 } from "reactstrap";
@@ -73,12 +73,20 @@ class Home extends React.Component {
   render() {
     const bucket = publicRuntimeConfig.KINTO_BUCKET;
     return (
-      <ListCollections
-        bucket={bucket}
-        render={({ result }) => (
-          <BucketView bucket={bucket} collections={result.data} />
-        )}
-      />
+      <Container>
+        <Jumbotron>
+          <h2 className="display-3">Datafiller</h2>
+          <p className="lead">
+            Données de référence pour alimenter le moteur de recherche.
+          </p>
+        </Jumbotron>
+        <ListCollections
+          bucket={bucket}
+          render={({ result }) => (
+            <BucketView bucket={bucket} collections={result.data} />
+          )}
+        />
+      </Container>
     );
   }
 }

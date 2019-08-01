@@ -47,14 +47,15 @@ const addEntry = async ({ router, client, bucket, collection, value }) => {
   );
 };
 
-const CollectionIntro = withRouter(({ bucket, collection, router }) => (
+const IntroRequetes = withRouter(({ bucket, collection, router }) => (
   <React.Fragment>
+    <br />
+    <br />
     <p>Créer une nouvelle entrée</p>
     <KintoContext.Consumer>
       {({ client }) => (
         <NewSearchInput
           onSubmit={value =>
-            console.log("NewSearchInput", value) ||
             addEntry({ router, client, bucket, collection, value })
           }
         />
@@ -63,13 +64,24 @@ const CollectionIntro = withRouter(({ bucket, collection, router }) => (
   </React.Fragment>
 ));
 
+const IntroCCns = withRouter(({ bucket, collection, router }) => (
+  <React.Fragment>
+    <br />
+    <br />
+    <h6>
+      Classification des CCNs dans les 17 thèmes de la hierarchie des normes
+    </h6>
+    <p>Choisissez une CCN pour commencer</p>
+  </React.Fragment>
+));
+
 const CollectionPage = props => (
   <Layout>
     <Head>
       <title>Dataset: {props.collection}</title>
     </Head>
-    {(props.collection === "requetes" && <CollectionIntro {...props} />) ||
-      null}
+    {(props.collection === "requetes" && <IntroRequetes {...props} />) || null}
+    {(props.collection === "ccns" && <IntroCCns {...props} />) || null}
   </Layout>
 );
 

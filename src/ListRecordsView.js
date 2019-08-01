@@ -26,9 +26,11 @@ const ListRecordsView = ({ bucket, collection, record, intro, onAddClick }) => (
     collection={collection}
     render={({ result }) => (
       <React.Fragment>
-        <ListGroup>
-          <Link href="/" as="/" passHref>
-            <ListGroupItem tag="a">Accueil</ListGroupItem>
+        <ListGroup style={{ overflow: "scroll", height: "100vh" }}>
+          <Link href="/" passHref>
+            <ListGroupItem tag="a" action>
+              Accueil
+            </ListGroupItem>
           </Link>
           {collection === "requetes" && (
             <ListGroupItem>
@@ -45,31 +47,40 @@ const ListRecordsView = ({ bucket, collection, record, intro, onAddClick }) => (
             <Link
               key={item.id}
               // href="/bucket/[bucket]/collection/[collection]/record/[record]"
-              href={`/bucket/${bucket}/collection/${collection}/record/${item.id}`}
+              href={`/bucket/${bucket}/collection/${collection}/record/${
+                item.id
+              }`}
+              passHref
             >
               <ListGroupItem
-                action
                 tag="a"
-                href="#"
-                selected={item.id === record}
+                action
+                active={item.id === record}
                 title={item.title}
-                ref={node => {
-                  // hack : position list to the current selected item
-                  if (item.id === record) {
-                    const me = ReactDOM.findDOMNode(node);
-                    if (me) {
-                      me.parentNode.scrollTop = me.offsetTop - me.offsetHeight;
-                    }
-                  }
-                }}
                 key={item.id}
-                button
-                onClick={() => {} /*onRecordClick(item)*/}
                 style={{
                   backgroundColor: item.id !== record && getBgColor(item)
                 }}
               >
-                {item.title}
+                <span
+                  ref={node => {
+                    // hack : position list to the current selected item
+                    if (item.id === record) {
+                      const me = ReactDOM.findDOMNode(node);
+                      if (me) {
+                        console.log(me.offsetTop, me.offsetHeight);
+                        setTimeout(() => {
+                          me.parentNode.parentNode.scrollTop =
+                            me.parentNode.offsetTop -
+                            me.parentNode.offsetHeight -
+                            me.offsetHeight;
+                        });
+                      }
+                    }
+                  }}
+                >
+                  {item.title}
+                </span>
               </ListGroupItem>
             </Link>
           ))}
