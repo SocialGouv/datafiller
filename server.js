@@ -2,16 +2,17 @@ const express = require("express");
 const proxyMiddleware = require("http-proxy-middleware");
 const next = require("next");
 
-const routes = require("./src/routes");
+//const routes = require("./src/routes");
 
 // in prod, proxify the KINTO API at /kinto
 const kintoProxy = {
   target: "http://kinto:8888",
-  pathRewrite: { "^/kinto": "/" },
+  pathRewrite: { "^/kinto": "" },
   changeOrigin: true
 };
 
 const app = next({ dev: process.env.NODE_ENV !== "production" });
+const handle = app.getRequestHandler();
 
 const PORT = process.env.PORT || 3000;
 
@@ -21,8 +22,18 @@ app.prepare().then(() => {
   // setup a kinto proxy
   server.use(proxyMiddleware("/kinto", kintoProxy));
 
-  // use next-routes
-  server.use(routes.getRequestHandler(app));
+  server.get("/api/ccn/:ccn.json", async (req, res) => {
+    if (req.params.ccn.match(/^KALICONT/)) {
+      const ccn = require(`@socialgouv/kali-data/data/${req.params.ccn}.json`);
+      res.json(ccn);
+    }
+    res.status(404).end();
+  });
+
+  server.get("*", (req, res) => {
+    console.log("server handler", req.url);
+    return handle(req, res);
+  });
 
   server.listen(PORT, err => {
     if (err) {

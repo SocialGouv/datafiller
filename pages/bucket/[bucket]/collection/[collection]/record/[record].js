@@ -1,16 +1,18 @@
 import React from "react";
 import Head from "next/head";
 
-import EditRecord from "../src/EditRecord";
+import Layout from "../../../../../../src/Layout";
+
+import EditRecord from "../../../../../../src/EditRecord";
 
 const RecordPage = props => {
   return (
-    <React.Fragment>
+    <Layout>
       <Head>
         <title>Dataset: {props.record}</title>
       </Head>
       <EditRecord {...props} />
-    </React.Fragment>
+    </Layout>
   );
 };
 
@@ -22,4 +24,4 @@ RecordPage.getInitialProps = async ({ query }) => {
   };
 };
 
-export default RecordPage;
+export default RecordPage; // () => <div>RecordPage</div>;

@@ -1,11 +1,11 @@
 import React from "react";
 import getConfig from "next/config";
+import Link from "next/link";
 
-import { Link } from "../src/routes";
+//import { Link } from "../src/routes";
 import ListCollections from "../src/kinto/ListCollections";
 import KintoFetch from "../src/kinto/KintoFetch";
 
-import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Chip from "@material-ui/core/Chip";
@@ -29,9 +29,9 @@ const RecordCount = ({ bucket, collection }) => (
   <KintoFetch
     fetch={({ client }) =>
       client
-        .bucket(bucket)
-        .collection(collection)
-        .getTotalRecords()
+        .bucket(bucket, { headers: {} })
+        .collection(collection, { headers: {} })
+        .getTotalRecords({ headers: {} })
     }
     render={({ status, result }) => {
       if (status === "success" && result) {
@@ -52,7 +52,7 @@ const BucketView = ({ bucket, collections = [] }) =>
         </Typography>
         <Typography variant="subtitle1">{collection.schema.title}</Typography>
 
-        <Link route="collection" params={{ bucket, collection: collection.id }}>
+        <Link href={`/bucket/${bucket}/collection/${collection.id}`}>
           <Button variant="contained" color="primary" style={{ marginTop: 20 }}>
             Ouvrir
           </Button>

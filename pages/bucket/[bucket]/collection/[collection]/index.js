@@ -8,8 +8,10 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import SaveIcon from "@material-ui/icons/Save";
 
-import { Router } from "../src/routes";
-import KintoContext from "../src/kinto/KintoContext";
+import { withRouter } from "next/router";
+
+import KintoContext from "../../../../../src/kinto/KintoContext";
+import Layout from "../../../../../src/Layout";
 
 const rightStyles = theme => ({
   info: {
@@ -56,21 +58,19 @@ const NewSearchInput = ({ onSubmit }) => {
 };
 
 // add new entry in
-const addEntry = async ({ client, bucket, collection, value }) => {
+const addEntry = async ({ router, client, bucket, collection, value }) => {
   const result = await client
     .bucket(bucket)
     .collection(collection)
     .createRecord({ title: value });
 
-  Router.pushRoute("record", {
-    bucket,
-    collection,
-    record: result.data.id
-  });
+  router.push(
+    `/bucket/${bucket}/collection/${collection}/record/${result.data.id}`
+  );
 };
 
-const CollectionIntro = withStyles(rightStyles)(
-  ({ classes, bucket, collection }) => (
+const CollectionIntro = withRouter(
+  withStyles(rightStyles)(({ classes, bucket, collection, router }) => (
     <React.Fragment>
       <Paper className={classes.info} elevation={1}>
         <Typography variant="h5" component="h3">
@@ -86,23 +86,24 @@ const CollectionIntro = withStyles(rightStyles)(
           {({ client }) => (
             <NewSearchInput
               onSubmit={value =>
-                addEntry({ client, bucket, collection, value })
+                addEntry({ router, client, bucket, collection, value })
               }
             />
           )}
         </KintoContext.Consumer>
       </Paper>
     </React.Fragment>
-  )
+  ))
 );
 
 const CollectionPage = props => (
-  <React.Fragment>
+  <Layout>
     <Head>
       <title>Dataset: {props.collection}</title>
     </Head>
-    <CollectionIntro {...props} />
-  </React.Fragment>
+    {(props.collection === "requetes" && <CollectionIntro {...props} />) ||
+      null}
+  </Layout>
 );
 
 CollectionPage.getInitialProps = async ({ query }) => {

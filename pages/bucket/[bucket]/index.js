@@ -1,7 +1,7 @@
 import React from "react";
+import Link from "next/link";
 
-import { Link } from "../src/routes";
-import KintoFetch from "../src/kinto/KintoFetch";
+import KintoFetch from "../../../src/kinto/KintoFetch";
 
 const BucketView = ({ bucket, collections = [] }) => (
   <ul>
@@ -9,8 +9,7 @@ const BucketView = ({ bucket, collections = [] }) => (
       <li key={collection.id}>
         <Link
           key={collection.id}
-          to="collection"
-          params={{ bucket, collection: collection.id }}
+          href={`/bucket/${bucket}/collection/${collection.id}`}
         >
           <a>{collection.id}</a>
         </Link>

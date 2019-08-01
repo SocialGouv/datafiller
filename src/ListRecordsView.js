@@ -18,7 +18,8 @@ import {
   Home as HomeIcon
 } from "@material-ui/icons";
 
-import { Link } from "./routes";
+//import { Link } from "./routes";
+import Link from "next/link";
 
 const getBgColor = item => {
   if (item.refs && item.refs.filter(i => !!i.url).length > 0) {
@@ -32,14 +33,7 @@ const getBgColor = item => {
   return "transparent";
 };
 
-const ListRecordsView = ({
-  bucket,
-  collection,
-  record,
-  intro,
-  onAddClick,
-  onRecordClick
-}) => (
+const ListRecordsView = ({ bucket, collection, record, intro, onAddClick }) => (
   <ListRecords
     bucket={bucket}
     collection={collection}
@@ -55,9 +49,9 @@ const ListRecordsView = ({
             height: "100vh"
           }}
         >
-          <Link to="/">
+          <Link href="/" as="/">
             <ListItem button>
-              <ListItemIcon>
+              <ListItemIcon style={{ minWidth: 30 }}>
                 <HomeIcon />
               </ListItemIcon>
               <ListItemText primary="Accueil" />
@@ -66,44 +60,55 @@ const ListRecordsView = ({
           <Divider />
           <div style={{ flex: "1 0 100%", overflow: "scroll" }}>
             {result.data.map(item => (
-              <ListItem
-                selected={item.id === record}
-                ref={node => {
-                  // hack : position list to the current selected item
-                  if (item.id === record) {
-                    const me = ReactDOM.findDOMNode(node);
-                    if (me) {
-                      me.parentNode.scrollTop = me.offsetTop - me.offsetHeight;
-                    }
-                  }
-                }}
+              <Link
                 key={item.id}
-                button
-                onClick={() => onRecordClick(item)}
-                style={{
-                  backgroundColor: item.id !== record && getBgColor(item)
-                }}
+                // href="/bucket/[bucket]/collection/[collection]/record/[record]"
+                href={`/bucket/${bucket}/collection/${collection}/record/${item.id}`}
               >
-                <ListItemIcon style={{ margin: 0 }}>
-                  <QuestionAnswerIcon />
-                </ListItemIcon>
-                <ListItemText primary={item.title} />
-              </ListItem>
+                <ListItem
+                  selected={item.id === record}
+                  title={item.title}
+                  ref={node => {
+                    // hack : position list to the current selected item
+                    if (item.id === record) {
+                      const me = ReactDOM.findDOMNode(node);
+                      if (me) {
+                        me.parentNode.scrollTop =
+                          me.offsetTop - me.offsetHeight;
+                      }
+                    }
+                  }}
+                  key={item.id}
+                  button
+                  onClick={() => {} /*onRecordClick(item)*/}
+                  style={{
+                    backgroundColor: item.id !== record && getBgColor(item)
+                  }}
+                >
+                  <ListItemIcon style={{ margin: 0, minWidth: 30 }}>
+                    <QuestionAnswerIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={item.title} />
+                </ListItem>
+              </Link>
             ))}
           </div>
         </List>
-        <KintoContext.Consumer>
-          {({ client }) => (
-            <Fab
-              onClick={() => onAddClick({ client })}
-              color="primary"
-              title="Créer un nouvel enregistrement"
-              style={{ bottom: 10, right: 10, position: "fixed" }}
-            >
-              <AddIcon />
-            </Fab>
-          )}
-        </KintoContext.Consumer>
+        {(collection === "requetes" && (
+          <KintoContext.Consumer>
+            {({ client }) => (
+              <Fab
+                onClick={() => onAddClick({ client })}
+                color="primary"
+                title="Créer un nouvel enregistrement"
+                style={{ bottom: 10, right: 10, position: "fixed" }}
+              >
+                <AddIcon />
+              </Fab>
+            )}
+          </KintoContext.Consumer>
+        )) ||
+          null}
       </React.Fragment>
     )}
   />

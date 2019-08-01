@@ -38,7 +38,7 @@ const MultiLineInput = props => (
   />
 );
 
-const Dataset1Form = ({ data, onSubmit, onDelete }) => {
+const RequeteForm = ({ data, onSubmit, onDelete }) => {
   let root;
 
   const focusLastInput = () => {
@@ -239,4 +239,4 @@ const Dataset1Form = ({ data, onSubmit, onDelete }) => {
   );
 };
 
-export default Dataset1Form;
+export default RequeteForm;
