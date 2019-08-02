@@ -5,6 +5,8 @@ import Link from "next/link";
 import ListCollections from "../src/kinto/ListCollections";
 import KintoFetch from "../src/kinto/KintoFetch";
 
+import { Eye, Database } from "react-feather";
+
 import {
   Badge,
   Card,
@@ -44,7 +46,7 @@ const BucketView = ({ bucket, collections = [] }) => (
     {collections.map(collection => (
       <Card key={collection.id} style={{ marginTop: 15 }}>
         <CardBody>
-          <CardTitle>
+          <CardTitle style={{ fontSize: "1.5em" }}>
             <RecordCount bucket={bucket} collection={collection.id} />
             {collection.id}
           </CardTitle>
@@ -55,7 +57,7 @@ const BucketView = ({ bucket, collections = [] }) => (
               color="primary"
               style={{ marginTop: 20 }}
             >
-              Ouvrir
+              <Eye style={{ marginRight: 5 }} /> Ouvrir
             </Button>
           </Link>
         </CardBody>
@@ -75,7 +77,13 @@ class Home extends React.Component {
     return (
       <Container>
         <Jumbotron>
-          <h2 className="display-3">Datafiller</h2>
+          <h2 className="display-3">
+            <Database
+              style={{ marginRight: 5, verticalAlign: "bottom" }}
+              size="1.35em"
+            />{" "}
+            Datafiller
+          </h2>
           <p className="lead">
             Données de référence pour alimenter le moteur de recherche.
           </p>

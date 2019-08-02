@@ -147,7 +147,7 @@ const RequeteForm = ({ data, onSubmit, onDelete }) => {
                   setFieldTouched("refs");
                   setFieldValue(
                     "refs",
-                    values.refs.concat([{ title: "", url: "" }])
+                    (values.refs || []).concat([{ title: "", url: "" }])
                   );
                   setTimeout(focusLastInput, 10);
                 }}
@@ -170,31 +170,29 @@ const RequeteForm = ({ data, onSubmit, onDelete }) => {
                       title: hit._source.title,
                       url: getRowId(hit._source)
                     }));
-                  setFieldValue("refs", values.refs.concat(hits));
+                  setFieldValue("refs", (values.refs || []).concat(hits));
                 }}
               />
             </FormGroup>
 
             {/* show formik errors */}
             {(Object.keys(errors).length && (
-              <Card style={{ marginTop: 15 }}>
-                <CardBody>
-                  {Object.keys(errors)
-                    .map(key => errors[key])
-                    .map(error => (
-                      <Alert key={error} color="error">
-                        {error}
-                      </Alert>
-                    ))}
-                </CardBody>
-              </Card>
+              <Alert color="danger" style={{ margin: "15px 0" }}>
+                {Object.keys(errors)
+                  .map(key => errors[key])
+                  .map(error => (
+                    <Alert key={error} color="error">
+                      {error}
+                    </Alert>
+                  ))}
+              </Alert>
             )) ||
               null}
             {/* show submit status */}
             {status && status.msg && (
-              <Card style={{ marginTop: 15 }}>
-                <CardBody>{status.msg}</CardBody>
-              </Card>
+              <Alert color="success" style={{ margin: "15px 0" }}>
+                {status.msg}
+              </Alert>
             )}
 
             <Row spacing={24}>

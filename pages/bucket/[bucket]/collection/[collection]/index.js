@@ -38,9 +38,9 @@ const NewSearchInput = ({ onSubmit }) => {
 // add new entry in
 const addEntry = async ({ router, client, bucket, collection, value }) => {
   const result = await client
-    .bucket(bucket)
-    .collection(collection)
-    .createRecord({ title: value });
+    .bucket(bucket, { headers: {} })
+    .collection(collection, { headers: {} })
+    .createRecord({ title: value }, { headers: {} });
 
   router.push(
     `/bucket/${bucket}/collection/${collection}/record/${result.data.id}`
