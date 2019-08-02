@@ -159,7 +159,6 @@ class FuseInput extends React.Component {
     const inputProps = {
       value,
       type: "search",
-      fullWidth: true,
       onChange: this.onChange,
       placeholder: this.props.placeholder
     };

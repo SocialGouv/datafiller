@@ -197,11 +197,10 @@ const RequeteForm = ({ data, onSubmit, onDelete }) => {
               </Card>
             )}
 
-            <Row container spacing={24}>
+            <Row spacing={24}>
               <Col xs={6}>
                 <Button
                   color="primary"
-                  size="large"
                   style={{ whiteSpace: "nowrap", marginTop: 20 }}
                   variant="contained"
                   type="submit"
@@ -217,13 +216,12 @@ const RequeteForm = ({ data, onSubmit, onDelete }) => {
               </Col>
               <Col xs={6} style={{ textAlign: "right" }}>
                 <Button
-                  size="large"
                   style={{
                     marginLeft: 20,
                     whiteSpace: "nowrap",
                     marginTop: 20
                   }}
-                  variant="contained"
+                  color="danger"
                   type="button"
                   onClick={onDelete}
                 >

@@ -62,10 +62,10 @@ const References = ({
       <Table padding="dense">
         <thead>
           <tr>
-            {["Résultat", "-", "Pertinence"].map(col => (
-              <td key={col}>{col}</td>
-            ))}
-            <td key="remove">-</td>
+            <td>Résultat</td>
+            <td>-</td>
+            <td style={{ textAlign: "center" }}>Pertinence</td>
+            <td>-</td>
           </tr>
         </thead>
         <tbody>

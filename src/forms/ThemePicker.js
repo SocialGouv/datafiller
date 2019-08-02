@@ -4,14 +4,16 @@ import FuseInput from "../lib/FuseInput";
 
 import themes from "../themes.json";
 
-const Picker = props => (
+const getSuggestionValue = suggestion => suggestion.item.title;
+
+const ThemePicker = props => (
   <FuseInput
     data={themes}
     placeholder="Choisissez le thème"
     labelKey="title"
-    getSuggestionValue={suggestion => suggestion.item.title}
+    getSuggestionValue={getSuggestionValue}
     {...props}
   />
 );
 
-export default Picker;
+export default ThemePicker;

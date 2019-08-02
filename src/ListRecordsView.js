@@ -1,10 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import styled from "styled-components";
 
 import ListRecords from "../src/kinto/ListRecords";
-import KintoContext from "../src/kinto/KintoContext";
 
-import { Button, ListGroup, ListGroupItem } from "reactstrap";
+import { ListGroup, ListGroupItem } from "reactstrap";
+
+import { Home } from "react-feather";
 
 import Link from "next/link";
 
@@ -27,48 +29,52 @@ const ListRecordsView = ({ bucket, collection, record, intro, onAddClick }) => (
     render={({ result }) => (
       <React.Fragment>
         <ListGroup style={{ overflow: "scroll", height: "100vh" }}>
-          <Link href="/" passHref>
-            <ListGroupItem tag="a" action>
-              Accueil
-            </ListGroupItem>
-          </Link>
-          {collection === "requetes" && (
-            <ListGroupItem>
-              <KintoContext.Consumer>
-                {({ client }) => (
-                  <Button onClick={() => onAddClick({ client })}>
-                    Ajouter une nouvelle entrée
-                  </Button>
-                )}
-              </KintoContext.Consumer>
-            </ListGroupItem>
-          )}
+          <ListGroupItem action>
+            <Link href="/" passHref>
+              <a>
+                <Home style={{ marginRight: 5, verticalAlign: "middle" }} />{" "}
+                Accueil
+              </a>
+            </Link>
+          </ListGroupItem>
+
+          {/*<ListGroupItem>
+            <KintoContext.Consumer>
+              {({ client }) => (
+                <Button onClick={() => onAddClick({ client })}>
+                  <PlusSquare
+                    style={{ marginRight: 5, verticalAlign: "middle" }}
+                  />{" "}
+                  Ajouter une entrée
+                </Button>
+              )}
+            </KintoContext.Consumer>
+          </ListGroupItem>*/}
+
           {result.data.map(item => (
-            <Link
+            <ListGroupItem
+              action
+              active={item.id === record}
+              title={item.title}
               key={item.id}
-              // href="/bucket/[bucket]/collection/[collection]/record/[record]"
-              href={`/bucket/${bucket}/collection/${collection}/record/${
-                item.id
-              }`}
-              passHref
+              style={{
+                backgroundColor: item.id !== record && getBgColor(item)
+              }}
             >
-              <ListGroupItem
-                tag="a"
-                action
-                active={item.id === record}
-                title={item.title}
-                key={item.id}
-                style={{
-                  backgroundColor: item.id !== record && getBgColor(item)
-                }}
+              <Link
+                // href="/bucket/[bucket]/collection/[collection]/record/[record]"
+                href={`/bucket/${bucket}/collection/${collection}/record/${
+                  item.id
+                }`}
+                passHref
               >
-                <span
+                <a
+                  style={{ color: item.id === record ? "white" : "auto" }}
                   ref={node => {
                     // hack : position list to the current selected item
                     if (item.id === record) {
                       const me = ReactDOM.findDOMNode(node);
                       if (me) {
-                        console.log(me.offsetTop, me.offsetHeight);
                         setTimeout(() => {
                           me.parentNode.parentNode.scrollTop =
                             me.parentNode.offsetTop -
@@ -80,9 +86,9 @@ const ListRecordsView = ({ bucket, collection, record, intro, onAddClick }) => (
                   }}
                 >
                   {item.title}
-                </span>
-              </ListGroupItem>
-            </Link>
+                </a>
+              </Link>
+            </ListGroupItem>
           ))}
         </ListGroup>
       </React.Fragment>

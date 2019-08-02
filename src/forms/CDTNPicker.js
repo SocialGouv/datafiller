@@ -42,6 +42,9 @@ const renderInputComponent = inputProps => (
   <Input {...inputProps} innerRef={inputProps.ref} />
 );
 
+const getSuggestionValue = suggestion =>
+  `${suggestion._source.source}/${suggestion._source.id}`;
+
 export const Picker = ({ query, onSelect, fetchSuggestions }) => {
   const originalQuery = query;
   return (
@@ -97,9 +100,6 @@ export const Picker = ({ query, onSelect, fetchSuggestions }) => {
     />
   );
 };
-
-const getSuggestionValue = suggestion =>
-  `${suggestion._source.source}/${suggestion._source.id}`;
 
 const cleanHtml = html =>
   html
