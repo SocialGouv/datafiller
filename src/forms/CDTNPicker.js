@@ -2,7 +2,7 @@ import React from "react";
 import Autosuggest from "react-autosuggest";
 import styled from "styled-components";
 
-import TextField from "@material-ui/core/TextField";
+import { Input } from "reactstrap";
 
 import { getLabelBySource } from "../sources";
 import suggesterTheme from "./suggesterTheme";
@@ -39,7 +39,7 @@ class SuggestionState extends React.Component {
 }
 
 const renderInputComponent = inputProps => (
-  <TextField {...inputProps} innerRef={inputProps.ref} />
+  <Input {...inputProps} innerRef={inputProps.ref} />
 );
 
 export const Picker = ({ query, onSelect, fetchSuggestions }) => {

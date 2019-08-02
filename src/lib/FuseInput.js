@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import Autosuggest from "react-autosuggest";
 import Fuse from "fuse.js";
 import getSlug from "speakingurl";
-import TextField from "@material-ui/core/TextField";
+
 import styled from "styled-components";
 
 import suggesterTheme from "../forms/suggesterTheme";
@@ -183,8 +183,10 @@ class FuseInput extends React.Component {
   }
 }
 
+import { Input } from "reactstrap";
+
 const renderInputComponent = inputProps => (
-  <TextField {...inputProps} innerRef={inputProps.ref} />
+  <Input {...inputProps} innerRef={inputProps.ref} />
 );
 
 const SuggestionsContainer = styled.div`

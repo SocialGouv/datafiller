@@ -1,14 +1,10 @@
 import React from "react";
 
-import Typography from "@material-ui/core/Typography";
-
 import withKinto from "./kinto/withKinto";
 import KintoFetch from "./kinto/KintoFetch";
-//import { Router } from "./routes";
 
 import { withRouter } from "next/router";
 
-// todo: map kinto collections to components
 const forms = {
   requetes: require("./forms/Requete").default,
   ccns: require("./forms/CCN").default
@@ -57,7 +53,7 @@ const EditRecord = withKinto(
         render={({ status, result }) => (
           <React.Fragment>
             {status === "error" && (
-              <Typography>Cet enregistrement n'a pas été trouvé :/</Typography>
+              <div>Cet enregistrement n'a pas été trouvé :/</div>
             )}
             {status === "success" && (
               <React.Fragment>
