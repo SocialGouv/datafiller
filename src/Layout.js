@@ -6,40 +6,52 @@ import { Container, Row, Col } from "reactstrap";
 
 import { withRouter } from "next/router";
 
-export const _LeftCol = props =>
-  (props.router.query.bucket && props.router.query.collection && (
-    <ListRecordsView
-      {...props.router.query}
-      onAddClick={async ({ client }) => {
-        const defaultRecordData = {
-          requetes: { title: "", intro: "", theme: null, refs: [{}] },
-          ccns: { title: "", groups: {}, intro: "" }
-        };
-        const result = await client
-          .bucket(props.router.query.bucket, { headers: {} })
-          .collection(props.router.query.collection, { headers: {} })
-          .createRecord(defaultRecordData[props.router.query.collection], {
-            headers: {}
-          });
+const TreeRecordsView = () => <div>io</div>;
 
-        props.router.push(
-          `/bucket/${props.router.query.bucket}/collection/${
-            props.router.query.collection
-          }/record/${result.data.id}`
-        );
+const leftComponents = {
+  themes: TreeRecordsView,
+  default: ListRecordsView
+};
 
-        // hack
-        setTimeout(() => {
-          const target = document.querySelector("textarea[name='title']");
-          if (target) {
-            target.focus();
-          }
-        }, 200);
-      }}
-      intro="Restant à compléter"
-    />
-  )) ||
-  null;
+export const _LeftCol = props => {
+  const LeftComponent =
+    leftComponents[props.router.query.collection] || leftComponents.default;
+  if (props.router.query.bucket && props.router.query.collection) {
+    return (
+      <LeftComponent
+        {...props.router.query}
+        onAddClick={async ({ client }) => {
+          const defaultRecordData = {
+            requetes: { title: "", intro: "", theme: null, refs: [{}] },
+            ccns: { title: "", groups: {}, intro: "" }
+          };
+          const result = await client
+            .bucket(props.router.query.bucket, { headers: {} })
+            .collection(props.router.query.collection, { headers: {} })
+            .createRecord(defaultRecordData[props.router.query.collection], {
+              headers: {}
+            });
+
+          props.router.push(
+            `/bucket/${props.router.query.bucket}/collection/${
+              props.router.query.collection
+            }/record/${result.data.id}`
+          );
+
+          // hack
+          setTimeout(() => {
+            const target = document.querySelector("textarea[name='title']");
+            if (target) {
+              target.focus();
+            }
+          }, 200);
+        }}
+        intro="Restant à compléter"
+      />
+    );
+  }
+  return null;
+};
 
 const LeftCol = withRouter(_LeftCol);
 

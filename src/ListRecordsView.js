@@ -1,10 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import styled from "styled-components";
 
 import ListRecords from "../src/kinto/ListRecords";
 
-import { Button, ListGroup, ListGroupItem } from "reactstrap";
+import { ListGroup, ListGroupItem } from "reactstrap";
 
 import { PlusSquare, Home } from "react-feather";
 
