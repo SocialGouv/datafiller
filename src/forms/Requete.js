@@ -7,8 +7,6 @@ import {
   Alert,
   Button,
   Container,
-  Card,
-  CardBody,
   Form,
   FormGroup,
   Label,
@@ -16,6 +14,8 @@ import {
   Row,
   Col
 } from "reactstrap";
+
+import { CheckCircle } from "react-feather";
 
 import ThemePicker from "./ThemePicker";
 import References from "./References";
@@ -68,168 +68,190 @@ const RequeteForm = ({ data, onSubmit, onDelete }) => {
   };
 
   return (
-    <Container ref={node => (root = node)}>
-      <Formik
-        initialValues={data}
-        validationSchema={DataSchema}
-        onSubmit={(values, actions) => {
-          actions.setSubmitting(false);
-          onSubmit(values).then(() => {
-            actions.setStatus({ msg: "Données enregistrées" });
-            actions.setTouched(false);
-          });
-        }}
-        render={({
-          values,
-          errors,
-          status,
-          touched,
-          handleBlur,
-          handleChange,
-          setFieldValue,
-          handleSubmit,
-          setFieldTouched,
-          isSubmitting
-        }) => (
-          <StyledForm onSubmit={handleSubmit}>
-            <FormGroup row>
-              <Label>Question usager</Label>
-              <Input
-                name="title"
-                label="Question usager"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                defaultValue={(values && values.title) || ""}
-              />
-            </FormGroup>
+    <Container>
+      <div ref={node => (root = node)}>
+        <Formik
+          initialValues={data}
+          validationSchema={DataSchema}
+          onSubmit={(values, actions) => {
+            actions.setSubmitting(false);
+            onSubmit(values).then(() => {
+              actions.setStatus({ msg: "Données enregistrées" });
+              actions.setTouched(false);
+            });
+          }}
+          render={({
+            values,
+            errors,
+            status,
+            touched,
+            handleBlur,
+            handleChange,
+            setFieldValue,
+            handleSubmit,
+            setFieldTouched,
+            isSubmitting
+          }) => (
+            <StyledForm onSubmit={handleSubmit}>
+              <FormGroup row>
+                <Label>Question usager</Label>
+                <Input
+                  name="title"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  defaultValue={(values && values.title) || ""}
+                />
+              </FormGroup>
 
-            <FormGroup row>
-              <Label>Questions similaires (une par ligne)</Label>
-              <MultiLineInput
-                name="variants"
-                label="Questions similaires (une par ligne)"
-                rows={10}
-                onBlur={handleBlur}
-                onChange={handleChange}
-                defaultValue={(values && values.variants) || ""}
-              />
-            </FormGroup>
+              <FormGroup row>
+                <Label>Questions similaires (une par ligne)</Label>
+                <MultiLineInput
+                  name="variants"
+                  rows={10}
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  defaultValue={(values && values.variants) || ""}
+                />
+              </FormGroup>
 
-            <FormGroup row>
-              <Label>Thème</Label>
-              <ThemePicker
-                name="theme"
-                value={values.theme || ""}
-                onChange={value => {
-                  setFieldValue("theme", value);
-                  setFieldTouched("theme");
-                }}
-              />
-            </FormGroup>
+              <FormGroup row>
+                <Label>
+                  Réponse générique (
+                  <a
+                    href="https://gist.github.com/revolunet/3db0d7f312aa661437a6"
+                    target="_blank"
+                    rel="noopener nofollower"
+                  >
+                    markdown
+                  </a>
+                  )
+                </Label>
+                <Input
+                  name="intro"
+                  type="textarea"
+                  rows={5}
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  defaultValue={values.intro || ""}
+                />
+              </FormGroup>
 
-            <FormGroup row>
-              <Label>Résultats à afficher</Label>
-              <References
-                values={values.refs}
-                setRowValue={(i, value) => {
-                  const rowId = getRowId(value._source); //return source/slug or url
-                  values.refs[i].url = rowId;
-                  values.refs[i].title = value._source.title;
-                  setFieldValue("refs", values.refs);
-                  setFieldTouched("refs");
-                }}
-                setRowRelevance={(i, value) => {
-                  values.refs[i].relevance = value;
-                  setFieldValue("refs", values.refs);
-                  setFieldTouched("refs");
-                }}
-                onAddClick={({ push }) => {
-                  setFieldTouched("refs");
-                  setFieldValue(
-                    "refs",
-                    (values.refs || []).concat([{ title: "", url: "" }])
-                  );
-                  setTimeout(focusLastInput, 10);
-                }}
-                onRemoveClick={({ remove, index }) => {
-                  values.refs.splice(index, 1);
-                  setFieldValue("refs", values.refs);
-                  setFieldTouched("refs");
-                }}
-                onRefreshClick={async ({ push }) => {
-                  const res = await searchResults(values.title);
-                  // concat with current selection, removing duplicates
-                  const hits = res.hits.hits
-                    .filter(
-                      hit =>
-                        values.refs
-                          .map(ref => ref.url)
-                          .indexOf(getRowId(hit._source)) === -1
-                    )
-                    .map(hit => ({
-                      title: hit._source.title,
-                      url: getRowId(hit._source)
-                    }));
-                  setFieldValue("refs", (values.refs || []).concat(hits));
-                }}
-              />
-            </FormGroup>
-
-            {/* show formik errors */}
-            {(Object.keys(errors).length && (
-              <Alert color="danger" style={{ margin: "15px 0" }}>
-                {Object.keys(errors)
-                  .map(key => errors[key])
-                  .map(error => (
-                    <Alert key={error} color="error">
-                      {error}
-                    </Alert>
-                  ))}
-              </Alert>
-            )) ||
-              null}
-            {/* show submit status */}
-            {status && status.msg && (
-              <Alert color="success" style={{ margin: "15px 0" }}>
-                {status.msg}
-              </Alert>
-            )}
-
-            <Row spacing={24}>
-              <Col xs={6}>
-                <Button
-                  color="primary"
-                  style={{ whiteSpace: "nowrap", marginTop: 20 }}
-                  variant="contained"
-                  type="submit"
-                  disabled={
-                    // disable when errors, nothing changed or while submitting
-                    !!Object.keys(errors).length ||
-                    !Object.keys(touched).length ||
-                    isSubmitting
-                  }
-                >
-                  Enregistrer
-                </Button>
-              </Col>
-              <Col xs={6} style={{ textAlign: "right" }}>
-                <Button
-                  style={{
-                    marginLeft: 20,
-                    whiteSpace: "nowrap",
-                    marginTop: 20
+              <FormGroup row>
+                <Label>Thème</Label>
+                <ThemePicker
+                  name="theme"
+                  value={values.theme || ""}
+                  onChange={value => {
+                    setFieldValue("theme", value);
+                    setFieldTouched("theme");
                   }}
-                  color="danger"
-                  type="button"
-                  onClick={onDelete}
-                >
-                  Supprimer
-                </Button>
-              </Col>
-            </Row>
-          </StyledForm>
-        )}
-      />
+                />
+              </FormGroup>
+
+              <FormGroup row>
+                <Label>Résultats à afficher</Label>
+                <References
+                  values={values.refs}
+                  setRowValue={(i, value) => {
+                    const rowId = getRowId(value._source); //return source/slug or url
+                    values.refs[i].url = rowId;
+                    values.refs[i].title = value._source.title;
+                    setFieldValue("refs", values.refs);
+                    setFieldTouched("refs");
+                  }}
+                  setRowRelevance={(i, value) => {
+                    values.refs[i].relevance = value;
+                    setFieldValue("refs", values.refs);
+                    setFieldTouched("refs");
+                  }}
+                  onAddClick={({ push }) => {
+                    setFieldTouched("refs");
+                    setFieldValue(
+                      "refs",
+                      (values.refs || []).concat([{ title: "", url: "" }])
+                    );
+                    setTimeout(focusLastInput, 10);
+                  }}
+                  onRemoveClick={({ remove, index }) => {
+                    values.refs.splice(index, 1);
+                    setFieldValue("refs", values.refs);
+                    setFieldTouched("refs");
+                  }}
+                  onRefreshClick={async ({ push }) => {
+                    const res = await searchResults(values.title);
+                    // concat with current selection, removing duplicates
+                    const hits = res.hits.hits
+                      .filter(
+                        hit =>
+                          values.refs
+                            .map(ref => ref.url)
+                            .indexOf(getRowId(hit._source)) === -1
+                      )
+                      .map(hit => ({
+                        title: hit._source.title,
+                        url: getRowId(hit._source)
+                      }));
+                    setFieldValue("refs", (values.refs || []).concat(hits));
+                  }}
+                />
+              </FormGroup>
+
+              {/* show formik errors */}
+              {(Object.keys(errors).length && (
+                <Alert color="danger" style={{ margin: "15px 0" }}>
+                  {Object.keys(errors)
+                    .map(key => errors[key])
+                    .map(error => (
+                      <Alert key={error} color="error">
+                        {error}
+                      </Alert>
+                    ))}
+                </Alert>
+              )) ||
+                null}
+              {/* show submit status */}
+              {status && status.msg && (
+                <Alert color="success" style={{ margin: "15px 0" }}>
+                  <CheckCircle /> {status.msg}
+                </Alert>
+              )}
+
+              <Row spacing={24}>
+                <Col xs={6}>
+                  <Button
+                    color="primary"
+                    style={{ whiteSpace: "nowrap", marginTop: 20 }}
+                    variant="contained"
+                    type="submit"
+                    disabled={
+                      // disable when errors, nothing changed or while submitting
+                      !!Object.keys(errors).length ||
+                      !Object.keys(touched).length ||
+                      isSubmitting
+                    }
+                  >
+                    Enregistrer
+                  </Button>
+                </Col>
+                <Col xs={6} style={{ textAlign: "right" }}>
+                  <Button
+                    style={{
+                      marginLeft: 20,
+                      whiteSpace: "nowrap",
+                      marginTop: 20
+                    }}
+                    color="danger"
+                    type="button"
+                    onClick={onDelete}
+                  >
+                    Supprimer
+                  </Button>
+                </Col>
+              </Row>
+            </StyledForm>
+          )}
+        />
+      </div>
     </Container>
   );
 };

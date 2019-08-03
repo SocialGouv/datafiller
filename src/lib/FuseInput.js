@@ -10,16 +10,16 @@ import suggesterTheme from "../forms/suggesterTheme";
 
 const DEFAULT_FUSE_OPTIONS = {
   shouldSort: true,
-  //tokenize: true,
-  //matchAllTokens: true,
+  tokenize: true,
+  matchAllTokens: true,
   includeMatches: true,
   //findAllMatches: true,
   includeScore: true,
   threshold: 0.75,
-  //location: 0,
-  //distance: 100,
+  location: 0,
+  distance: 100,
   maxPatternLength: 16,
-  minMatchCharLength: 3,
+  minMatchCharLength: 4,
   keys: ["labelNormalized"]
 };
 
@@ -212,7 +212,7 @@ FuseInput.propTypes = {
   placeholder: PropTypes.string,
   labelKey: PropTypes.string,
   data: PropTypes.array.isRequired,
-  getSuggestionValue: PropTypes.function
+  getSuggestionValue: PropTypes.func
 };
 
 FuseInput.defaultProps = {

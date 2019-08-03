@@ -28,7 +28,7 @@ const ListRecordsView = ({ bucket, collection, record, intro, onAddClick }) => (
     collection={collection}
     render={({ result }) => (
       <React.Fragment>
-        <ListGroup style={{ overflow: "scroll", height: "100vh" }}>
+        <ListGroup>
           <ListGroupItem action>
             <Link href="/" passHref>
               <a>
@@ -50,26 +50,23 @@ const ListRecordsView = ({ bucket, collection, record, intro, onAddClick }) => (
               )}
             </KintoContext.Consumer>
           </ListGroupItem>*/}
-
-          {result.data.map(item => (
-            <ListGroupItem
-              action
-              active={item.id === record}
-              title={item.title}
-              key={item.id}
-              style={{
-                backgroundColor: item.id !== record && getBgColor(item)
-              }}
-            >
-              <Link
-                // href="/bucket/[bucket]/collection/[collection]/record/[record]"
-                href={`/bucket/${bucket}/collection/${collection}/record/${
-                  item.id
-                }`}
-                passHref
+          <div style={{ overflow: "scroll", height: "100vh" }}>
+            {result.data.map(item => (
+              <ListGroupItem
+                action
+                active={item.id === record}
+                title={item.title}
+                key={item.id}
+                style={{
+                  backgroundColor: item.id !== record && getBgColor(item)
+                }}
               >
-                <a
-                  style={{ color: item.id === record ? "white" : "auto" }}
+                <Link
+                  // href="/bucket/[bucket]/collection/[collection]/record/[record]"
+                  href={`/bucket/${bucket}/collection/${collection}/record/${
+                    item.id
+                  }`}
+                  passHref
                   ref={node => {
                     // hack : position list to the current selected item
                     if (item.id === record) {
@@ -85,11 +82,13 @@ const ListRecordsView = ({ bucket, collection, record, intro, onAddClick }) => (
                     }
                   }}
                 >
-                  {item.title}
-                </a>
-              </Link>
-            </ListGroupItem>
-          ))}
+                  <a style={{ color: item.id === record ? "white" : "auto" }}>
+                    {item.title}
+                  </a>
+                </Link>
+              </ListGroupItem>
+            ))}
+          </div>
         </ListGroup>
       </React.Fragment>
     )}

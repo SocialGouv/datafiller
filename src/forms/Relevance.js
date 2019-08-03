@@ -18,6 +18,7 @@ const StyledButton = styled(Button)`
   border: ${props =>
     props.selected ? "1px solid #333" : "1px solid transparent"};
   width: 30px;
+  padding: 0;
   height: 30px;
   margin: 0 2px;
   color: black;

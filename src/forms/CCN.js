@@ -2,7 +2,16 @@ import React, { useState, useContext } from "react";
 import useFetch from "react-fetch-hook";
 import Tooltip from "rc-tooltip";
 
-import { Badge, Card, CardBody } from "reactstrap";
+import {
+  Badge,
+  Card,
+  CardBody,
+  Container,
+  FormGroup,
+  Jumbotron,
+  Label,
+  Input
+} from "reactstrap";
 
 import "rc-tooltip/assets/bootstrap_white.css";
 
@@ -134,6 +143,15 @@ const formatEtat = etat =>
 
 const SelectionContext = React.createContext([]);
 
+/*
+          <div>
+            <h5>{section.title}</h5>
+            <FormGroup row>
+              <Label>Notes (privées)</Label>
+              <Input name="notes" type="textarea" rows={10} />
+            </FormGroup>
+          </div>*/
+
 const CCNSection = ({
   idConvention,
   section,
@@ -151,7 +169,8 @@ const CCNSection = ({
       className="card--section"
     >
       <CardBody>
-        {depth === 0 ? <h5>{section.title}</h5> : <h6>{section.title}</h6>}
+        {depth >= 0 && <h6>{section.title}</h6>}
+
         {(depth === 0 && (
           <a
             style={{ marginLeft: 5, fontSize: 12 }}
@@ -188,13 +207,13 @@ const CCNSection = ({
   );
 };
 
-const CCNPreview = ({ id, initialGroups, onGroupsUpdate }) => {
+const CCNPreview = ({ id, initialData, onDataUpdate }) => {
   // import(`@socialgouv/kali-data/data/${id}.json`);
   const { isLoading, data } = useFetch(`/api/ccn/${id}.json`, {
     formatter: response => response.json()
   });
 
-  const [groups, setGroups] = useState(initialGroups);
+  const [groups, setGroups] = useState(initialData.groups);
 
   if (isLoading || !data) {
     return <div>...</div>;
@@ -202,7 +221,7 @@ const CCNPreview = ({ id, initialGroups, onGroupsUpdate }) => {
 
   const setSelection = (node, group) => {
     // check if already present : remove it
-    const curGroup = groups.find(gr => gr.id === group.id);
+    const curGroup = groups && groups.find(gr => gr.id === group.id);
     let newGroups = curGroup
       ? // when group exist, modify or create the selection
         groups.map(gr =>
@@ -220,37 +239,64 @@ const CCNPreview = ({ id, initialGroups, onGroupsUpdate }) => {
         )
       : // when group does not exist, create it
         [
-          ...groups,
+          ...(groups || []),
           {
             id: group.id,
             selection: [node.id]
           }
         ];
     setGroups(newGroups);
-    onGroupsUpdate(newGroups);
+    onDataUpdate({
+      groups: newGroups
+    });
   };
 
   return (
-    <SelectionContext.Provider value={{ groups: initialGroups }}>
-      <CCNSection
-        idConvention={id}
-        onSelect={setSelection}
-        section={data.sections[0]}
-      />
-      ;
-    </SelectionContext.Provider>
+    <Container>
+      <SelectionContext.Provider value={{ groups: initialData.groups || [] }}>
+        <Jumbotron>
+          <h5>{data.titre}</h5>
+        </Jumbotron>
+        <Container>
+          <FormGroup row>
+            <Label>Notes privées</Label>
+            <Input
+              name="intro"
+              type="textarea"
+              rows={5}
+              onBlur={e => {
+                onDataUpdate({
+                  intro: e.target.value
+                });
+              }}
+              defaultValue={initialData.intro || ""}
+            />
+          </FormGroup>
+        </Container>
+        <CCNSection
+          idConvention={id}
+          onSelect={setSelection}
+          section={data.sections[0]}
+        />
+        ;
+      </SelectionContext.Provider>
+    </Container>
   );
 };
 
 const FormCCN = ({ data, onSubmit, onDelete }) => {
   const [formData, setFormData] = React.useState(data);
-  const onGroupsUpdate = newGroups => {
+  const onDataUpdate = patch => {
     // side-effects : general record update
-    formData.groups = newGroups;
-    //setFormData(formData);
-    onSubmit(formData)
-      .then(({ permissions, data }) => setFormData(data))
-      .catch((e, cdcc) => {
+    console.log("patch", patch);
+    const newData = {
+      ...formData,
+      ...patch
+    };
+    console.log("newData", newData);
+    onSubmit(newData)
+      .then(({ _, data }) => setFormData(newData))
+      .catch(e => {
         console.log(e);
         alert("Impossible de mettre à jour");
       });
@@ -260,8 +306,8 @@ const FormCCN = ({ data, onSubmit, onDelete }) => {
   return (
     <CCNPreview
       id={data.cid}
-      initialGroups={formData.groups || []}
-      onGroupsUpdate={onGroupsUpdate}
+      initialData={formData || { groups: [], intro: "" }}
+      onDataUpdate={onDataUpdate}
     />
   );
 };

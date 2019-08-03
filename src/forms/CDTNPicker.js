@@ -75,7 +75,6 @@ export const Picker = ({ query, onSelect, fetchSuggestions }) => {
           name: "query",
           placeholder: "ex: L4212",
           type: "search",
-          fullWidth: true,
           value: query,
           onChange: _onChange,
           onBlur: _onBlur

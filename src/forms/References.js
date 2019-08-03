@@ -116,6 +116,7 @@ const References = ({
                       style={{ width: 25, padding: 0, verticalAlign: "middle" }}
                     >
                       <Button
+                        color="danger"
                         aria-label="Supprimer"
                         onClick={() => {
                           onRemoveClick({ remove, index });

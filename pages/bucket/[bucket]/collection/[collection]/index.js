@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Head from "next/head";
 
 import { withRouter } from "next/router";
-import { Button, Input } from "reactstrap";
+import { Button, Input, Jumbotron } from "reactstrap";
 
 import KintoContext from "../../../../../src/kinto/KintoContext";
 import Layout from "../../../../../src/Layout";
@@ -65,14 +65,12 @@ const IntroRequetes = withRouter(({ bucket, collection, router }) => (
 ));
 
 const IntroCCns = withRouter(({ bucket, collection, router }) => (
-  <React.Fragment>
-    <br />
-    <br />
-    <h6>
+  <Jumbotron>
+    <h5>
       Classification des CCNs dans les 17 thèmes de la hierarchie des normes
-    </h6>
+    </h5>
     <p>Choisissez une CCN pour commencer</p>
-  </React.Fragment>
+  </Jumbotron>
 ));
 
 const CollectionPage = props => (
