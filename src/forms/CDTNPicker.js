@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { Input } from "reactstrap";
 
 import { getLabelBySource } from "../sources";
-import suggesterTheme from "./suggesterTheme";
+import fuseInputTheme from "./fuseInputTheme";
 
 const isExternalUrl = url => url.match(/^https?:\/\//);
 
@@ -81,7 +81,7 @@ export const Picker = ({ query, onSelect, fetchSuggestions }) => {
         };
         return (
           <Autosuggest
-            theme={suggesterTheme}
+            theme={fuseInputTheme}
             suggestions={hits}
             focusInputOnSuggestionClick={false} // prevent some ref issues
             alwaysRenderSuggestions={false}

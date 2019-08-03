@@ -4,9 +4,11 @@ import styled from "styled-components";
 
 import ListRecords from "../src/kinto/ListRecords";
 
-import { ListGroup, ListGroupItem } from "reactstrap";
+import { Button, ListGroup, ListGroupItem } from "reactstrap";
 
-import { Home } from "react-feather";
+import { PlusSquare, Home } from "react-feather";
+
+import KintoContext from "./kinto/KintoContext";
 
 import Link from "next/link";
 
@@ -38,18 +40,21 @@ const ListRecordsView = ({ bucket, collection, record, intro, onAddClick }) => (
             </Link>
           </ListGroupItem>
 
-          {/*<ListGroupItem>
-            <KintoContext.Consumer>
-              {({ client }) => (
-                <Button onClick={() => onAddClick({ client })}>
-                  <PlusSquare
-                    style={{ marginRight: 5, verticalAlign: "middle" }}
-                  />{" "}
-                  Ajouter une entrée
-                </Button>
-              )}
-            </KintoContext.Consumer>
-          </ListGroupItem>*/}
+          {(collection === "requetes" && (
+            <ListGroupItem>
+              <KintoContext.Consumer>
+                {({ client }) => (
+                  <a href="#" onClick={() => onAddClick({ client })}>
+                    <PlusSquare
+                      style={{ marginRight: 5, verticalAlign: "middle" }}
+                    />
+                    Ajouter une entrée
+                  </a>
+                )}
+              </KintoContext.Consumer>
+            </ListGroupItem>
+          )) ||
+            null}
           <div style={{ overflow: "scroll", height: "100vh" }}>
             {result.data.map(item => (
               <ListGroupItem
@@ -83,7 +88,7 @@ const ListRecordsView = ({ bucket, collection, record, intro, onAddClick }) => (
                   }}
                 >
                   <a style={{ color: item.id === record ? "white" : "auto" }}>
-                    {item.title}
+                    {item.title || "EMPTY ?"}
                   </a>
                 </Link>
               </ListGroupItem>

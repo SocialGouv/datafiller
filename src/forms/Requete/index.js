@@ -2,6 +2,7 @@ import React from "react";
 import { Formik } from "formik";
 import styled from "styled-components";
 import * as Yup from "yup";
+import { CheckCircle } from "react-feather";
 
 import {
   Alert,
@@ -15,13 +16,11 @@ import {
   Col
 } from "reactstrap";
 
-import { CheckCircle } from "react-feather";
+import { searchResults } from "../../cdtn-api";
 
-import ThemePicker from "./ThemePicker";
+import ThemePicker from "../ThemePicker";
 import References from "./References";
 import getRowId from "./getRowId";
-
-import { searchResults } from "../cdtn-api";
 
 const DataSchema = Yup.object().shape({
   title: Yup.string()
@@ -164,7 +163,7 @@ const RequeteForm = ({ data, onSubmit, onDelete }) => {
                     setFieldValue("refs", values.refs);
                     setFieldTouched("refs");
                   }}
-                  onAddClick={({ push }) => {
+                  onAddClick={() => {
                     setFieldTouched("refs");
                     setFieldValue(
                       "refs",
@@ -172,12 +171,12 @@ const RequeteForm = ({ data, onSubmit, onDelete }) => {
                     );
                     setTimeout(focusLastInput, 10);
                   }}
-                  onRemoveClick={({ remove, index }) => {
+                  onRemoveClick={({ index }) => {
                     values.refs.splice(index, 1);
                     setFieldValue("refs", values.refs);
                     setFieldTouched("refs");
                   }}
-                  onRefreshClick={async ({ push }) => {
+                  onRefreshClick={async () => {
                     const res = await searchResults(values.title);
                     // concat with current selection, removing duplicates
                     const hits = res.hits.hits

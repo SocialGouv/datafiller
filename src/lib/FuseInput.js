@@ -6,19 +6,17 @@ import getSlug from "speakingurl";
 
 import styled from "styled-components";
 
-import suggesterTheme from "../forms/suggesterTheme";
-
 const DEFAULT_FUSE_OPTIONS = {
   shouldSort: true,
   tokenize: true,
   matchAllTokens: true,
   includeMatches: true,
-  //findAllMatches: true,
+  findAllMatches: true,
   includeScore: true,
   threshold: 0.75,
   location: 0,
   distance: 100,
-  maxPatternLength: 16,
+  maxPatternLength: 25,
   minMatchCharLength: 4,
   keys: ["labelNormalized"]
 };
@@ -32,7 +30,7 @@ const normalize = str =>
     uric: true,
     uricNoSlash: true,
     maintainCase: true
-  });
+  }).toLowerCase();
 
 const SuggestionContainer = styled.div`
   p {
@@ -43,28 +41,6 @@ const SuggestionContainer = styled.div`
     background: yellow;
   }
 `;
-
-// const renderSuggestion = suggestion => {
-//   const source = getLabelBySource(suggestion._source.source);
-//   return (
-//     <SuggestionContainer>
-//       <b>
-//         {source ? `${source} | ` : ""} {suggestion._source.title}
-//       </b>
-//       <br />
-//       <div
-//         dangerouslySetInnerHTML={{
-//           __html: cleanHtml(
-//             (suggestion.highlight &&
-//               suggestion.highlight["all_text.french_exact"] &&
-//               suggestion.highlight["all_text.french_exact"][0]) ||
-//               ""
-//           )
-//         }}
-//       />
-//     </SuggestionContainer>
-//   );
-// };
 
 // render a highlighted html with span.fuse-highlighter from a fuse.js suggestion and a query.
 const FuseHighLighter = ({ suggestion, query, style, labelKey }) => {
@@ -155,7 +131,6 @@ class FuseInput extends React.Component {
 
   render() {
     const { value, suggestions } = this.state;
-
     const inputProps = {
       value,
       type: "search",
@@ -165,7 +140,7 @@ class FuseInput extends React.Component {
 
     return (
       <Autosuggest
-        theme={suggesterTheme}
+        theme={this.props.theme}
         highlightFirstSuggestion={false}
         focusInputOnSuggestionClick={false}
         suggestions={suggestions}

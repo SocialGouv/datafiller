@@ -11,13 +11,21 @@ export const _LeftCol = props =>
     <ListRecordsView
       {...props.router.query}
       onAddClick={async ({ client }) => {
+        const defaultRecordData = {
+          requetes: { title: "", intro: "", theme: null, refs: [{}] },
+          ccns: { title: "", groups: {}, intro: "" }
+        };
         const result = await client
-          .bucket(props.router.query.bucket)
-          .collection(props.router.query.collection)
-          .createRecord({ title: "", refs: [{}] });
+          .bucket(props.router.query.bucket, { headers: {} })
+          .collection(props.router.query.collection, { headers: {} })
+          .createRecord(defaultRecordData[props.router.query.collection], {
+            headers: {}
+          });
 
         props.router.push(
-          `/bucket/${props.router.query.bucket}/collection/${props.router.query.collection}/record/${result.data.id}`
+          `/bucket/${props.router.query.bucket}/collection/${
+            props.router.query.collection
+          }/record/${result.data.id}`
         );
 
         // hack

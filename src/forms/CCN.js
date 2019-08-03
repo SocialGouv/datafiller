@@ -288,12 +288,10 @@ const FormCCN = ({ data, onSubmit, onDelete }) => {
   const [formData, setFormData] = React.useState(data);
   const onDataUpdate = patch => {
     // side-effects : general record update
-    console.log("patch", patch);
     const newData = {
       ...formData,
       ...patch
     };
-    console.log("newData", newData);
     onSubmit(newData)
       .then(({ _, data }) => setFormData(newData))
       .catch(e => {

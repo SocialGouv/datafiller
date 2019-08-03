@@ -1,15 +1,13 @@
 import React from "react";
 import { FieldArray } from "formik";
-
 import { Button, Table } from "reactstrap";
-
 import { Trash, ExternalLink, PlusSquare, RotateCw } from "react-feather";
 
-import CDTNPicker from "./CDTNPicker";
-import Relevance from "./Relevance";
+import CDTNPicker from "../CDTNPicker";
+import Relevance from "../Relevance";
 import getRowId from "./getRowId";
 
-import { searchResults } from "../cdtn-api";
+import { searchResults } from "../../cdtn-api";
 
 const MyTableFooter = ({ onAddClick, onRefreshClick }) => (
   <thead>
@@ -34,6 +32,7 @@ const MyTableFooter = ({ onAddClick, onRefreshClick }) => (
       <td>
         <Button
           onClick={onRefreshClick}
+          color="success"
           size="small"
           style={{ whiteSpace: "nowrap", marginTop: 20 }}
           variant="contained"
@@ -84,8 +83,9 @@ const References = ({
                     <td
                       style={{ width: 25, padding: 0, verticalAlign: "middle" }}
                     >
-                      <Button
-                        aria-label="Preview"
+                      <ExternalLink
+                        size={16}
+                        style={{ cursor: "pointer" }}
                         onClick={() => {
                           const CDTN_URL =
                             "https://codedutravail-dev.num.social.gouv.fr";
@@ -95,13 +95,11 @@ const References = ({
                               : row.url;
                           window.open(url);
                         }}
-                      >
-                        <ExternalLink size={16} />
-                      </Button>
+                      />
                     </td>
                     <td
                       style={{
-                        width: 250,
+                        width: 200,
                         padding: 0,
                         verticalAlign: "middle"
                       }}
@@ -113,17 +111,15 @@ const References = ({
                       />
                     </td>
                     <td
-                      style={{ width: 25, padding: 0, verticalAlign: "middle" }}
+                      style={{ width: 16, padding: 0, verticalAlign: "middle" }}
                     >
-                      <Button
-                        color="danger"
-                        aria-label="Supprimer"
+                      <Trash
+                        size={16}
                         onClick={() => {
                           onRemoveClick({ remove, index });
                         }}
-                      >
-                        <Trash size={16} />
-                      </Button>
+                        style={{ cursor: "pointer", color: "#d63626" }}
+                      />
                     </td>
                   </tr>
                 )
