@@ -8,6 +8,9 @@
     "start": "NODE_ENV=production node server"
   },
   "dependencies": {
+    "@sentry/browser": "^5.5.0",
+    "@sentry/integrations": "^5.5.0",
+    "@sentry/node": "^5.5.0",
     "@socialgouv/kali-data": "^1.0.0",
     "@zeit/next-css": "^1.0.1",
     "btoa": "^1.2.1",
@@ -28,6 +31,7 @@
     "react-jss": "^8.6.1",
     "react-sortable-hoc": "^1.4.0",
     "reactstrap": "^8.0.1",
+    "sentry-testkit": "^2.2.1",
     "speakingurl": "^14.0.1",
     "styled-components": "^4.3.2",
     "yup": "^0.27.0"
@@ -37,6 +41,6 @@
     "@socialgouv/eslint-config-react": "^0.9.3",
     "@socialgouv/eslint-config-recommended": "^0.9.3",
     "eslint": "^6.1.0",
-    "prettier": "^1.18.2"
+    "prettier": "^1.16.4"
   }
 }
