@@ -47,25 +47,10 @@ const StyledForm = styled(Form)`
   }
 `;
 
-const RequeteForm = ({ data, onSubmit, onDelete }) => {
-  let root;
-
-  const focusLastInput = () => {
-    try {
-      if (root) {
-        const nodes = root.querySelectorAll("input[type='search']");
-        if (nodes && nodes.length) {
-          nodes[nodes.length - 1].focus();
-        }
-      }
-    } catch (e) {
-      console.log("cannot focus last input", e);
-    }
-  };
-
+const ThemeForm = ({ data, onSubmit, onDelete }) => {
   return (
     <Container>
-      <div ref={node => (root = node)}>
+      <div>
         <Formik
           initialValues={data}
           validationSchema={DataSchema}
@@ -90,7 +75,7 @@ const RequeteForm = ({ data, onSubmit, onDelete }) => {
           }) => (
             <StyledForm onSubmit={handleSubmit}>
               <FormGroup row>
-                <Label>Question usager</Label>
+                <Label>Titre du thème</Label>
                 <Input
                   name="title"
                   onBlur={handleBlur}
@@ -98,9 +83,37 @@ const RequeteForm = ({ data, onSubmit, onDelete }) => {
                   defaultValue={(values && values.title) || ""}
                 />
               </FormGroup>
-
               <FormGroup row>
-                <Label>Questions similaires (une par ligne)</Label>
+                <Label>Sous-Titre du thème</Label>
+                <Input
+                  name="subTitle"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  defaultValue={(values && values.subTitle) || ""}
+                />
+              </FormGroup>
+              <FormGroup row>
+                <Label>
+                  Introdution (
+                  <a
+                    href="https://gist.github.com/revolunet/3db0d7f312aa661437a6"
+                    target="_blank"
+                    rel="noopener nofollower"
+                  >
+                    markdown
+                  </a>
+                  )
+                </Label>
+                <MultiLineInput
+                  name="introduction"
+                  rows={5}
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  defaultValue={(values && values.introduction) || ""}
+                />
+              </FormGroup>
+              <FormGroup row>
+                <Label>Questions types (une par ligne)</Label>
                 <MultiLineInput
                   name="variants"
                   rows={10}
@@ -111,34 +124,11 @@ const RequeteForm = ({ data, onSubmit, onDelete }) => {
               </FormGroup>
 
               <FormGroup row>
-                <Label>
-                  Réponse générique (
-                  <a
-                    href="https://gist.github.com/revolunet/3db0d7f312aa661437a6"
-                    target="_blank"
-                    rel="noopener nofollower"
-                  >
-                    markdown
-                  </a>
-                  )
-                </Label>
-                <Input
-                  name="intro"
-                  type="textarea"
-                  rows={5}
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  defaultValue={values.intro || ""}
-                />
-              </FormGroup>
-
-              <FormGroup row>
-                <Label>Thème</Label>
+                <Label>Thème parent</Label>
                 <ThemePicker
                   name="theme"
                   value={values.theme || ""}
                   onChange={theme => {
-                    console.log("onChange", theme);
                     setFieldValue("theme", theme.id);
                     setFieldTouched("theme");
                   }}
@@ -214,4 +204,4 @@ const RequeteForm = ({ data, onSubmit, onDelete }) => {
   );
 };
 
-export default RequeteForm;
+export default ThemeForm;

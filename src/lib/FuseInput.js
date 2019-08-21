@@ -70,8 +70,6 @@ const FuseHighLighter = ({ suggestion, query, style, labelKey }) => {
   );
 };
 
-const getSuggestionValue = suggestion => suggestion.item.label;
-
 const renderSuggestion = (query, labelKey) => suggestion => (
   <FuseHighLighter query={query} suggestion={suggestion} labelKey={labelKey} />
 );
@@ -119,11 +117,12 @@ class FuseInput extends React.Component {
   onSelect = (event, { suggestion, suggestionValue }) => {
     this.setState(
       {
-        value: suggestionValue || ""
+        value: (suggestion.item && suggestion.item[this.props.labelKey]) || ""
       },
       () => {
         if (this.props.onChange) {
-          this.props.onChange(suggestionValue);
+          console.log("onChange1", suggestion, suggestionValue);
+          this.props.onChange(suggestion.item);
         }
       }
     );
@@ -132,12 +131,12 @@ class FuseInput extends React.Component {
   render() {
     const { value, suggestions } = this.state;
     const inputProps = {
-      value,
+      value, //: this.props.getSuggestionValue(value),
       type: "search",
       onChange: this.onChange,
       placeholder: this.props.placeholder
     };
-
+    // console.log("title", this.props.getSuggestionValue({ title: "my title" }));
     return (
       <Autosuggest
         theme={this.props.theme}
@@ -192,7 +191,7 @@ FuseInput.propTypes = {
 
 FuseInput.defaultProps = {
   labelKey: "label",
-  getSuggestionValue: suggestion => suggestion.label
+  getSuggestionValue: suggestion => suggestion.id
 };
 
 export default FuseInput;

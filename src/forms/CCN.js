@@ -293,7 +293,7 @@ const FormCCN = ({ data, onSubmit, onDelete }) => {
       ...patch
     };
     onSubmit(newData)
-      .then(({ _, data }) => setFormData(newData))
+      .then(() => setFormData(newData))
       .catch(e => {
         console.log(e);
         alert("Impossible de mettre à jour");

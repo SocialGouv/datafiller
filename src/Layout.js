@@ -9,13 +9,14 @@ import { withRouter } from "next/router";
 const TreeRecordsView = () => <div>io</div>;
 
 const leftComponents = {
-  themes: TreeRecordsView,
+  themes: ListRecordsView,
   default: ListRecordsView
 };
 
 export const _LeftCol = props => {
   const LeftComponent =
     leftComponents[props.router.query.collection] || leftComponents.default;
+  console.log("LeftComponent", LeftComponent);
   if (props.router.query.bucket && props.router.query.collection) {
     return (
       <LeftComponent

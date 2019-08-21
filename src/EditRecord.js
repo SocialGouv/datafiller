@@ -7,7 +7,8 @@ import { withRouter } from "next/router";
 
 const forms = {
   requetes: require("./forms/Requete").default,
-  ccns: require("./forms/CCN").default
+  ccns: require("./forms/CCN").default,
+  themes: require("./forms/Theme").default
 };
 
 const onSubmit = ({ client, bucket, collection, data }) =>

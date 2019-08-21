@@ -4,8 +4,8 @@ import styled from "styled-components";
 
 import { Input } from "reactstrap";
 
-import { getLabelBySource } from "../sources";
-import { searchResults } from "../cdtn-api";
+import { getLabelBySource } from "../../sources";
+import { searchResults } from "../../cdtn-api";
 
 import fuseInputTheme from "./fuseInputTheme";
 

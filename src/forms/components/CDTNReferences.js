@@ -3,6 +3,8 @@ import { FieldArray } from "formik";
 import { Button, Table } from "reactstrap";
 import { Trash, ExternalLink, PlusSquare, RotateCw } from "react-feather";
 
+import { searchResults } from "../../cdtn-api";
+
 import CDTNPicker from "./CDTNPicker";
 import Relevance from "./Relevance";
 import getRowId from "./getRowId";
@@ -131,4 +133,55 @@ const References = ({
   />
 );
 
-export default References;
+const CDTNReferences = ({ values, setFieldValue, setFieldTouched }) => (
+  <References
+    values={values.refs || []}
+    setRowValue={(i, value) => {
+      const rowId = getRowId(value._source); //return source/slug or url
+      values.refs[i].url = rowId;
+      values.refs[i].title = value._source.title;
+      setFieldValue("refs", values.refs);
+      setFieldTouched("refs");
+    }}
+    setRowRelevance={(i, value) => {
+      values.refs[i].relevance = value;
+      setFieldValue("refs", values.refs);
+      setFieldTouched("refs");
+    }}
+    onAddClick={() => {
+      setFieldTouched("refs");
+      setFieldValue(
+        "refs",
+        (values.refs || []).concat([{ title: "", url: "" }])
+      );
+    }}
+    onRemoveClick={({ index }) => {
+      values.refs.splice(index, 1);
+      setFieldValue("refs", values.refs);
+      setFieldTouched("refs");
+    }}
+    onRefreshClick={async () => {
+      const res = await searchResults(values.title);
+      // concat with current selection, removing duplicates
+      const hits =
+        (res.hits.hits &&
+          res.hits.hits
+            .filter(hit =>
+              values.refs
+                ? values.refs
+                    .map(ref => ref.url)
+                    .indexOf(getRowId(hit._source)) === -1
+                : true
+            )
+            .map(hit => ({
+              title: hit._source.title,
+              url: getRowId(hit._source)
+            }))) ||
+        [];
+      setFieldValue("refs", (values.refs || []).concat(hits));
+      setFieldTouched("refs");
+    }}
+  />
+);
+
+export default CDTNReferences;
