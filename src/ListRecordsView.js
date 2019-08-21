@@ -23,7 +23,7 @@ const getBgColor = item => {
   return "transparent";
 };
 
-const ListRecordsView = ({ bucket, collection, record, intro, onAddClick }) => (
+const ListRecordsView = ({ bucket, collection, record, onAddClick }) => (
   <ListRecords
     bucket={bucket}
     collection={collection}
@@ -66,8 +66,8 @@ const ListRecordsView = ({ bucket, collection, record, intro, onAddClick }) => (
                 }}
               >
                 <Link
-                  // href="/bucket/[bucket]/collection/[collection]/record/[record]"
-                  href={`/bucket/${bucket}/collection/${collection}/record/${
+                  href={`/bucket/[bucket]/collection/[collection]/record/[record]`}
+                  as={`/bucket/${bucket}/collection/${collection}/record/${
                     item.id
                   }`}
                   passHref

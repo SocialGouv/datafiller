@@ -21,6 +21,7 @@
     "kinto-http": "^4.7.2",
     "memoizee": "^0.4.14",
     "next": "^9.0.2",
+    "next.js": "^1.0.3",
     "node-fetch": "^2.3.0",
     "rc-tooltip": "^3.7.3",
     "react": "^16.8.4",
