@@ -5,6 +5,8 @@ import styled from "styled-components";
 import { Input } from "reactstrap";
 
 import { getLabelBySource } from "../sources";
+import { searchResults } from "../cdtn-api";
+
 import fuseInputTheme from "./fuseInputTheme";
 
 const isExternalUrl = url => url.match(/^https?:\/\//);
@@ -45,14 +47,14 @@ const renderInputComponent = inputProps => (
 const getSuggestionValue = suggestion =>
   `${suggestion._source.source}/${suggestion._source.id}`;
 
-export const Picker = ({ query, onSelect, fetchSuggestions }) => {
+export const CDTNPicker = ({ query, onSelect }) => {
   const originalQuery = query;
   return (
     <SuggestionState
-      fetchSuggestions={fetchSuggestions}
+      fetchSuggestions={searchResults}
       query={originalQuery}
       render={({ query, hits, updateQuery, forceUpdate }) => {
-        const _onChange = args => {};
+        const _onChange = () => {};
         const _onSearch = e => {
           updateQuery(e.value);
         };
@@ -60,7 +62,7 @@ export const Picker = ({ query, onSelect, fetchSuggestions }) => {
           onSelect(data.suggestion);
           forceUpdate();
         };
-        const _onClear = args => {
+        const _onClear = () => {
           updateQuery(originalQuery);
         };
         const _onBlur = e => {
@@ -153,4 +155,4 @@ const renderSuggestionsContainer = ({ containerProps, children }) => (
   <SuggestionsContainer {...containerProps}>{children}</SuggestionsContainer>
 );
 
-export default Picker;
+export default CDTNPicker;

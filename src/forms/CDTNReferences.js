@@ -3,11 +3,9 @@ import { FieldArray } from "formik";
 import { Button, Table } from "reactstrap";
 import { Trash, ExternalLink, PlusSquare, RotateCw } from "react-feather";
 
-import CDTNPicker from "../CDTNPicker";
-import Relevance from "../Relevance";
+import CDTNPicker from "./CDTNPicker";
+import Relevance from "./Relevance";
 import getRowId from "./getRowId";
-
-import { searchResults } from "../../cdtn-api";
 
 const MyTableFooter = ({ onAddClick, onRefreshClick }) => (
   <thead>
@@ -76,7 +74,6 @@ const References = ({
                     <td>
                       <CDTNPicker
                         query={getRowId(row) || ""}
-                        fetchSuggestions={searchResults}
                         onSelect={value => setRowValue(index, value)}
                       />
                     </td>

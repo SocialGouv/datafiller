@@ -55,34 +55,19 @@ export const _LeftCol = props => {
 
 const LeftCol = withRouter(_LeftCol);
 
-class Layout extends React.Component {
-  state = {
-    drawerOpen: !!this.props.LeftComponent
-  };
-  handleDrawerToggle = () => {
-    this.setState(curState => ({ drawerOpen: !curState.drawerOpen }));
-  };
-  shouldComponentUpdate(nextProps) {
-    return true;
-  }
-  render() {
-    const { config, LeftComponent, RightComponent, children } = this.props;
-
-    return (
-      <Row>
-        <Col xs={3}>
-          <LeftCol />
-        </Col>
-        <Col xs={9}>
-          <Container>
-            {RightComponent && <RightComponent />}
-            {children}
-          </Container>
-        </Col>
-      </Row>
-    );
-  }
-}
+const Layout = ({ RightComponent, children }) => (
+  <Row>
+    <Col xs={3}>
+      <LeftCol />
+    </Col>
+    <Col xs={9}>
+      <Container>
+        {RightComponent && <RightComponent />}
+        {children}
+      </Container>
+    </Col>
+  </Row>
+);
 
 Layout.defaultProps = {
   //LeftComponent: withRouter(DefaultLeftComponent),

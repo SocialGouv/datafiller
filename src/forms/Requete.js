@@ -16,10 +16,10 @@ import {
   Col
 } from "reactstrap";
 
-import { searchResults } from "../../cdtn-api";
+import { searchResults } from "../cdtn-api";
 
-import ThemePicker from "../ThemePicker";
-import References from "./References";
+import ThemePicker from "./ThemePicker";
+import References from "./CDTNReferences";
 import getRowId from "./getRowId";
 
 const DataSchema = Yup.object().shape({
