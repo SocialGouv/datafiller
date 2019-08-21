@@ -10,6 +10,7 @@ import {
   Container,
   Form,
   FormGroup,
+  Jumbotron,
   Label,
   Input,
   Row,
@@ -50,156 +51,157 @@ const StyledForm = styled(Form)`
 const ThemeForm = ({ data, onSubmit, onDelete }) => {
   return (
     <Container>
-      <div>
-        <Formik
-          initialValues={data}
-          validationSchema={DataSchema}
-          onSubmit={(values, actions) => {
-            actions.setSubmitting(false);
-            onSubmit(values).then(() => {
-              actions.setStatus({ msg: "Données enregistrées" });
-              actions.setTouched(false);
-            });
-          }}
-          render={({
-            values,
-            errors,
-            status,
-            touched,
-            handleBlur,
-            handleChange,
-            setFieldValue,
-            handleSubmit,
-            setFieldTouched,
-            isSubmitting
-          }) => (
-            <StyledForm onSubmit={handleSubmit}>
-              <FormGroup row>
-                <Label>Titre du thème</Label>
-                <Input
-                  name="title"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  defaultValue={(values && values.title) || ""}
-                />
-              </FormGroup>
-              <FormGroup row>
-                <Label>Sous-Titre du thème</Label>
-                <Input
-                  name="subTitle"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  defaultValue={(values && values.subTitle) || ""}
-                />
-              </FormGroup>
-              <FormGroup row>
-                <Label>
-                  Introdution (
-                  <a
-                    href="https://gist.github.com/revolunet/3db0d7f312aa661437a6"
-                    target="_blank"
-                    rel="noopener nofollower"
-                  >
-                    markdown
-                  </a>
-                  )
-                </Label>
-                <MultiLineInput
-                  name="introduction"
-                  rows={5}
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  defaultValue={(values && values.introduction) || ""}
-                />
-              </FormGroup>
-              <FormGroup row>
-                <Label>Questions types (une par ligne)</Label>
-                <MultiLineInput
-                  name="variants"
-                  rows={10}
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  defaultValue={(values && values.variants) || ""}
-                />
-              </FormGroup>
+      <Jumbotron>
+        <h1>Thèmes</h1>
+      </Jumbotron>
+      <Formik
+        initialValues={data}
+        validationSchema={DataSchema}
+        onSubmit={(values, actions) => {
+          actions.setSubmitting(false);
+          onSubmit(values).then(() => {
+            actions.setStatus({ msg: "Données enregistrées" });
+            actions.setTouched(false);
+          });
+        }}
+        render={({
+          values,
+          errors,
+          status,
+          touched,
+          handleBlur,
+          handleChange,
+          setFieldValue,
+          handleSubmit,
+          setFieldTouched,
+          isSubmitting
+        }) => (
+          <StyledForm onSubmit={handleSubmit}>
+            <FormGroup row>
+              <Label>Titre du thème</Label>
+              <Input
+                name="title"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                defaultValue={(values && values.title) || ""}
+              />
+            </FormGroup>
+            <FormGroup row>
+              <Label>Sous-Titre du thème</Label>
+              <Input
+                name="subTitle"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                defaultValue={(values && values.subTitle) || ""}
+              />
+            </FormGroup>
+            <FormGroup row>
+              <Label>
+                Introdution (
+                <a
+                  href="https://gist.github.com/revolunet/3db0d7f312aa661437a6"
+                  target="_blank"
+                  rel="noopener nofollower"
+                >
+                  markdown
+                </a>
+                )
+              </Label>
+              <MultiLineInput
+                name="introduction"
+                rows={5}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                defaultValue={(values && values.introduction) || ""}
+              />
+            </FormGroup>
+            <FormGroup row>
+              <Label>Questions types (une par ligne)</Label>
+              <MultiLineInput
+                name="variants"
+                rows={10}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                defaultValue={(values && values.variants) || ""}
+              />
+            </FormGroup>
 
-              <FormGroup row>
-                <Label>Thème parent</Label>
-                <ThemePicker
-                  name="parent"
-                  value={values.parent || ""}
-                  onChange={theme => {
-                    setFieldValue("parent", theme.id);
-                    setFieldTouched("parent");
+            <FormGroup row>
+              <Label>Thème parent</Label>
+              <ThemePicker
+                name="parent"
+                value={values.parent || ""}
+                onChange={theme => {
+                  setFieldValue("parent", theme.id);
+                  setFieldTouched("parent");
+                }}
+              />
+            </FormGroup>
+
+            <FormGroup row>
+              <Label>Résultats à afficher</Label>
+              <CDTNReferences
+                values={values}
+                setFieldValue={setFieldValue}
+                setFieldTouched={setFieldTouched}
+              />
+            </FormGroup>
+
+            {/* show formik errors */}
+            {(Object.keys(errors).length && (
+              <Alert color="danger" style={{ margin: "15px 0" }}>
+                {Object.keys(errors)
+                  .map(key => errors[key])
+                  .map(error => (
+                    <Alert key={error} color="error">
+                      {error}
+                    </Alert>
+                  ))}
+              </Alert>
+            )) ||
+              null}
+            {/* show submit status */}
+            {status && status.msg && (
+              <Alert color="success" style={{ margin: "15px 0" }}>
+                <CheckCircle /> {status.msg}
+              </Alert>
+            )}
+
+            <Row spacing={24}>
+              <Col xs={6}>
+                <Button
+                  color="primary"
+                  style={{ whiteSpace: "nowrap", marginTop: 20 }}
+                  variant="contained"
+                  type="submit"
+                  disabled={
+                    // disable when errors, nothing changed or while submitting
+                    !!Object.keys(errors).length ||
+                    !Object.keys(touched).length ||
+                    isSubmitting
+                  }
+                >
+                  Enregistrer
+                </Button>
+              </Col>
+              <Col xs={6} style={{ textAlign: "right" }}>
+                <Button
+                  style={{
+                    marginLeft: 20,
+                    whiteSpace: "nowrap",
+                    marginTop: 20
                   }}
-                />
-              </FormGroup>
-
-              <FormGroup row>
-                <Label>Résultats à afficher</Label>
-                <CDTNReferences
-                  values={values}
-                  setFieldValue={setFieldValue}
-                  setFieldTouched={setFieldTouched}
-                />
-              </FormGroup>
-
-              {/* show formik errors */}
-              {(Object.keys(errors).length && (
-                <Alert color="danger" style={{ margin: "15px 0" }}>
-                  {Object.keys(errors)
-                    .map(key => errors[key])
-                    .map(error => (
-                      <Alert key={error} color="error">
-                        {error}
-                      </Alert>
-                    ))}
-                </Alert>
-              )) ||
-                null}
-              {/* show submit status */}
-              {status && status.msg && (
-                <Alert color="success" style={{ margin: "15px 0" }}>
-                  <CheckCircle /> {status.msg}
-                </Alert>
-              )}
-
-              <Row spacing={24}>
-                <Col xs={6}>
-                  <Button
-                    color="primary"
-                    style={{ whiteSpace: "nowrap", marginTop: 20 }}
-                    variant="contained"
-                    type="submit"
-                    disabled={
-                      // disable when errors, nothing changed or while submitting
-                      !!Object.keys(errors).length ||
-                      !Object.keys(touched).length ||
-                      isSubmitting
-                    }
-                  >
-                    Enregistrer
-                  </Button>
-                </Col>
-                <Col xs={6} style={{ textAlign: "right" }}>
-                  <Button
-                    style={{
-                      marginLeft: 20,
-                      whiteSpace: "nowrap",
-                      marginTop: 20
-                    }}
-                    color="danger"
-                    type="button"
-                    onClick={onDelete}
-                  >
-                    Supprimer
-                  </Button>
-                </Col>
-              </Row>
-            </StyledForm>
-          )}
-        />
-      </div>
+                  color="danger"
+                  type="button"
+                  onClick={onDelete}
+                >
+                  Supprimer
+                </Button>
+              </Col>
+            </Row>
+          </StyledForm>
+        )}
+      />
     </Container>
   );
 };

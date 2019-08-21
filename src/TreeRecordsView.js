@@ -1,41 +1,11 @@
 import React from "react";
-import ReactDOM from "react-dom";
-
-import ListRecords from "../src/kinto/ListRecords";
-
 import { ListGroup, ListGroupItem } from "reactstrap";
-
 import { PlusSquare, Home } from "react-feather";
-
-import KintoContext from "./kinto/KintoContext";
-
 import Link from "next/link";
 
-const ThemeLink = ({ bucket, collection, record, item, focus = false }) => (
-  <Link
-    href={`/bucket/[bucket]/collection/[collection]/record/[record]`}
-    as={`/bucket/${bucket}/collection/${collection}/record/${item.id}`}
-    passHref
-    ref={node => {
-      // hack
-      if (focus) {
-        const me = ReactDOM.findDOMNode(node);
-        if (me) {
-          setTimeout(() => {
-            me.parentNode.parentNode.scrollTop =
-              me.parentNode.offsetTop -
-              me.parentNode.offsetHeight -
-              me.offsetHeight;
-          });
-        }
-      }
-    }}
-  >
-    <a style={{ color: item.id === record ? "white" : "auto" }}>
-      {item.title || "-----"}
-    </a>
-  </Link>
-);
+import ListRecords from "../src/kinto/ListRecords";
+import KintoContext from "./kinto/KintoContext";
+import ThemeLink from "./ThemeLink";
 
 const renderChildren = ({
   parent,
@@ -54,9 +24,7 @@ const renderChildren = ({
           active={item.id === record}
           title={item.title}
           style={{
-            //backgroundColor: item.id !== record && getBgColor(item),
             paddingLeft: 15 * (depth + 1)
-            // border: 0
           }}
         >
           <ThemeLink

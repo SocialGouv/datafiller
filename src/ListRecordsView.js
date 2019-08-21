@@ -1,15 +1,12 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import Link from "next/link";
+import { ListGroup, ListGroupItem } from "reactstrap";
+import { PlusSquare, Home } from "react-feather";
 
 import ListRecords from "../src/kinto/ListRecords";
 
-import { ListGroup, ListGroupItem } from "reactstrap";
-
-import { PlusSquare, Home } from "react-feather";
-
 import KintoContext from "./kinto/KintoContext";
-
-import Link from "next/link";
+import ThemeLink from "./ThemeLink";
 
 const getBgColor = item => {
   if (item.refs && item.refs.filter(i => !!i.url).length > 0) {
@@ -65,31 +62,12 @@ const ListRecordsView = ({ bucket, collection, record, onAddClick }) => (
                   backgroundColor: item.id !== record && getBgColor(item)
                 }}
               >
-                <Link
-                  href={`/bucket/[bucket]/collection/[collection]/record/[record]`}
-                  as={`/bucket/${bucket}/collection/${collection}/record/${
-                    item.id
-                  }`}
-                  passHref
-                  ref={node => {
-                    // hack : position list to the current selected item
-                    if (item.id === record) {
-                      const me = ReactDOM.findDOMNode(node);
-                      if (me) {
-                        setTimeout(() => {
-                          me.parentNode.parentNode.scrollTop =
-                            me.parentNode.offsetTop -
-                            me.parentNode.offsetHeight -
-                            me.offsetHeight;
-                        });
-                      }
-                    }
-                  }}
-                >
-                  <a style={{ color: item.id === record ? "white" : "auto" }}>
-                    {item.title || "EMPTY ?"}
-                  </a>
-                </Link>
+                <ThemeLink
+                  bucket={bucket}
+                  collection={collection}
+                  item={item}
+                  record={record}
+                />
               </ListGroupItem>
             ))}
           </div>

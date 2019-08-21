@@ -10,6 +10,7 @@ import {
   Container,
   Form,
   FormGroup,
+  Jumbotron,
   Label,
   Input,
   Row,
@@ -65,6 +66,9 @@ const RequeteForm = ({ data, onSubmit, onDelete }) => {
 
   return (
     <Container>
+      <Jumbotron>
+        <h1>Requêtes</h1>
+      </Jumbotron>
       <div ref={node => (root = node)}>
         <Formik
           initialValues={data}
