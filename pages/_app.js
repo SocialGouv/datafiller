@@ -27,10 +27,10 @@ const leftComponents = {
 };
 
 export const ListRecords = ({ router }) => {
-  const LeftComponent = leftComponents[collection] || leftComponents.default;
   const bucket = router.query.bucket;
   const record = router.query.record;
   const collection = router.query.collection;
+  const LeftComponent = leftComponents[collection] || leftComponents.default;
   if (bucket && collection) {
     return (
       <LeftComponent
