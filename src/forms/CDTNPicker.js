@@ -2,10 +2,10 @@ import React from "react";
 import Autosuggest from "react-autosuggest";
 import styled from "styled-components";
 
-import TextField from "@material-ui/core/TextField";
+import { Input } from "reactstrap";
 
 import { getLabelBySource } from "../sources";
-import suggesterTheme from "./suggesterTheme";
+import fuseInputTheme from "./fuseInputTheme";
 
 const isExternalUrl = url => url.match(/^https?:\/\//);
 
@@ -39,8 +39,11 @@ class SuggestionState extends React.Component {
 }
 
 const renderInputComponent = inputProps => (
-  <TextField {...inputProps} innerRef={inputProps.ref} />
+  <Input {...inputProps} innerRef={inputProps.ref} />
 );
+
+const getSuggestionValue = suggestion =>
+  `${suggestion._source.source}/${suggestion._source.id}`;
 
 export const Picker = ({ query, onSelect, fetchSuggestions }) => {
   const originalQuery = query;
@@ -72,14 +75,13 @@ export const Picker = ({ query, onSelect, fetchSuggestions }) => {
           name: "query",
           placeholder: "ex: L4212",
           type: "search",
-          fullWidth: true,
           value: query,
           onChange: _onChange,
           onBlur: _onBlur
         };
         return (
           <Autosuggest
-            theme={suggesterTheme}
+            theme={fuseInputTheme}
             suggestions={hits}
             focusInputOnSuggestionClick={false} // prevent some ref issues
             alwaysRenderSuggestions={false}
@@ -97,9 +99,6 @@ export const Picker = ({ query, onSelect, fetchSuggestions }) => {
     />
   );
 };
-
-const getSuggestionValue = suggestion =>
-  `${suggestion._source.source}/${suggestion._source.id}`;
 
 const cleanHtml = html =>
   html

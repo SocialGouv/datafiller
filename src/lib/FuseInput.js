@@ -3,23 +3,21 @@ import PropTypes from "prop-types";
 import Autosuggest from "react-autosuggest";
 import Fuse from "fuse.js";
 import getSlug from "speakingurl";
-import TextField from "@material-ui/core/TextField";
-import styled from "styled-components";
 
-import suggesterTheme from "../forms/suggesterTheme";
+import styled from "styled-components";
 
 const DEFAULT_FUSE_OPTIONS = {
   shouldSort: true,
-  //tokenize: true,
-  //matchAllTokens: true,
+  tokenize: true,
+  matchAllTokens: true,
   includeMatches: true,
-  //findAllMatches: true,
+  findAllMatches: true,
   includeScore: true,
   threshold: 0.75,
-  //location: 0,
-  //distance: 100,
-  maxPatternLength: 16,
-  minMatchCharLength: 3,
+  location: 0,
+  distance: 100,
+  maxPatternLength: 25,
+  minMatchCharLength: 4,
   keys: ["labelNormalized"]
 };
 
@@ -32,7 +30,7 @@ const normalize = str =>
     uric: true,
     uricNoSlash: true,
     maintainCase: true
-  });
+  }).toLowerCase();
 
 const SuggestionContainer = styled.div`
   p {
@@ -43,28 +41,6 @@ const SuggestionContainer = styled.div`
     background: yellow;
   }
 `;
-
-// const renderSuggestion = suggestion => {
-//   const source = getLabelBySource(suggestion._source.source);
-//   return (
-//     <SuggestionContainer>
-//       <b>
-//         {source ? `${source} | ` : ""} {suggestion._source.title}
-//       </b>
-//       <br />
-//       <div
-//         dangerouslySetInnerHTML={{
-//           __html: cleanHtml(
-//             (suggestion.highlight &&
-//               suggestion.highlight["all_text.french_exact"] &&
-//               suggestion.highlight["all_text.french_exact"][0]) ||
-//               ""
-//           )
-//         }}
-//       />
-//     </SuggestionContainer>
-//   );
-// };
 
 // render a highlighted html with span.fuse-highlighter from a fuse.js suggestion and a query.
 const FuseHighLighter = ({ suggestion, query, style, labelKey }) => {
@@ -155,18 +131,16 @@ class FuseInput extends React.Component {
 
   render() {
     const { value, suggestions } = this.state;
-
     const inputProps = {
       value,
       type: "search",
-      fullWidth: true,
       onChange: this.onChange,
       placeholder: this.props.placeholder
     };
 
     return (
       <Autosuggest
-        theme={suggesterTheme}
+        theme={this.props.theme}
         highlightFirstSuggestion={false}
         focusInputOnSuggestionClick={false}
         suggestions={suggestions}
@@ -183,8 +157,10 @@ class FuseInput extends React.Component {
   }
 }
 
+import { Input } from "reactstrap";
+
 const renderInputComponent = inputProps => (
-  <TextField {...inputProps} innerRef={inputProps.ref} />
+  <Input {...inputProps} innerRef={inputProps.ref} />
 );
 
 const SuggestionsContainer = styled.div`
@@ -211,7 +187,7 @@ FuseInput.propTypes = {
   placeholder: PropTypes.string,
   labelKey: PropTypes.string,
   data: PropTypes.array.isRequired,
-  getSuggestionValue: PropTypes.function
+  getSuggestionValue: PropTypes.func
 };
 
 FuseInput.defaultProps = {

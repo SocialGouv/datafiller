@@ -1,80 +1,57 @@
 import React from "react";
 
-import { withStyles } from "@material-ui/core/styles";
-import { Grid } from "@material-ui/core";
-
 import ListRecordsView from "../src/ListRecordsView";
-import Drawer from "./Drawer";
+
+import { Container, Row, Col } from "reactstrap";
 
 import { withRouter } from "next/router";
 
-const styles = theme => ({
-  root: {
-    display: "flex"
-  },
-  toolbar: {
-    paddingRight: 24 // keep right padding when drawer closed
-  },
-  toolbarIcon: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "flex-end",
-    padding: "0 8px",
-    ...theme.mixins.toolbar
-  },
+const TreeRecordsView = () => <div>io</div>;
 
-  menuButton: {
-    marginLeft: 6,
-    marginRight: 6
-  },
-  menuButtonHidden: {
-    display: "none"
-  },
-  title: {
-    flexGrow: 1
-  },
-  drawerPaper: {
-    whiteSpace: "nowrap",
-    background: "#fcfcfc",
-    width: 300,
-    position: "relative"
-  },
+const leftComponents = {
+  themes: TreeRecordsView,
+  default: ListRecordsView
+};
 
-  appBarSpacer: theme.mixins.toolbar,
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
-    height: "100vh",
-    overflow: "auto"
+export const _LeftCol = props => {
+  const LeftComponent =
+    leftComponents[props.router.query.collection] || leftComponents.default;
+  if (props.router.query.bucket && props.router.query.collection) {
+    return (
+      <LeftComponent
+        {...props.router.query}
+        onAddClick={async ({ client }) => {
+          const defaultRecordData = {
+            requetes: { title: "", intro: "", theme: null, refs: [{}] },
+            ccns: { title: "", groups: {}, intro: "" }
+          };
+          const result = await client
+            .bucket(props.router.query.bucket, { headers: {} })
+            .collection(props.router.query.collection, { headers: {} })
+            .createRecord(defaultRecordData[props.router.query.collection], {
+              headers: {}
+            });
+
+          props.router.push(
+            `/bucket/${props.router.query.bucket}/collection/${
+              props.router.query.collection
+            }/record/${result.data.id}`
+          );
+
+          // hack
+          setTimeout(() => {
+            const target = document.querySelector("textarea[name='title']");
+            if (target) {
+              target.focus();
+            }
+          }, 200);
+        }}
+        intro="Restant à compléter"
+      />
+    );
   }
-});
-
-export const _LeftCol = props =>
-  (props.router.query.bucket && props.router.query.collection && (
-    <ListRecordsView
-      {...props.router.query}
-      onAddClick={async ({ client }) => {
-        const result = await client
-          .bucket(props.router.query.bucket)
-          .collection(props.router.query.collection)
-          .createRecord({ title: "", refs: [{}] });
-
-        props.router.push(
-          `/bucket/${props.router.query.bucket}/collection/${props.router.query.collection}/record/${result.data.id}`
-        );
-
-        // hack
-        setTimeout(() => {
-          const target = document.querySelector("textarea[name='title']");
-          if (target) {
-            target.focus();
-          }
-        }, 200);
-      }}
-      intro="Restant à compléter"
-    />
-  )) ||
-  null;
+  return null;
+};
 
 const LeftCol = withRouter(_LeftCol);
 
@@ -89,33 +66,20 @@ class Layout extends React.Component {
     return true;
   }
   render() {
-    const {
-      config,
-      classes,
-      LeftComponent,
-      RightComponent,
-      children
-    } = this.props;
+    const { config, LeftComponent, RightComponent, children } = this.props;
 
     return (
-      <Grid container>
-        <Grid item xs={3}>
-          <Drawer
-            config={config}
-            classes={classes}
-            handleDrawerToggle={this.handleDrawerToggle}
-            drawerOpen={this.state.drawerOpen}
-          >
-            <LeftCol />
-          </Drawer>
-        </Grid>
-        <Grid item xs={9}>
-          <main className={classes.content}>
+      <Row>
+        <Col xs={3}>
+          <LeftCol />
+        </Col>
+        <Col xs={9}>
+          <Container>
             {RightComponent && <RightComponent />}
             {children}
-          </main>
-        </Grid>
-      </Grid>
+          </Container>
+        </Col>
+      </Row>
     );
   }
 }
@@ -125,4 +89,4 @@ Layout.defaultProps = {
   RightComponent: null
 };
 
-export default withStyles(styles)(Layout);
+export default Layout;

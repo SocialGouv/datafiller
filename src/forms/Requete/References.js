@@ -1,34 +1,18 @@
 import React from "react";
 import { FieldArray } from "formik";
+import { Button, Table } from "reactstrap";
+import { Trash, ExternalLink, PlusSquare, RotateCw } from "react-feather";
 
-import {
-  Button,
-  Table,
-  TableHead,
-  TableRow,
-  TableBody,
-  TableCell,
-  TableFooter,
-  IconButton
-} from "@material-ui/core";
-
-import {
-  Delete as DeleteIcon,
-  OpenInNew as OpenInNewIcon,
-  AddBox as AddBoxIcon,
-  Refresh as RefreshIcon
-} from "@material-ui/icons";
-
-import CDTNPicker from "./CDTNPicker";
-import Relevance from "./Relevance";
+import CDTNPicker from "../CDTNPicker";
+import Relevance from "../Relevance";
 import getRowId from "./getRowId";
 
-import { searchResults } from "../cdtn-api";
+import { searchResults } from "../../cdtn-api";
 
 const MyTableFooter = ({ onAddClick, onRefreshClick }) => (
-  <TableFooter>
-    <TableRow>
-      <TableCell>
+  <thead>
+    <tr>
+      <td>
         <Button
           onClick={onAddClick}
           size="small"
@@ -40,25 +24,26 @@ const MyTableFooter = ({ onAddClick, onRefreshClick }) => (
           }}
           variant="contained"
         >
-          <AddBoxIcon size={16} style={{ marginRight: 10 }} />
+          <PlusSquare size={16} style={{ marginRight: 10 }} />
           Ajouter une référence
         </Button>
-      </TableCell>
-      <TableCell />
-      <TableCell>
+      </td>
+      <td />
+      <td>
         <Button
           onClick={onRefreshClick}
+          color="success"
           size="small"
           style={{ whiteSpace: "nowrap", marginTop: 20 }}
           variant="contained"
         >
-          <RefreshIcon size={16} style={{ marginRight: 10 }} />
+          <RotateCw size={16} style={{ marginRight: 10 }} />
           Charger depuis CDTN
         </Button>
-      </TableCell>
-      <TableCell />
-    </TableRow>
-  </TableFooter>
+      </td>
+      <td />
+    </tr>
+  </thead>
 );
 
 // handle multiple references
@@ -74,30 +59,33 @@ const References = ({
     name="refs"
     render={({ remove }) => (
       <Table padding="dense">
-        <TableHead>
-          <TableRow>
-            {["Résultat", "-", "Pertinence"].map(col => (
-              <TableCell key={col}>{col}</TableCell>
-            ))}
-            <TableCell key="remove">-</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
+        <thead>
+          <tr>
+            <td>Résultat</td>
+            <td>-</td>
+            <td style={{ textAlign: "center" }}>Pertinence</td>
+            <td>-</td>
+          </tr>
+        </thead>
+        <tbody>
           {values &&
             values.map(
               (row, index) =>
                 row && (
-                  <TableRow index={index} key={row + index}>
-                    <TableCell>
+                  <tr index={index} key={row + index}>
+                    <td>
                       <CDTNPicker
                         query={getRowId(row) || ""}
                         fetchSuggestions={searchResults}
                         onSelect={value => setRowValue(index, value)}
                       />
-                    </TableCell>
-                    <TableCell style={{ width: 25, padding: 0 }}>
-                      <IconButton
-                        aria-label="Preview"
+                    </td>
+                    <td
+                      style={{ width: 25, padding: 0, verticalAlign: "middle" }}
+                    >
+                      <ExternalLink
+                        size={16}
+                        style={{ cursor: "pointer" }}
                         onClick={() => {
                           const CDTN_URL =
                             "https://codedutravail-dev.num.social.gouv.fr";
@@ -107,33 +95,36 @@ const References = ({
                               : row.url;
                           window.open(url);
                         }}
-                      >
-                        <OpenInNewIcon size="medium" />
-                      </IconButton>
-                    </TableCell>
-                    <TableCell
-                      style={{ width: 250, padding: 0 }}
+                      />
+                    </td>
+                    <td
+                      style={{
+                        width: 200,
+                        padding: 0,
+                        verticalAlign: "middle"
+                      }}
                       align="center"
                     >
                       <Relevance
                         value={row.relevance}
                         onChange={value => setRowRelevance(index, value)}
                       />
-                    </TableCell>
-                    <TableCell style={{ width: 25, padding: 0 }}>
-                      <IconButton
-                        aria-label="Supprimer"
+                    </td>
+                    <td
+                      style={{ width: 16, padding: 0, verticalAlign: "middle" }}
+                    >
+                      <Trash
+                        size={16}
                         onClick={() => {
                           onRemoveClick({ remove, index });
                         }}
-                      >
-                        <DeleteIcon size="medium" />
-                      </IconButton>
-                    </TableCell>
-                  </TableRow>
+                        style={{ cursor: "pointer", color: "#d63626" }}
+                      />
+                    </td>
+                  </tr>
                 )
             )}
-        </TableBody>
+        </tbody>
         <MyTableFooter
           onAddClick={onAddClick}
           onRefreshClick={onRefreshClick}

@@ -2,9 +2,16 @@ import React, { useState, useContext } from "react";
 import useFetch from "react-fetch-hook";
 import Tooltip from "rc-tooltip";
 
-import Typography from "@material-ui/core/Typography";
-import { Search as SearchIcon } from "@material-ui/icons";
-import { Card, Chip, CardContent } from "@material-ui/core";
+import {
+  Badge,
+  Card,
+  CardBody,
+  Container,
+  FormGroup,
+  Jumbotron,
+  Label,
+  Input
+} from "reactstrap";
 
 import "rc-tooltip/assets/bootstrap_white.css";
 
@@ -97,35 +104,33 @@ const Article = ({ article, idTexte, onSelectGroup }) => {
           </div>
         ))}
       </div>
-      <Typography component="span">
-        <Chip
-          color="primary"
-          {...formatEtat(article.etat)}
-          style={{ fontSize: 10, margin: "0 5px", minWidth: 30 }}
-          size="small"
-        />
-        <Tooltip
-          overlayStyle={{ maxWidth: "50%" }}
-          placement="bottom"
-          trigger={["click"]}
-          overlay={
-            <Typography dangerouslySetInnerHTML={{ __html: article.content }} />
-          }
-        >
-          <span style={{ cursor: "pointer" }}>
-            Article {article.num || "-"} {article.surtitre || null}
-          </span>
-        </Tooltip>
+      <Badge
+        color="primary"
+        {...formatEtat(article.etat)}
+        style={{ fontSize: 10, margin: "0 5px", minWidth: 30 }}
+        size="small"
+      />
+      <Tooltip
+        overlayStyle={{ maxWidth: "50%" }}
+        placement="bottom"
+        trigger={["click"]}
+        overlay={<span dangerouslySetInnerHTML={{ __html: article.content }} />}
+      >
+        <span style={{ cursor: "pointer", marginLeft: 10 }}>
+          Article {article.num || "-"} {article.surtitre || null}
+        </span>
+      </Tooltip>
 
-        <a
-          style={{ marginLeft: 5, fontSize: 12 }}
-          href={`https://www.legifrance.gouv.fr/affichIDCCArticle.do?idArticle=${article.id}&cidTexte=${idTexte}`}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Legifrance
-        </a>
-      </Typography>
+      <a
+        style={{ marginLeft: 5, fontSize: 12 }}
+        href={`https://www.legifrance.gouv.fr/affichIDCCArticle.do?idArticle=${
+          article.id
+        }&cidTexte=${idTexte}`}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Legifrance
+      </a>
     </div>
   );
 };
@@ -137,6 +142,15 @@ const formatEtat = etat =>
   }[etat]);
 
 const SelectionContext = React.createContext([]);
+
+/*
+          <div>
+            <h5>{section.title}</h5>
+            <FormGroup row>
+              <Label>Notes (privées)</Label>
+              <Input name="notes" type="textarea" rows={10} />
+            </FormGroup>
+          </div>*/
 
 const CCNSection = ({
   idConvention,
@@ -154,21 +168,22 @@ const CCNSection = ({
       }}
       className="card--section"
     >
-      <CardContent>
-        <Typography variant={depth === 0 ? `h6` : `subtitle1`}>
-          {section.title}
-          {(depth === 0 && (
-            <a
-              style={{ marginLeft: 5, fontSize: 12 }}
-              href={`https://www.legifrance.gouv.fr/affichIDCC.do?cidTexte=${section.id}&idConvention=${idConvention}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Legifrance
-            </a>
-          )) ||
-            null}
-        </Typography>
+      <CardBody>
+        {depth >= 0 && <h6>{section.title}</h6>}
+
+        {(depth === 0 && (
+          <a
+            style={{ marginLeft: 5, fontSize: 12 }}
+            href={`https://www.legifrance.gouv.fr/affichIDCC.do?cidTexte=${
+              section.id
+            }&idConvention=${idConvention}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Legifrance
+          </a>
+        )) ||
+          null}
         {section.sections.map(section => (
           <CCNSection
             key={section.id}
@@ -187,18 +202,18 @@ const CCNSection = ({
             onSelectGroup={group => onSelect(article, group)}
           />
         ))}
-      </CardContent>
+      </CardBody>
     </Card>
   );
 };
 
-const CCNPreview = ({ id, initialGroups, onGroupsUpdate }) => {
+const CCNPreview = ({ id, initialData, onDataUpdate }) => {
   // import(`@socialgouv/kali-data/data/${id}.json`);
   const { isLoading, data } = useFetch(`/api/ccn/${id}.json`, {
     formatter: response => response.json()
   });
 
-  const [groups, setGroups] = useState(initialGroups);
+  const [groups, setGroups] = useState(initialData.groups);
 
   if (isLoading || !data) {
     return <div>...</div>;
@@ -206,7 +221,7 @@ const CCNPreview = ({ id, initialGroups, onGroupsUpdate }) => {
 
   const setSelection = (node, group) => {
     // check if already present : remove it
-    const curGroup = groups.find(gr => gr.id === group.id);
+    const curGroup = groups && groups.find(gr => gr.id === group.id);
     let newGroups = curGroup
       ? // when group exist, modify or create the selection
         groups.map(gr =>
@@ -224,37 +239,62 @@ const CCNPreview = ({ id, initialGroups, onGroupsUpdate }) => {
         )
       : // when group does not exist, create it
         [
-          ...groups,
+          ...(groups || []),
           {
             id: group.id,
             selection: [node.id]
           }
         ];
     setGroups(newGroups);
-    onGroupsUpdate(newGroups);
+    onDataUpdate({
+      groups: newGroups
+    });
   };
 
   return (
-    <SelectionContext.Provider value={{ groups: initialGroups }}>
-      <CCNSection
-        idConvention={id}
-        onSelect={setSelection}
-        section={data.sections[0]}
-      />
-      ;
-    </SelectionContext.Provider>
+    <Container>
+      <SelectionContext.Provider value={{ groups: initialData.groups || [] }}>
+        <Jumbotron>
+          <h5>{data.titre}</h5>
+        </Jumbotron>
+        <Container>
+          <FormGroup row>
+            <Label>Notes privées</Label>
+            <Input
+              name="intro"
+              type="textarea"
+              rows={5}
+              onBlur={e => {
+                onDataUpdate({
+                  intro: e.target.value
+                });
+              }}
+              defaultValue={initialData.intro || ""}
+            />
+          </FormGroup>
+        </Container>
+        <CCNSection
+          idConvention={id}
+          onSelect={setSelection}
+          section={data.sections[0]}
+        />
+        ;
+      </SelectionContext.Provider>
+    </Container>
   );
 };
 
 const FormCCN = ({ data, onSubmit, onDelete }) => {
   const [formData, setFormData] = React.useState(data);
-  const onGroupsUpdate = newGroups => {
+  const onDataUpdate = patch => {
     // side-effects : general record update
-    formData.groups = newGroups;
-    //setFormData(formData);
-    onSubmit(formData)
-      .then(({ permissions, data }) => setFormData(data))
-      .catch((e, cdcc) => {
+    const newData = {
+      ...formData,
+      ...patch
+    };
+    onSubmit(newData)
+      .then(({ _, data }) => setFormData(newData))
+      .catch(e => {
         console.log(e);
         alert("Impossible de mettre à jour");
       });
@@ -264,8 +304,8 @@ const FormCCN = ({ data, onSubmit, onDelete }) => {
   return (
     <CCNPreview
       id={data.cid}
-      initialGroups={formData.groups || []}
-      onGroupsUpdate={onGroupsUpdate}
+      initialData={formData || { groups: [], intro: "" }}
+      onDataUpdate={onDataUpdate}
     />
   );
 };

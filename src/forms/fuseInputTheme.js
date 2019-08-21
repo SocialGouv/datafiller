@@ -1,5 +1,5 @@
 // see https://github.com/moroshko/react-autosuggest#themeProp
-const suggesterTheme = {
+const fuseInputTheme = {
   container: {
     flex: "1 1 100%",
     textAlign: "left",
@@ -7,6 +7,7 @@ const suggesterTheme = {
     position: "relative"
   },
   suggestionsList: {
+    width: 800,
     margin: 0,
     padding: 0,
     marginTop: ".5em",
@@ -32,4 +33,4 @@ const suggesterTheme = {
   }
 };
 
-export default suggesterTheme;
+export default fuseInputTheme;
