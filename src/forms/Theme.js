@@ -126,11 +126,11 @@ const ThemeForm = ({ data, onSubmit, onDelete }) => {
               <FormGroup row>
                 <Label>Thème parent</Label>
                 <ThemePicker
-                  name="theme"
-                  value={values.theme || ""}
+                  name="parent"
+                  value={values.parent || ""}
                   onChange={theme => {
-                    setFieldValue("theme", theme.id);
-                    setFieldTouched("theme");
+                    setFieldValue("parent", theme.id);
+                    setFieldTouched("parent");
                   }}
                 />
               </FormGroup>

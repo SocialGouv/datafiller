@@ -8,6 +8,7 @@ import { Row, Col } from "reactstrap";
 import KintoContext from "../src/kinto/KintoContext";
 import kintoClient from "../src/kinto/client";
 import ListRecordsView from "../src/ListRecordsView";
+import TreeRecordsView from "../src/TreeRecordsView";
 
 import ErrorPage from "./_error";
 
@@ -22,7 +23,7 @@ if (typeof window !== "undefined" && SENTRY_PUBLIC_DSN) {
 }
 
 const leftComponents = {
-  themes: ListRecordsView,
+  themes: TreeRecordsView,
   default: ListRecordsView
 };
 
@@ -41,7 +42,7 @@ export const ListRecords = ({ router }) => {
           const defaultRecordData = {
             requetes: { title: "", intro: "", theme: null, refs: [{}] },
             ccns: { title: "", groups: {}, intro: "" },
-            themes: { title: "", theme: null, refs: [{}] }
+            themes: { title: "", parent: null, position: null, refs: [{}] }
           };
           const result = await client
             .bucket(bucket, { headers: {} })
