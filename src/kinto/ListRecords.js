@@ -8,7 +8,7 @@ const cache = {};
 
 //  🌈 double render prop
 // render prop that render with `result` from `collection.listRecords`
-const ListRecords = ({ bucket, collection, render }) => (
+const ListRecords = ({ bucket, collection, render, sort = "title" }) => (
   <KintoFetch
     fetch={async ({ client }) => {
       const key = `${bucket}.${collection}`;
@@ -16,7 +16,7 @@ const ListRecords = ({ bucket, collection, render }) => (
         cache[key] = await client
           .bucket(bucket, { headers: {} })
           .collection(collection, { headers: {} })
-          .listRecords({ sort: "title", headers: {} });
+          .listRecords({ sort, headers: {} });
       }
       return cache[key];
     }}

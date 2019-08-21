@@ -96,8 +96,18 @@ const ThemeForm = ({ data, onSubmit, onDelete }) => {
               />
             </FormGroup>
             <FormGroup row>
+              <Label>Position du thème</Label>
+              <Input
+                name="position"
+                type="number"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                defaultValue={(values && values.position) || 1}
+              />
+            </FormGroup>
+            <FormGroup row>
               <Label>
-                Introdution (
+                Introduction (
                 <a
                   href="https://gist.github.com/revolunet/3db0d7f312aa661437a6"
                   target="_blank"
@@ -109,7 +119,7 @@ const ThemeForm = ({ data, onSubmit, onDelete }) => {
               </Label>
               <MultiLineInput
                 name="introduction"
-                rows={5}
+                rows={3}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 defaultValue={(values && values.introduction) || ""}
@@ -119,7 +129,7 @@ const ThemeForm = ({ data, onSubmit, onDelete }) => {
               <Label>Questions types (une par ligne)</Label>
               <MultiLineInput
                 name="variants"
-                rows={10}
+                rows={5}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 defaultValue={(values && values.variants) || ""}

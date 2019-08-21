@@ -17,6 +17,15 @@ const renderChildren = ({
 }) => {
   return themes
     .filter(t => t.parent === parent)
+    .sort((a, b) => {
+      if (a.position < b.position) {
+        return -1;
+      }
+      if (a.position > b.position) {
+        return 1;
+      }
+      return 0;
+    })
     .map(item => (
       <React.Fragment key={item.id}>
         <ListGroupItem
@@ -24,7 +33,7 @@ const renderChildren = ({
           active={item.id === record}
           title={item.title}
           style={{
-            paddingLeft: 15 * (depth + 1)
+            paddingLeft: 20 * (depth + 1)
           }}
         >
           <ThemeLink
