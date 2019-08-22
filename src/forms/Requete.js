@@ -10,7 +10,6 @@ import {
   Container,
   Form,
   FormGroup,
-  Jumbotron,
   Label,
   Input,
   Row,
@@ -48,27 +47,10 @@ const StyledForm = styled(Form)`
   }
 `;
 
-const RequeteForm = ({ data, onSubmit, onDelete }) => {
-  let root;
-
-  const focusLastInput = () => {
-    try {
-      if (root) {
-        const nodes = root.querySelectorAll("input[type='search']");
-        if (nodes && nodes.length) {
-          nodes[nodes.length - 1].focus();
-        }
-      }
-    } catch (e) {
-      console.log("cannot focus last input", e);
-    }
-  };
-
-  return (
+const RequeteForm = ({ data, onSubmit, onDelete }) => (
+  <React.Fragment>
+    <h1 style={{ margin: "1em 0" }}>Requêtes</h1>
     <Container>
-      <Jumbotron>
-        <h1>Requêtes</h1>
-      </Jumbotron>
       <div ref={node => (root = node)}>
         <Formik
           initialValues={data}
@@ -215,7 +197,7 @@ const RequeteForm = ({ data, onSubmit, onDelete }) => {
         />
       </div>
     </Container>
-  );
-};
+  </React.Fragment>
+);
 
 export default RequeteForm;

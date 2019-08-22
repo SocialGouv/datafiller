@@ -67,6 +67,7 @@ const ListRecordsView = ({ bucket, collection, record, onAddClick }) => (
                   collection={collection}
                   item={item}
                   record={record}
+                  focus={item.id === record}
                 />
               </ListGroupItem>
             ))}

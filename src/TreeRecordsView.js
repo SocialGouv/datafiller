@@ -41,6 +41,7 @@ const renderChildren = ({
             collection={collection}
             item={item}
             record={record}
+            focus={item.id === record}
           />
         </ListGroupItem>
         {renderChildren({

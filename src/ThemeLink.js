@@ -17,7 +17,8 @@ const ThemeLink = ({ bucket, collection, record, item, focus = false }) => (
             me.parentNode.parentNode.scrollTop =
               me.parentNode.offsetTop -
               me.parentNode.offsetHeight -
-              me.offsetHeight;
+              me.offsetHeight -
+              50;
           });
         }
       }

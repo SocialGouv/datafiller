@@ -48,12 +48,10 @@ const StyledForm = styled(Form)`
   }
 `;
 
-const ThemeForm = ({ data, onSubmit, onDelete }) => {
-  return (
+const ThemeForm = ({ data, onSubmit, onDelete }) => (
+  <React.Fragment>
+    <h1 style={{ margin: "1em 0" }}>Thèmes</h1>
     <Container>
-      <Jumbotron>
-        <h1>Thèmes</h1>
-      </Jumbotron>
       <Formik
         initialValues={data}
         validationSchema={DataSchema}
@@ -213,7 +211,7 @@ const ThemeForm = ({ data, onSubmit, onDelete }) => {
         )}
       />
     </Container>
-  );
-};
+  </React.Fragment>
+);
 
 export default ThemeForm;
