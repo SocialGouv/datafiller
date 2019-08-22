@@ -17,11 +17,13 @@
     "express": "^4.16.4",
     "formik": "^1.5.1",
     "fuse.js": "^3.4.4",
+    "google-spreadsheets": "^2.0.0",
     "http-proxy-middleware": "^0.19.1",
-    "kinto-http": "^4.7.2",
+    "kinto-http": "^4.7.3",
     "memoizee": "^0.4.14",
     "next": "^9.0.4",
     "node-fetch": "^2.3.0",
+    "p-all": "^2.1.0",
     "rc-tooltip": "^3.7.3",
     "react": "^16.8.4",
     "react-autosuggest": "^9.4.3",
@@ -41,6 +43,7 @@
     "@socialgouv/eslint-config-react": "^0.9.3",
     "@socialgouv/eslint-config-recommended": "^0.9.3",
     "eslint": "^6.1.0",
+    "esm": "^3.2.25",
     "prettier": "^1.16.4"
   }
 }
