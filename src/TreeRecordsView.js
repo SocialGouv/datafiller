@@ -63,39 +63,44 @@ const TreeRecordsView = ({ bucket, collection, record, onAddClick }) => (
     render={({ result }) => {
       const themes = result.data;
       return (
-        <React.Fragment>
-          <ListGroup>
-            <ListGroupItem action>
-              <Link href="/" passHref>
-                <a>
-                  <Home style={{ marginRight: 5, verticalAlign: "middle" }} />{" "}
-                  Accueil
+        <ListGroup
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            height: "100vh",
+            position: "absolute"
+          }}
+        >
+          <ListGroupItem action style={{ flex: "0 0 auto" }}>
+            <Link href="/" passHref>
+              <a>
+                <Home style={{ marginRight: 5, verticalAlign: "middle" }} />{" "}
+                Accueil
+              </a>
+            </Link>
+          </ListGroupItem>
+          <ListGroupItem style={{ flex: "0 0 auto" }}>
+            <KintoContext.Consumer>
+              {({ client }) => (
+                <a href="#" onClick={() => onAddClick({ client })}>
+                  <PlusSquare
+                    style={{ marginRight: 5, verticalAlign: "middle" }}
+                  />
+                  Ajouter une entrée
                 </a>
-              </Link>
-            </ListGroupItem>
-            <ListGroupItem>
-              <KintoContext.Consumer>
-                {({ client }) => (
-                  <a href="#" onClick={() => onAddClick({ client })}>
-                    <PlusSquare
-                      style={{ marginRight: 5, verticalAlign: "middle" }}
-                    />
-                    Ajouter une entrée
-                  </a>
-                )}
-              </KintoContext.Consumer>
-            </ListGroupItem>
-            <div style={{ overflow: "scroll", height: "100vh" }}>
-              {renderChildren({
-                parent: null,
-                record,
-                bucket,
-                collection,
-                themes
-              })}
-            </div>
-          </ListGroup>
-        </React.Fragment>
+              )}
+            </KintoContext.Consumer>
+          </ListGroupItem>
+          <div style={{ overflow: "scroll" }}>
+            {renderChildren({
+              parent: null,
+              record,
+              bucket,
+              collection,
+              themes
+            })}
+          </div>
+        </ListGroup>
       );
     }}
   />

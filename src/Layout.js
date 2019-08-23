@@ -16,7 +16,6 @@ const leftComponents = {
 export const _LeftCol = props => {
   const LeftComponent =
     leftComponents[props.router.query.collection] || leftComponents.default;
-  console.log("LeftComponent", LeftComponent);
   if (props.router.query.bucket && props.router.query.collection) {
     return (
       <LeftComponent

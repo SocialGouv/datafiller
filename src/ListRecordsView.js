@@ -26,8 +26,15 @@ const ListRecordsView = ({ bucket, collection, record, onAddClick }) => (
     collection={collection}
     render={({ result }) => (
       <React.Fragment>
-        <ListGroup>
-          <ListGroupItem action>
+        <ListGroup
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            height: "100vh",
+            position: "absolute"
+          }}
+        >
+          <ListGroupItem action style={{ flex: "0 0 auto" }}>
             <Link href="/" passHref>
               <a>
                 <Home style={{ marginRight: 5, verticalAlign: "middle" }} />{" "}
@@ -37,7 +44,7 @@ const ListRecordsView = ({ bucket, collection, record, onAddClick }) => (
           </ListGroupItem>
 
           {(collection === "requetes" && (
-            <ListGroupItem>
+            <ListGroupItem style={{ flex: "0 0 auto" }}>
               <KintoContext.Consumer>
                 {({ client }) => (
                   <a href="#" onClick={() => onAddClick({ client })}>
@@ -51,7 +58,7 @@ const ListRecordsView = ({ bucket, collection, record, onAddClick }) => (
             </ListGroupItem>
           )) ||
             null}
-          <div style={{ overflow: "scroll", height: "100vh" }}>
+          <div style={{ overflow: "scroll" }}>
             {result.data.map(item => (
               <ListGroupItem
                 action
