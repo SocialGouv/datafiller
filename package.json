@@ -31,7 +31,7 @@
     "react-feather": "^2.0.3",
     "react-fetch-hook": "^1.6.4",
     "react-jss": "^8.6.1",
-    "react-sortable-hoc": "^1.4.0",
+    "react-sortable-hoc": "^1.10.1",
     "reactstrap": "^8.0.1",
     "sentry-testkit": "^2.2.1",
     "speakingurl": "^14.0.1",

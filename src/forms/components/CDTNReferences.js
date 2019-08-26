@@ -1,7 +1,8 @@
 import React from "react";
 import { FieldArray } from "formik";
 import { Button, Table } from "reactstrap";
-import { Trash, ExternalLink, PlusSquare, RotateCw } from "react-feather";
+import { Trash, ExternalLink, PlusSquare, RotateCw, Menu } from "react-feather";
+import { SortableContainer, SortableElement } from "react-sortable-hoc";
 
 import { searchResults } from "../../cdtn-api";
 
@@ -9,10 +10,10 @@ import CDTNPicker from "./CDTNPicker";
 import Relevance from "./Relevance";
 import getRowId from "./getRowId";
 
-const MyTableFooter = ({ onAddClick, onRefreshClick }) => (
+const MyTableFooter = ({ sortable, onAddClick, onRefreshClick }) => (
   <thead>
     <tr>
-      <td>
+      <td colSpan={4}>
         <Button
           onClick={onAddClick}
           size="small"
@@ -27,9 +28,7 @@ const MyTableFooter = ({ onAddClick, onRefreshClick }) => (
           <PlusSquare size={16} style={{ marginRight: 10 }} />
           Ajouter une référence
         </Button>
-      </td>
-      <td />
-      <td>
+
         <Button
           onClick={onRefreshClick}
           color="success"
@@ -46,95 +45,166 @@ const MyTableFooter = ({ onAddClick, onRefreshClick }) => (
   </thead>
 );
 
-// handle multiple references
-const References = ({
-  setRowValue,
-  setRowRelevance,
-  values,
-  onAddClick,
-  onRemoveClick,
-  onRefreshClick
-}) => (
-  <FieldArray
-    name="refs"
-    render={({ remove }) => (
-      <Table padding="dense">
-        <thead>
-          <tr>
-            <td>Résultat</td>
-            <td>-</td>
-            <td style={{ textAlign: "center" }}>Pertinence</td>
-            <td>-</td>
-          </tr>
-        </thead>
-        <tbody>
-          {values &&
-            values.map(
-              (row, index) =>
-                row && (
-                  <tr index={index} key={row + index}>
-                    <td>
-                      <CDTNPicker
-                        query={getRowId(row) || ""}
-                        onSelect={value => setRowValue(index, value)}
-                      />
-                    </td>
-                    <td
-                      style={{ width: 25, padding: 0, verticalAlign: "middle" }}
-                    >
-                      <ExternalLink
-                        size={16}
-                        style={{ cursor: "pointer" }}
-                        onClick={() => {
-                          const CDTN_URL =
-                            "https://codedutravail-dev.num.social.gouv.fr";
-                          const url =
-                            row.url[0] === "/"
-                              ? `${CDTN_URL}${row.url}`
-                              : row.url;
-                          window.open(url);
-                        }}
-                      />
-                    </td>
-                    <td
-                      style={{
-                        width: 200,
-                        padding: 0,
-                        verticalAlign: "middle"
-                      }}
-                      align="center"
-                    >
-                      <Relevance
-                        value={row.relevance}
-                        onChange={value => setRowRelevance(index, value)}
-                      />
-                    </td>
-                    <td
-                      style={{ width: 16, padding: 0, verticalAlign: "middle" }}
-                    >
-                      <Trash
-                        size={16}
-                        onClick={() => {
-                          onRemoveClick({ remove, index });
-                        }}
-                        style={{ cursor: "pointer", color: "#d63626" }}
-                      />
-                    </td>
-                  </tr>
-                )
-            )}
-        </tbody>
-        <MyTableFooter
-          onAddClick={onAddClick}
-          onRefreshClick={onRefreshClick}
+const ReferenceRow = SortableElement(
+  ({ index, row, sortable, setRowValue, setRowRelevance, onRemoveClick }) => (
+    <tr>
+      {sortable && (
+        <td width={50}>
+          <Menu size={16} style={{ cursor: "pointer" }} />
+        </td>
+      )}
+      <td>
+        <CDTNPicker
+          query={getRowId(row) || ""}
+          onSelect={value => setRowValue(value)}
         />
-      </Table>
-    )}
-  />
+      </td>
+      <td
+        align="center"
+        width={50}
+        style={{
+          padding: 0,
+          verticalAlign: "middle"
+        }}
+      >
+        <ExternalLink
+          size={16}
+          style={{ cursor: "pointer" }}
+          onClick={() => {
+            const CDTN_URL =
+              "https://code-du-travail-numerique.incubateur.social.gouv.fr";
+            const url = row.url[0] === "/" ? `${CDTN_URL}${row.url}` : row.url;
+            window.open(url);
+          }}
+        />
+      </td>
+      {!sortable && (
+        <td
+          align="center"
+          style={{
+            width: 200,
+            padding: 0,
+            verticalAlign: "middle"
+          }}
+          align="center"
+        >
+          <Relevance
+            value={row.relevance}
+            onChange={value => setRowRelevance(value)}
+          />
+        </td>
+      )}
+      <td
+        width={50}
+        align="center"
+        style={{
+          padding: 0,
+          verticalAlign: "middle"
+        }}
+      >
+        <Trash
+          size={16}
+          onClick={() => {
+            onRemoveClick({ remove });
+          }}
+          style={{ cursor: "pointer", color: "#d63626" }}
+        />
+      </td>
+    </tr>
+  )
 );
 
-const CDTNReferences = ({ values, setFieldValue, setFieldTouched }) => (
+const sortByPosition = (a, b) => {
+  if (a.position < b.position) {
+    return -1;
+  } else if (a.position > b.position) {
+    return 1;
+  }
+  return 0;
+};
+
+// handle multiple references
+const References = SortableContainer(
+  ({
+    setRowValue,
+    setRowRelevance,
+    setRowPosition,
+    sortable,
+    values,
+    onAddClick,
+    onRemoveClick,
+    onRefreshClick,
+    onSortEnd
+  }) => (
+    <FieldArray
+      name="refs"
+      render={({ remove }) => (
+        <Table padding="dense">
+          <thead>
+            <tr>
+              {sortable && <td>-</td>}
+              <td>Résultat</td>
+              <td>-</td>
+              {!sortable && <td style={{ textAlign: "center" }}>Pertinence</td>}
+              <td>-</td>
+            </tr>
+          </thead>
+          <tbody>
+            {values &&
+              values
+                .sort(sortByPosition)
+                .map(
+                  (row, index) =>
+                    row && (
+                      <ReferenceRow
+                        key={row.url + index}
+                        sortable={sortable}
+                        index={index}
+                        row={row}
+                        setRowValue={value => setRowValue(index, value)}
+                        setRowRelevance={relevance =>
+                          setRowRelevance(index, relevance)
+                        }
+                        onRemoveClick={() => onRemoveClick(index)}
+                      />
+                    )
+                )}
+          </tbody>
+          <MyTableFooter
+            sortable={sortable}
+            onAddClick={onAddClick}
+            onRefreshClick={onRefreshClick}
+          />
+        </Table>
+      )}
+    />
+  )
+);
+
+const moveItemAtIndex = (arr, oldIndex, newIndex) => {
+  const tmpArr = [...arr];
+  const ref = tmpArr[oldIndex];
+  tmpArr.splice(oldIndex, 1);
+  tmpArr.splice(newIndex, 0, ref);
+  return tmpArr.map((ref, index) => ({
+    ...ref,
+    position: index
+  }));
+};
+
+const CDTNReferences = ({
+  sortable = false,
+  values,
+  setFieldValue,
+  setFieldTouched
+}) => (
   <References
+    sortable={sortable}
+    onSortEnd={({ oldIndex, newIndex }) => {
+      const newRefs = moveItemAtIndex(values.refs, oldIndex, newIndex);
+      setFieldValue("refs", newRefs);
+      setFieldTouched("refs");
+    }}
     values={values.refs || []}
     setRowValue={(i, value) => {
       const rowId = getRowId(value._source); //return source/slug or url
