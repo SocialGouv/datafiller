@@ -1,15 +1,12 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import Link from "next/link";
+import { ListGroup, ListGroupItem } from "reactstrap";
+import { PlusSquare, Home } from "react-feather";
 
 import ListRecords from "../src/kinto/ListRecords";
 
-import { ListGroup, ListGroupItem } from "reactstrap";
-
-import { PlusSquare, Home } from "react-feather";
-
 import KintoContext from "./kinto/KintoContext";
-
-import Link from "next/link";
+import ThemeLink from "./ThemeLink";
 
 const getBgColor = item => {
   if (item.refs && item.refs.filter(i => !!i.url).length > 0) {
@@ -23,14 +20,21 @@ const getBgColor = item => {
   return "transparent";
 };
 
-const ListRecordsView = ({ bucket, collection, record, intro, onAddClick }) => (
+const ListRecordsView = ({ bucket, collection, record, onAddClick }) => (
   <ListRecords
     bucket={bucket}
     collection={collection}
     render={({ result }) => (
       <React.Fragment>
-        <ListGroup>
-          <ListGroupItem action>
+        <ListGroup
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            height: "100vh",
+            position: "absolute"
+          }}
+        >
+          <ListGroupItem action style={{ flex: "0 0 auto" }}>
             <Link href="/" passHref>
               <a>
                 <Home style={{ marginRight: 5, verticalAlign: "middle" }} />{" "}
@@ -40,7 +44,7 @@ const ListRecordsView = ({ bucket, collection, record, intro, onAddClick }) => (
           </ListGroupItem>
 
           {(collection === "requetes" && (
-            <ListGroupItem>
+            <ListGroupItem style={{ flex: "0 0 auto" }}>
               <KintoContext.Consumer>
                 {({ client }) => (
                   <a href="#" onClick={() => onAddClick({ client })}>
@@ -54,7 +58,7 @@ const ListRecordsView = ({ bucket, collection, record, intro, onAddClick }) => (
             </ListGroupItem>
           )) ||
             null}
-          <div style={{ overflow: "scroll", height: "100vh" }}>
+          <div style={{ overflow: "scroll" }}>
             {result.data.map(item => (
               <ListGroupItem
                 action
@@ -65,31 +69,13 @@ const ListRecordsView = ({ bucket, collection, record, intro, onAddClick }) => (
                   backgroundColor: item.id !== record && getBgColor(item)
                 }}
               >
-                <Link
-                  // href="/bucket/[bucket]/collection/[collection]/record/[record]"
-                  href={`/bucket/${bucket}/collection/${collection}/record/${
-                    item.id
-                  }`}
-                  passHref
-                  ref={node => {
-                    // hack : position list to the current selected item
-                    if (item.id === record) {
-                      const me = ReactDOM.findDOMNode(node);
-                      if (me) {
-                        setTimeout(() => {
-                          me.parentNode.parentNode.scrollTop =
-                            me.parentNode.offsetTop -
-                            me.parentNode.offsetHeight -
-                            me.offsetHeight;
-                        });
-                      }
-                    }
-                  }}
-                >
-                  <a style={{ color: item.id === record ? "white" : "auto" }}>
-                    {item.title || "EMPTY ?"}
-                  </a>
-                </Link>
+                <ThemeLink
+                  bucket={bucket}
+                  collection={collection}
+                  item={item}
+                  record={record}
+                  focus={item.id === record}
+                />
               </ListGroupItem>
             ))}
           </div>
