@@ -10,7 +10,7 @@ import CDTNPicker from "./CDTNPicker";
 import Relevance from "./Relevance";
 import getRowId from "./getRowId";
 
-const MyTableFooter = ({ sortable, onAddClick, onRefreshClick }) => (
+const MyTableFooter = ({ sortable, loadable, onAddClick, onRefreshClick }) => (
   <thead>
     <tr>
       <td colSpan={4}>
@@ -29,16 +29,18 @@ const MyTableFooter = ({ sortable, onAddClick, onRefreshClick }) => (
           Ajouter une référence
         </Button>
 
-        <Button
-          onClick={onRefreshClick}
-          color="success"
-          size="small"
-          style={{ whiteSpace: "nowrap", marginTop: 20 }}
-          variant="contained"
-        >
-          <RotateCw size={16} style={{ marginRight: 10 }} />
-          Charger depuis CDTN
-        </Button>
+        {loadable && (
+          <Button
+            onClick={onRefreshClick}
+            color="success"
+            size="small"
+            style={{ whiteSpace: "nowrap", marginTop: 20 }}
+            variant="contained"
+          >
+            <RotateCw size={16} style={{ marginRight: 10 }} />
+            Charger depuis CDTN
+          </Button>
+        )}
       </td>
       <td />
     </tr>
@@ -130,6 +132,7 @@ const References = SortableContainer(
     setRowRelevance,
     setRowPosition,
     sortable,
+    loadable,
     values,
     onAddClick,
     onRemoveClick,
@@ -172,6 +175,7 @@ const References = SortableContainer(
           </tbody>
           <MyTableFooter
             sortable={sortable}
+            loadable={loadable}
             onAddClick={onAddClick}
             onRefreshClick={onRefreshClick}
           />
@@ -194,12 +198,14 @@ const moveItemAtIndex = (arr, oldIndex, newIndex) => {
 
 const CDTNReferences = ({
   sortable = false,
+  loadable = true,
   values,
   setFieldValue,
   setFieldTouched
 }) => (
   <References
     sortable={sortable}
+    loadable={loadable}
     onSortEnd={({ oldIndex, newIndex }) => {
       const newRefs = moveItemAtIndex(values.refs, oldIndex, newIndex);
       setFieldValue("refs", newRefs);
