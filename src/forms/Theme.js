@@ -75,13 +75,40 @@ const ThemeForm = ({ data, onSubmit, onDelete }) => (
           isSubmitting
         }) => (
           <StyledForm onSubmit={handleSubmit}>
+            <Row style={{ marginBottom: 10 }}>
+              <Col xs="10">
+                <FormGroup>
+                  <Label>Titre du thème</Label>
+                  <Input
+                    name="title"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    defaultValue={(values && values.title) || ""}
+                  />
+                </FormGroup>
+              </Col>
+              <Col xs="2">
+                <FormGroup>
+                  <Label>Position du thème</Label>
+                  <Input
+                    name="position"
+                    type="number"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    defaultValue={(values && values.position) || 1}
+                  />
+                </FormGroup>
+              </Col>
+            </Row>
             <FormGroup row>
-              <Label>Titre du thème</Label>
-              <Input
-                name="title"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                defaultValue={(values && values.title) || ""}
+              <Label>Thème parent</Label>
+              <ThemePicker
+                name="parent"
+                value={values.parent || ""}
+                onChange={theme => {
+                  setFieldValue("parent", theme.id);
+                  setFieldTouched("parent");
+                }}
               />
             </FormGroup>
             <FormGroup row>
@@ -93,16 +120,7 @@ const ThemeForm = ({ data, onSubmit, onDelete }) => (
                 defaultValue={(values && values.subTitle) || ""}
               />
             </FormGroup>
-            <FormGroup row>
-              <Label>Position du thème</Label>
-              <Input
-                name="position"
-                type="number"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                defaultValue={(values && values.position) || 1}
-              />
-            </FormGroup>
+
             <FormGroup row>
               <Label>
                 Introduction (
@@ -131,18 +149,6 @@ const ThemeForm = ({ data, onSubmit, onDelete }) => (
                 onBlur={handleBlur}
                 onChange={handleChange}
                 defaultValue={(values && values.variants) || ""}
-              />
-            </FormGroup>
-
-            <FormGroup row>
-              <Label>Thème parent</Label>
-              <ThemePicker
-                name="parent"
-                value={values.parent || ""}
-                onChange={theme => {
-                  setFieldValue("parent", theme.id);
-                  setFieldTouched("parent");
-                }}
               />
             </FormGroup>
 
