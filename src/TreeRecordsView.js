@@ -7,6 +7,13 @@ import ListRecords from "../src/kinto/ListRecords";
 import KintoContext from "./kinto/KintoContext";
 import ThemeLink from "./ThemeLink";
 
+const getBgColor = item => {
+  if (item.refs && item.refs.filter(i => !!i.url).length > 0) {
+    return "#d2ff8d";
+  }
+  return "transparent";
+};
+
 const renderChildren = ({
   parent,
   themes,
@@ -33,7 +40,8 @@ const renderChildren = ({
           active={item.id === record}
           title={item.title}
           style={{
-            paddingLeft: 20 * (depth + 1)
+            paddingLeft: 20 * (depth + 1),
+            backgroundColor: item.id !== record && getBgColor(item)
           }}
         >
           <ThemeLink
