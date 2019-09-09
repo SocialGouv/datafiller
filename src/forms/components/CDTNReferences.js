@@ -2,7 +2,11 @@ import React from "react";
 import { FieldArray } from "formik";
 import { Button, Table } from "reactstrap";
 import { Trash, ExternalLink, PlusSquare, RotateCw, Menu } from "react-feather";
-import { SortableContainer, SortableElement } from "react-sortable-hoc";
+import {
+  SortableContainer,
+  SortableElement,
+  SortableHandle
+} from "react-sortable-hoc";
 
 import { searchResults } from "../../cdtn-api";
 
@@ -47,12 +51,16 @@ const MyTableFooter = ({ sortable, loadable, onAddClick, onRefreshClick }) => (
   </thead>
 );
 
+const DragHandle = SortableHandle(() => (
+  <Menu size={16} style={{ cursor: "pointer" }} />
+));
+
 const ReferenceRow = SortableElement(
   ({ index, row, sortable, setRowValue, setRowRelevance, onRemoveClick }) => (
     <tr>
       {sortable && (
         <td width={50}>
-          <Menu size={16} style={{ cursor: "pointer" }} />
+          <DragHandle />
         </td>
       )}
       <td>
@@ -106,9 +114,7 @@ const ReferenceRow = SortableElement(
       >
         <Trash
           size={16}
-          onClick={() => {
-            onRemoveClick({ remove });
-          }}
+          onClick={onRemoveClick}
           style={{ cursor: "pointer", color: "#d63626" }}
         />
       </td>
@@ -130,18 +136,16 @@ const References = SortableContainer(
   ({
     setRowValue,
     setRowRelevance,
-    setRowPosition,
     sortable,
     loadable,
     values,
     onAddClick,
     onRemoveClick,
-    onRefreshClick,
-    onSortEnd
+    onRefreshClick
   }) => (
     <FieldArray
       name="refs"
-      render={({ remove }) => (
+      render={({}) => (
         <Table padding="dense">
           <thead>
             <tr>
@@ -168,7 +172,7 @@ const References = SortableContainer(
                         setRowRelevance={relevance =>
                           setRowRelevance(index, relevance)
                         }
-                        onRemoveClick={() => onRemoveClick(index)}
+                        onRemoveClick={() => onRemoveClick({ index })}
                       />
                     )
                 )}
@@ -206,6 +210,7 @@ const CDTNReferences = ({
   <References
     sortable={sortable}
     loadable={loadable}
+    useDragHandle={true}
     onSortEnd={({ oldIndex, newIndex }) => {
       const newRefs = moveItemAtIndex(values.refs, oldIndex, newIndex);
       setFieldValue("refs", newRefs);

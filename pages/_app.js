@@ -52,9 +52,7 @@ export const ListRecords = ({ router }) => {
             });
 
           router.push(
-            `/bucket/${bucket}/collection/${collection}/record/${
-              result.data.id
-            }`
+            `/bucket/${bucket}/collection/${collection}/record/${result.data.id}`
           );
 
           // hack
@@ -94,14 +92,10 @@ class MyApp extends App {
     }
     // pageUrl and ogImage are only defined on serverside request
     if (ctx.req) {
-      pageProps.pageUrl = `${ctx.req.protocol}://${ctx.req.headers.host}${
-        ctx.req.path
-      }`;
-      pageProps.ogImage = `${ctx.req.protocol}://${
-        ctx.req.headers.host
-      }/static/images/social-preview.png`;
+      pageProps.pageUrl = `${ctx.req.protocol}://${ctx.req.headers.host}${ctx.req.path}`;
+      pageProps.ogImage = `${ctx.req.protocol}://${ctx.req.headers.host}/static/images/social-preview.png`;
     }
-    console.log("pageProps", pageProps);
+
     return { pageProps };
   }
 
