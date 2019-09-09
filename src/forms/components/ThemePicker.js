@@ -4,7 +4,7 @@ import FuseInput from "../../lib/FuseInput";
 import ListRecords from "../../kinto/ListRecords";
 import fuseInputTheme from "./fuseInputTheme";
 
-const getSuggestionValue = suggestion => suggestion.id;
+const getSuggestionValue = suggestion => suggestion.item && suggestion.item.title || "";
 
 const ThemePicker = props => (
   <ListRecords
@@ -21,7 +21,7 @@ const ThemePicker = props => (
           labelKey="title"
           getSuggestionValue={getSuggestionValue}
           {...props}
-          value={currentTheme && currentTheme.title}
+          value={currentTheme && currentTheme.title || ""}
         />
       );
     }}
