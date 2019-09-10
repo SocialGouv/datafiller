@@ -43,21 +43,19 @@ const ListRecordsView = ({ bucket, collection, record, onAddClick }) => (
             </Link>
           </ListGroupItem>
 
-          {(collection === "requetes" && (
-            <ListGroupItem style={{ flex: "0 0 auto" }}>
-              <KintoContext.Consumer>
-                {({ client }) => (
-                  <a href="#" onClick={() => onAddClick({ client })}>
-                    <PlusSquare
-                      style={{ marginRight: 5, verticalAlign: "middle" }}
-                    />
-                    Ajouter une entrée
-                  </a>
-                )}
-              </KintoContext.Consumer>
-            </ListGroupItem>
-          )) ||
-            null}
+          <ListGroupItem style={{ flex: "0 0 auto" }}>
+            <KintoContext.Consumer>
+              {({ client }) => (
+                <a href="#" onClick={() => onAddClick({ client })}>
+                  <PlusSquare
+                    style={{ marginRight: 5, verticalAlign: "middle" }}
+                  />
+                  Ajouter une entrée
+                </a>
+              )}
+            </KintoContext.Consumer>
+          </ListGroupItem>
+
           <div style={{ overflow: "scroll" }}>
             {result.data.map(item => (
               <ListGroupItem
@@ -65,9 +63,7 @@ const ListRecordsView = ({ bucket, collection, record, onAddClick }) => (
                 active={item.id === record}
                 title={item.title}
                 key={item.id}
-                style={{
-                  backgroundColor: item.id !== record && getBgColor(item)
-                }}
+                style={{ padding: ".5rem 1.25rem" }}
               >
                 <ThemeLink
                   bucket={bucket}

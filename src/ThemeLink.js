@@ -7,7 +7,6 @@ const ThemeLink = ({ bucket, collection, record, item, focus = false }) => (
   <Link
     href={`/bucket/[bucket]/collection/[collection]/record/[record]`}
     as={`/bucket/${bucket}/collection/${collection}/record/${item.id}`}
-    passHref
     ref={node => {
       // hack
       if (focus) {

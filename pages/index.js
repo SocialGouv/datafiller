@@ -91,13 +91,11 @@ const BucketView = ({ bucket, collections = [] }) => (
                     {collection.id}
                   </CardTitle>
                   <CardText variant="subtitle1">
-                    {collection.schema.title}
+                    {collection.schema && collection.schema.title}
                   </CardText>
                   {result.data && result.data.length && (
                     <Link
-                      href={`/bucket/${bucket}/collection/${
-                        collection.id
-                      }/record/${result.data[0].id}`}
+                      href={`/bucket/${bucket}/collection/${collection.id}/record/${result.data[0].id}`}
                     >
                       <Button
                         variant="contained"

@@ -1,17 +1,13 @@
 import React from "react";
+import { withRouter } from "next/router";
 
 import ListRecordsView from "../src/ListRecordsView";
 
 import { Container, Row, Col } from "reactstrap";
 
-import { withRouter } from "next/router";
+import ListRecords from "./ListRecords";
 
 const TreeRecordsView = () => <div>io</div>;
-
-const leftComponents = {
-  themes: ListRecordsView,
-  default: ListRecordsView
-};
 
 export const _LeftCol = props => {
   const LeftComponent =
@@ -33,9 +29,7 @@ export const _LeftCol = props => {
             });
 
           props.router.push(
-            `/bucket/${props.router.query.bucket}/collection/${
-              props.router.query.collection
-            }/record/${result.data.id}`
+            `/bucket/${props.router.query.bucket}/collection/${props.router.query.collection}/record/${result.data.id}`
           );
 
           // hack
@@ -53,12 +47,12 @@ export const _LeftCol = props => {
   return null;
 };
 
-const LeftCol = withRouter(_LeftCol);
+//const LeftCol = withRouter(_LeftCol);
 
 const Layout = ({ RightComponent, children }) => (
   <Row>
     <Col xs={3}>
-      <LeftCol />
+      <ListRecords />
     </Col>
     <Col xs={9}>
       <Container>
