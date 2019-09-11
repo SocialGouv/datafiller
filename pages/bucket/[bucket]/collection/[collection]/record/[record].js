@@ -11,7 +11,7 @@ const RecordPage = props => {
   return (
     <div>
       <Head>
-        <title>Dataset: {record.id}</title>
+        <title>Dataset: {record.data.id}</title>
       </Head>
       <Layout records={records}>
         <EditRecord record={record} {...otherProps} />
