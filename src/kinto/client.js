@@ -13,7 +13,7 @@ const getClient = () => {
   const KINTO_URL =
     typeof window !== "undefined"
       ? publicRuntimeConfig.KINTO_URL
-      : process.env.KINTO_URL_SERVER + "/v1";
+      : (process.env.KINTO_URL_SERVER || "http://kinto:8888") + "/v1";
 
   console.log(
     "KINTO_URL",
