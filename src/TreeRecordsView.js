@@ -43,7 +43,9 @@ const renderChildren = ({
           active={item.id === record}
           title={item.title}
           style={{
-            paddingLeft: 20 * (depth + 1)
+            paddingLeft: 20 * (depth + 1),
+            paddingTop: ".5rem",
+            paddingBottom: ".5rem"
           }}
         >
           <ProgressIndicator score={getThemeScore(item)} />
