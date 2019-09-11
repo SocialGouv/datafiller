@@ -6,7 +6,7 @@ const next = require("next");
 
 // in prod, proxify the KINTO API at /kinto
 const kintoProxy = {
-  target: "http://kinto:8888",
+  target: process.env.KINTO_ORIGIN_URL || "http://kinto:8888",
   pathRewrite: { "^/kinto": "" },
   changeOrigin: true
 };
@@ -45,9 +45,7 @@ app.prepare().then(() => {
     .use(proxyMiddleware("/kinto", kintoProxy))
     .get("/api/ccn/:ccn.json", async (req, res) => {
       if (req.params.ccn.match(/^KALICONT/)) {
-        const ccn = require(`@socialgouv/kali-data/data/${
-          req.params.ccn
-        }.json`);
+        const ccn = require(`@socialgouv/kali-data/data/${req.params.ccn}.json`);
         res.json(ccn);
       }
       res.status(404).end();
