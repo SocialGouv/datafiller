@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import useFetch from "react-fetch-hook";
 import Tooltip from "rc-tooltip";
 
@@ -123,9 +123,7 @@ const Article = ({ article, idTexte, onSelectGroup }) => {
 
       <a
         style={{ marginLeft: 5, fontSize: 12 }}
-        href={`https://www.legifrance.gouv.fr/affichIDCCArticle.do?idArticle=${
-          article.id
-        }&cidTexte=${idTexte}`}
+        href={`https://www.legifrance.gouv.fr/affichIDCCArticle.do?idArticle=${article.id}&cidTexte=${idTexte}`}
         target="_blank"
         rel="noopener noreferrer"
       >
@@ -174,9 +172,7 @@ const CCNSection = ({
         {(depth === 0 && (
           <a
             style={{ marginLeft: 5, fontSize: 12 }}
-            href={`https://www.legifrance.gouv.fr/affichIDCC.do?cidTexte=${
-              section.id
-            }&idConvention=${idConvention}`}
+            href={`https://www.legifrance.gouv.fr/affichIDCC.do?cidTexte=${section.id}&idConvention=${idConvention}`}
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -284,8 +280,11 @@ const CCNPreview = ({ id, initialData, onDataUpdate }) => {
   );
 };
 
-const FormCCN = ({ data, onSubmit, onDelete }) => {
+const FormCCN = ({ data, onSubmit }) => {
   const [formData, setFormData] = React.useState(data);
+  useEffect(() => {
+    setFormData(data);
+  }, [data]);
   const onDataUpdate = patch => {
     // side-effects : general record update
     const newData = {

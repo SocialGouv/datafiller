@@ -3,15 +3,18 @@ import { ListGroup, ListGroupItem } from "reactstrap";
 import { PlusSquare, Home } from "react-feather";
 import Link from "next/link";
 
-import ListRecords from "../src/kinto/ListRecords";
+import ListRecords from "./kinto/ListRecords";
 import KintoContext from "./kinto/KintoContext";
 import ThemeLink from "./ThemeLink";
+import ProgressIndicator from "./forms/components/ProgressIndicator";
 
-const getBgColor = item => {
-  if (item.refs && item.refs.filter(i => !!i.url).length > 0) {
-    return "#d2ff8d";
-  }
-  return "transparent";
+const getThemeScore = item => {
+  let score = 0;
+  score +=
+    (item.refs && Math.min(10, item.refs.filter(r => r.url).length) * 10) || 0;
+  score += item.intro ? 20 : 0;
+
+  return Math.min(100, Math.max(0, score));
 };
 
 const renderChildren = ({
@@ -40,10 +43,10 @@ const renderChildren = ({
           active={item.id === record}
           title={item.title}
           style={{
-            paddingLeft: 20 * (depth + 1),
-            backgroundColor: item.id !== record && getBgColor(item)
+            paddingLeft: 20 * (depth + 1)
           }}
         >
+          <ProgressIndicator score={getThemeScore(item)} />
           <ThemeLink
             bucket={bucket}
             collection={collection}

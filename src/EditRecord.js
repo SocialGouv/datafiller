@@ -59,9 +59,7 @@ const EditRecord = withKinto(({ client, query, record, router }) => {
           bucket: query.bucket,
           collection: query.collection,
           id: record.data.id
-        }).then(() =>
-          router.push(`/bucket/${query.bucket}/collection/${query.collection}`)
-        )
+        }).then(() => router.push(`/`))
       }
     />
   );

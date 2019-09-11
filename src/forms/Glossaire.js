@@ -51,6 +51,8 @@ const GlossaireForm = ({ data, onSubmit, onDelete }) => (
     <h1 style={{ margin: "1em 0" }}>Glossaire</h1>
     <Container>
       <Formik
+        key={JSON.stringify(data)}
+        enableReinitialize={true}
         initialValues={data}
         validationSchema={DataSchema}
         onSubmit={(values, actions) => {
