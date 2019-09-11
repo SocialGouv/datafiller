@@ -1,5 +1,8 @@
 // use require for calls from server.js
 const getConfig = require("next/config").default;
+
+// SSR hack
+global.fetch = require("node-fetch");
 const KintoClient = require("kinto-http");
 
 const { publicRuntimeConfig } = getConfig();

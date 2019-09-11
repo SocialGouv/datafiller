@@ -3,12 +3,9 @@ import App, { Container } from "next/app";
 import getConfig from "next/config";
 import Head from "next/head";
 import * as Sentry from "@sentry/browser";
-import { Row, Col } from "reactstrap";
 
 import KintoContext from "../src/kinto/KintoContext";
 import kintoClient from "../src/kinto/client";
-import ListRecordsView from "../src/ListRecordsView";
-import TreeRecordsView from "../src/TreeRecordsView";
 
 import ErrorPage from "./_error";
 
@@ -21,63 +18,6 @@ const {
 if (typeof window !== "undefined" && SENTRY_PUBLIC_DSN) {
   Sentry.init({ dsn: SENTRY_PUBLIC_DSN, debug: true });
 }
-
-const leftComponents = {
-  themes: TreeRecordsView,
-  default: ListRecordsView
-};
-
-export const ListRecords = ({ router }) => {
-  const bucket = router.query.bucket;
-  const record = router.query.record;
-  const collection = router.query.collection;
-  const LeftComponent = leftComponents[collection] || leftComponents.default;
-  if (bucket && collection) {
-    return (
-      <LeftComponent
-        bucket={bucket}
-        collection={collection}
-        record={record}
-        onAddClick={async ({ client }) => {
-          const defaultRecordData = {
-            requetes: { title: "", intro: "", theme: null, refs: [{}] },
-            ccns: { title: "", groups: {}, intro: "" },
-            themes: { title: "", parent: null, position: null, refs: [{}] }
-          };
-          const result = await client
-            .bucket(bucket, { headers: {} })
-            .collection(collection, { headers: {} })
-            .createRecord(defaultRecordData[collection], {
-              headers: {}
-            });
-
-          router.push(
-            `/bucket/${bucket}/collection/${collection}/record/${result.data.id}`
-          );
-
-          // hack
-          setTimeout(() => {
-            const target = document.querySelector("textarea[name='title']");
-            if (target) {
-              target.focus();
-            }
-          }, 200);
-        }}
-        intro="Restant à compléter"
-      />
-    );
-  }
-  return null;
-};
-
-const Layout = ({ left, children }) => (
-  <Row>
-    {left && <Col xs={3}>{left}</Col>}
-    <Col xs={left ? 9 : 12}>
-      <Container>{children}</Container>
-    </Col>
-  </Row>
-);
 
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
@@ -111,10 +51,7 @@ class MyApp extends App {
   }
 
   render() {
-    const { Component, pageProps, router } = this.props;
-    const layoutLeft = this.props.router.query.collection && (
-      <ListRecords router={router} />
-    );
+    const { Component, pageProps } = this.props;
 
     if (pageProps.statusCode) {
       return <ErrorPage statusCode={pageProps.statusCode} />;
@@ -132,9 +69,7 @@ class MyApp extends App {
         </Head>
         {/* provide a kinto client */}
         <KintoContext.Provider value={{ client: kintoClient }}>
-          <Layout left={layoutLeft}>
-            <Component {...pageProps} />
-          </Layout>
+          <Component {...pageProps} />
         </KintoContext.Provider>
       </Container>
     );

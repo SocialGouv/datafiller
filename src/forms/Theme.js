@@ -10,7 +10,6 @@ import {
   Container,
   Form,
   FormGroup,
-  Jumbotron,
   Label,
   Input,
   Row,
@@ -19,6 +18,7 @@ import {
 
 import ThemePicker from "./components/ThemePicker";
 import CDTNReferences from "./components/CDTNReferences";
+import MarkdownLink from "./components/MarkdownLink";
 
 const DataSchema = Yup.object().shape({
   title: Yup.string()
@@ -53,6 +53,8 @@ const ThemeForm = ({ data, onSubmit, onDelete }) => (
     <h1 style={{ margin: "1em 0" }}>Thèmes</h1>
     <Container>
       <Formik
+        key={JSON.stringify(data)}
+        enableReinitialize={true}
         initialValues={data}
         validationSchema={DataSchema}
         onSubmit={(values, actions) => {
@@ -123,15 +125,7 @@ const ThemeForm = ({ data, onSubmit, onDelete }) => (
 
             <FormGroup row>
               <Label>
-                Introduction (
-                <a
-                  href="https://gist.github.com/revolunet/3db0d7f312aa661437a6"
-                  target="_blank"
-                  rel="noopener nofollower"
-                >
-                  markdown
-                </a>
-                )
+                Introduction <MarkdownLink />
               </Label>
               <MultiLineInput
                 name="introduction"
@@ -156,7 +150,7 @@ const ThemeForm = ({ data, onSubmit, onDelete }) => (
               <Label>Résultats à afficher</Label>
               <CDTNReferences
                 sortable={true}
-                loadable={false}
+                loadable={true}
                 values={values}
                 setFieldValue={setFieldValue}
                 setFieldTouched={setFieldTouched}

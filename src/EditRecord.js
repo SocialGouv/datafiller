@@ -1,7 +1,6 @@
 import React from "react";
 
 import withKinto from "./kinto/withKinto";
-import KintoFetch from "./kinto/KintoFetch";
 
 import { withRouter } from "next/router";
 
@@ -32,56 +31,38 @@ const onDelete = ({ client, bucket, collection, id }) =>
       throw e;
     });
 
-const EditRecord = withKinto(
-  ({ client, bucket, collection, record, router }) => {
-    // todo: use json-schema-form when no schema defined
-    const Component = forms[collection];
-    if (!Component) {
-      throw new Error(
-        `Cannot find editor component for collection ${collection}. Valid collections : ${Object.keys(
-          forms
-        ).join(", ")}`
-      );
-    }
-
-    return (
-      <KintoFetch
-        fetch={({ client }) =>
-          client
-            .bucket(bucket, { headers: {} })
-            .collection(collection, { headers: {} })
-            .getRecord(record, { headers: {} })
-        }
-        render={({ status, result }) => (
-          <React.Fragment>
-            {status === "error" && (
-              <div>Cet enregistrement n'a pas été trouvé :/</div>
-            )}
-            {status === "success" && (
-              <React.Fragment>
-                <Component
-                  data={result.data}
-                  onSubmit={data =>
-                    onSubmit({ client, bucket, collection, data })
-                  }
-                  onDelete={() =>
-                    onDelete({
-                      client,
-                      bucket,
-                      collection,
-                      id: result.data.id
-                    }).then(() =>
-                      router.push(`/bucket/${bucket}/collection/${collection}`)
-                    )
-                  }
-                />
-              </React.Fragment>
-            )}
-          </React.Fragment>
-        )}
-      />
+const EditRecord = withKinto(({ client, query, record, router }) => {
+  // todo: use json-schema-form when no schema defined
+  const Component = forms[query.collection];
+  if (!Component) {
+    throw new Error(
+      `Cannot find editor component for collection ${
+        query.collection
+      }. Valid collections : ${Object.keys(forms).join(", ")}`
     );
   }
-);
+
+  return (
+    <Component
+      data={record.data}
+      onSubmit={data =>
+        onSubmit({
+          client,
+          bucket: query.bucket,
+          collection: query.collection,
+          data
+        })
+      }
+      onDelete={() =>
+        onDelete({
+          client,
+          bucket: query.bucket,
+          collection: query.collection,
+          id: record.data.id
+        }).then(() => router.push(`/`))
+      }
+    />
+  );
+});
 
 export default withRouter(EditRecord);

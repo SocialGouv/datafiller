@@ -2,87 +2,109 @@ import React from "react";
 import Link from "next/link";
 import { ListGroup, ListGroupItem } from "reactstrap";
 import { PlusSquare, Home } from "react-feather";
-
-import ListRecords from "../src/kinto/ListRecords";
-
 import KintoContext from "./kinto/KintoContext";
 import ThemeLink from "./ThemeLink";
+import ProgressIndicator from "./forms/components/ProgressIndicator";
 
-const getBgColor = item => {
-  if (item.refs && item.refs.filter(i => !!i.url).length > 0) {
+// item
+const getRequeteScore = (collection, item) => {
+  let score = 0;
+  if (collection === "requetes") {
+    score +=
+      (item.refs &&
+        Math.min(10, item.refs.filter(r => r.url && r.relevance).length)) ||
+      0;
+    score +=
+      (item.variants && Math.min(20, item.variants.split("\n").length)) || 0;
     if (item.theme) {
-      return "#d2ff8d";
+      score += 50;
+    } else {
+      score -= 80;
     }
-    return "#edffd1";
-  } else if (item.theme) {
-    return "#edffd1";
   }
-  return "transparent";
+  if (collection === "glossaire") {
+    score += item.definition ? Math.min(50, item.definition.length * 5) : 0;
+    score +=
+      (item.refs && Math.min(50, item.refs.filter(r => r.url).length * 10)) ||
+      0;
+    score +=
+      (item.variants && Math.min(30, item.variants.split("\n").length * 10)) ||
+      0;
+    score +=
+      (item.abbrs && Math.min(20, item.abbrs.split("\n").length * 10)) || 0;
+  }
+  if (collection === "ccns") {
+    score +=
+      (item.groups &&
+        item.groups.filter &&
+        item.groups.filter(group => group.selection.length).length * 8) ||
+      0;
+  }
+  return Math.min(100, Math.max(0, score));
 };
 
-const ListRecordsView = ({ bucket, collection, record, onAddClick }) => (
-  <ListRecords
-    bucket={bucket}
-    collection={collection}
-    render={({ result }) => (
-      <React.Fragment>
-        <ListGroup
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            height: "100vh",
-            position: "absolute"
-          }}
-        >
-          <ListGroupItem action style={{ flex: "0 0 auto" }}>
-            <Link href="/" passHref>
-              <a>
-                <Home style={{ marginRight: 5, verticalAlign: "middle" }} />{" "}
-                Accueil
-              </a>
-            </Link>
-          </ListGroupItem>
+const ListRecordsView = ({
+  records,
+  bucket,
+  collection,
+  record,
+  onAddClick
+}) => {
+  return (
+    <React.Fragment>
+      <ListGroup
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          height: "100vh",
+          position: "absolute"
+        }}
+      >
+        <ListGroupItem action style={{ flex: "0 0 auto" }}>
+          <Link href="/" passHref>
+            <a>
+              <Home style={{ marginRight: 5, verticalAlign: "middle" }} />{" "}
+              Accueil
+            </a>
+          </Link>
+        </ListGroupItem>
 
-          {(collection === "requetes" && (
-            <ListGroupItem style={{ flex: "0 0 auto" }}>
-              <KintoContext.Consumer>
-                {({ client }) => (
-                  <a href="#" onClick={() => onAddClick({ client })}>
-                    <PlusSquare
-                      style={{ marginRight: 5, verticalAlign: "middle" }}
-                    />
-                    Ajouter une entrée
-                  </a>
-                )}
-              </KintoContext.Consumer>
-            </ListGroupItem>
-          )) ||
-            null}
-          <div style={{ overflow: "scroll" }}>
-            {result.data.map(item => (
-              <ListGroupItem
-                action
-                active={item.id === record}
-                title={item.title}
-                key={item.id}
-                style={{
-                  backgroundColor: item.id !== record && getBgColor(item)
-                }}
-              >
-                <ThemeLink
-                  bucket={bucket}
-                  collection={collection}
-                  item={item}
-                  record={record}
-                  focus={item.id === record}
+        <ListGroupItem style={{ flex: "0 0 auto" }}>
+          <KintoContext.Consumer>
+            {({ client }) => (
+              <a href="#" onClick={() => onAddClick({ client })}>
+                <PlusSquare
+                  style={{ marginRight: 5, verticalAlign: "middle" }}
                 />
-              </ListGroupItem>
-            ))}
-          </div>
-        </ListGroup>
-      </React.Fragment>
-    )}
-  />
-);
+                Ajouter une entrée
+              </a>
+            )}
+          </KintoContext.Consumer>
+        </ListGroupItem>
+
+        <div style={{ overflow: "scroll" }}>
+          {records.map(item => (
+            <ListGroupItem
+              action
+              active={item.id === record}
+              title={item.title}
+              key={item.id}
+              style={{ padding: ".5rem 1.25rem" }}
+            >
+              <ProgressIndicator score={getRequeteScore(collection, item)} />
+              <ThemeLink
+                bucket={bucket}
+                collection={collection}
+                item={item}
+                record={record}
+                focus={item.id === record}
+              />
+            </ListGroupItem>
+          ))}
+        </div>
+      </ListGroup>
+    </React.Fragment>
+  );
+};
 
 export default ListRecordsView;

@@ -16,8 +16,8 @@ import {
   Col
 } from "reactstrap";
 
-import ThemePicker from "./components/ThemePicker";
 import CDTNReferences from "./components/CDTNReferences";
+import MarkdownLink from "./components/MarkdownLink";
 
 const DataSchema = Yup.object().shape({
   title: Yup.string()
@@ -49,9 +49,11 @@ const StyledForm = styled(Form)`
 
 const GlossaireForm = ({ data, onSubmit, onDelete }) => (
   <React.Fragment>
-    <h1 style={{ margin: "1em 0" }}>Thèmes</h1>
+    <h1 style={{ margin: "1em 0" }}>Glossaire</h1>
     <Container>
       <Formik
+        key={JSON.stringify(data)}
+        enableReinitialize={true}
         initialValues={data}
         validationSchema={DataSchema}
         onSubmit={(values, actions) => {
@@ -113,15 +115,7 @@ const GlossaireForm = ({ data, onSubmit, onDelete }) => (
             </Row>
             <FormGroup row>
               <Label>
-                Définition (
-                <a
-                  href="https://gist.github.com/revolunet/3db0d7f312aa661437a6"
-                  target="_blank"
-                  rel="noopener nofollower"
-                >
-                  markdown
-                </a>
-                )
+                Définition <MarkdownLink />
               </Label>
               <MultiLineInput
                 name="definition"
@@ -136,7 +130,7 @@ const GlossaireForm = ({ data, onSubmit, onDelete }) => (
               <Label>Sources</Label>
               <CDTNReferences
                 sortable={true}
-                loadable={false}
+                loadable={true}
                 values={values}
                 setFieldValue={setFieldValue}
                 setFieldTouched={setFieldTouched}
