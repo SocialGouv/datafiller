@@ -103,7 +103,13 @@ const ListRecordsView = ({
               active={item.id === record}
               title={item.title}
               key={item.id}
-              style={{ padding: ".5rem 1.25rem" }}
+              style={{
+                padding: ".5rem 1.25rem",
+                overflow: "hidden",
+                whiteSpace: "nowrap",
+                textOverflow: "ellipsis",
+                width: 270
+              }}
             >
               <ProgressIndicator score={getRequeteScore(collection, item)} />
               <ThemeLink

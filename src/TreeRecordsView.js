@@ -45,7 +45,11 @@ const renderChildren = ({
           style={{
             paddingLeft: 20 * (depth + 1),
             paddingTop: ".5rem",
-            paddingBottom: ".5rem"
+            paddingBottom: ".5rem",
+            overflow: "hidden",
+            whiteSpace: "nowrap",
+            textOverflow: "ellipsis",
+            width: 270
           }}
         >
           <ProgressIndicator score={getThemeScore(item)} />
