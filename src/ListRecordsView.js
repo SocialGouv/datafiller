@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
-import { ListGroup, ListGroupItem } from "reactstrap";
+import { ListGroup, ListGroupItem, Input } from "reactstrap";
 import { PlusSquare, Home } from "react-feather";
 import KintoContext from "./kinto/KintoContext";
 import ThemeLink from "./ThemeLink";
@@ -43,6 +43,11 @@ const getRequeteScore = (collection, item) => {
   return Math.min(100, Math.max(0, score));
 };
 
+const normalize = str => str.toLowerCase().trim();
+
+const matchQuery = query => record =>
+  !query || normalize(record.title).includes(normalize(query));
+
 const ListRecordsView = ({
   records,
   bucket,
@@ -50,6 +55,7 @@ const ListRecordsView = ({
   record,
   onAddClick
 }) => {
+  const [query, setQuery] = useState("");
   return (
     <React.Fragment>
       <ListGroup
@@ -82,8 +88,16 @@ const ListRecordsView = ({
           </KintoContext.Consumer>
         </ListGroupItem>
 
+        <ListGroupItem style={{ flex: "0 0 auto" }}>
+          <Input
+            onChange={e => setQuery(e.target.value)}
+            value={query}
+            placeholder="Filtrer"
+          />
+        </ListGroupItem>
+
         <div style={{ overflow: "scroll" }}>
-          {records.map(item => (
+          {records.filter(matchQuery(query)).map(item => (
             <ListGroupItem
               action
               active={item.id === record}
