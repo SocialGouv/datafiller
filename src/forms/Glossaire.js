@@ -17,6 +17,7 @@ import {
 } from "reactstrap";
 
 import CDTNReferences from "./components/CDTNReferences";
+import MarkdownLink from "./components/MarkdownLink";
 
 const DataSchema = Yup.object().shape({
   title: Yup.string()
@@ -114,15 +115,7 @@ const GlossaireForm = ({ data, onSubmit, onDelete }) => (
             </Row>
             <FormGroup row>
               <Label>
-                Définition (
-                <a
-                  href="https://gist.github.com/revolunet/3db0d7f312aa661437a6"
-                  target="_blank"
-                  rel="noopener nofollower"
-                >
-                  markdown
-                </a>
-                )
+                Définition <MarkdownLink />
               </Label>
               <MultiLineInput
                 name="definition"
