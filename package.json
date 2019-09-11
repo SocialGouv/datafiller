@@ -18,6 +18,7 @@
     "formik": "^1.5.1",
     "fuse.js": "^3.4.4",
     "google-spreadsheets": "^2.0.0",
+    "gradient2": "^1.0.3",
     "http-proxy-middleware": "^0.19.1",
     "kinto-http": "^4.7.3",
     "memoizee": "^0.4.14",

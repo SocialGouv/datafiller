@@ -41,7 +41,6 @@ const EditRecord = withKinto(({ client, query, record, router }) => {
       }. Valid collections : ${Object.keys(forms).join(", ")}`
     );
   }
-  console.log("record", record);
 
   return (
     <Component

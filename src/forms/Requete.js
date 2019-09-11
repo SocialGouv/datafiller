@@ -16,6 +16,7 @@ import {
   Col
 } from "reactstrap";
 
+import MarkdownLink from "./components/MarkdownLink";
 import ThemePicker from "./components/ThemePicker";
 import CDTNReferences from "./components/CDTNReferences";
 
@@ -47,12 +48,14 @@ const StyledForm = styled(Form)`
   }
 `;
 
-const RequeteForm = ({ data, onSubmit, onDelete }) =>
-  console.log("RequeteForm", data) || (
+const RequeteForm = ({ data, onSubmit, onDelete }) => {
+  return (
     <React.Fragment>
       <h1 style={{ margin: "1em 0" }}>Requêtes</h1>
       <Container>
         <Formik
+          key={JSON.stringify(data)}
+          enableReinitialize={true}
           initialValues={data}
           validationSchema={DataSchema}
           onSubmit={(values, actions) => {
@@ -98,15 +101,8 @@ const RequeteForm = ({ data, onSubmit, onDelete }) =>
 
               <FormGroup row>
                 <Label>
-                  Réponse générique (
-                  <a
-                    href="https://gist.github.com/revolunet/3db0d7f312aa661437a6"
-                    target="_blank"
-                    rel="noopener nofollower"
-                  >
-                    markdown
-                  </a>
-                  )
+                  Réponse générique
+                  <MarkdownLink />
                 </Label>
                 <Input
                   name="intro"
@@ -198,5 +194,6 @@ const RequeteForm = ({ data, onSubmit, onDelete }) =>
       </Container>
     </React.Fragment>
   );
+};
 
 export default RequeteForm;

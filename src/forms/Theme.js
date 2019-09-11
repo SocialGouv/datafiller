@@ -156,7 +156,7 @@ const ThemeForm = ({ data, onSubmit, onDelete }) => (
               <Label>Résultats à afficher</Label>
               <CDTNReferences
                 sortable={true}
-                loadable={false}
+                loadable={true}
                 values={values}
                 setFieldValue={setFieldValue}
                 setFieldTouched={setFieldTouched}

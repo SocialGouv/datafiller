@@ -16,7 +16,6 @@ import {
   Col
 } from "reactstrap";
 
-import ThemePicker from "./components/ThemePicker";
 import CDTNReferences from "./components/CDTNReferences";
 
 const DataSchema = Yup.object().shape({
@@ -136,7 +135,7 @@ const GlossaireForm = ({ data, onSubmit, onDelete }) => (
               <Label>Sources</Label>
               <CDTNReferences
                 sortable={true}
-                loadable={false}
+                loadable={true}
                 values={values}
                 setFieldValue={setFieldValue}
                 setFieldTouched={setFieldTouched}
