@@ -4,7 +4,7 @@ import Head from "next/head";
 import EditRecord from "../../../../../../src/EditRecord";
 import Layout from "../../../../../../src/Layout";
 
-import client from "../../../../../../src/kinto/client";
+import getClient from "../../../../../../src/kinto/client";
 
 const RecordPage = props => {
   const { record, records, ...otherProps } = props;
@@ -30,6 +30,7 @@ const sortByKey = getter => (a, b) => {
 };
 
 RecordPage.getInitialProps = async ({ query }) => {
+  const client = getClient();
   const recordsQuery = await client
     .bucket(query.bucket, { headers: {} })
     .collection(query.collection, { headers: {} })

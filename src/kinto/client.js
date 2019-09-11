@@ -1,3 +1,5 @@
+// client for kinto on browser side
+
 // use require for calls from server.js
 const getConfig = require("next/config").default;
 
@@ -7,9 +9,20 @@ const KintoClient = require("kinto-http");
 
 const { publicRuntimeConfig } = getConfig();
 
-const KINTO_URL = publicRuntimeConfig.KINTO_URL;
+const getClient = () => {
+  const KINTO_URL =
+    typeof window !== "undefined"
+      ? publicRuntimeConfig.KINTO_URL
+      : process.env.KINTO_URL_SERVER + "/v1";
 
-console.log("KINTO_URL", KINTO_URL);
-const kintoClient = new KintoClient(KINTO_URL, { headers: {} });
+  console.log(
+    "KINTO_URL",
+    typeof window !== "undefined" ? "browser" : "server",
+    KINTO_URL
+  );
 
-module.exports = kintoClient;
+  const kintoClient = new KintoClient(KINTO_URL, { headers: {} });
+  return kintoClient;
+};
+
+module.exports = getClient;

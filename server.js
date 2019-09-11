@@ -6,7 +6,7 @@ const next = require("next");
 
 // in prod, proxify the KINTO API at /kinto
 const kintoProxy = {
-  target: process.env.KINTO_ORIGIN_URL || "http://kinto:8888",
+  target: process.env.KINTO_URL_SERVER || "http://kinto:8888",
   pathRewrite: { "^/kinto": "" },
   changeOrigin: true
 };
@@ -61,6 +61,6 @@ app.prepare().then(() => {
       throw err;
     }
     console.log(`> Ready on port ${PORT} [${process.env.NODE_ENV}]`);
-    console.log(`> Proxify ${process.env.KINTO_URL} at /kinto`);
+    console.log(`> Proxify ${kintoProxy.target} at /kinto`);
   });
 });

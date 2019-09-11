@@ -5,7 +5,7 @@ import Head from "next/head";
 import * as Sentry from "@sentry/browser";
 
 import KintoContext from "../src/kinto/KintoContext";
-import kintoClient from "../src/kinto/client";
+import getClient from "../src/kinto/client";
 
 const {
   publicRuntimeConfig: { SENTRY_PUBLIC_DSN }
@@ -31,7 +31,7 @@ class MyApp extends App {
 
   render() {
     const { Component, pageProps } = this.props;
-
+    const kintoClient = getClient();
     return (
       <Container>
         <Head>
