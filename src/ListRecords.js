@@ -23,7 +23,8 @@ export const ListRecords = ({ records, router }) => {
             requetes: { title: "", intro: "", theme: null, refs: [{}] },
             glossaire: { title: "", abbrs: [], definition: "", refs: [{}] },
             ccns: { title: "", groups: {}, intro: "" },
-            themes: { title: "", parent: null, position: null, refs: [{}] }
+            themes: { title: "", parent: null, position: null, refs: [{}] },
+            responses: { title: "", variants: "", markdown: "", refs: [{}] }
           };
           const result = await client
             .bucket(bucket, { headers: {} })
