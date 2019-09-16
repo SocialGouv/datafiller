@@ -69,7 +69,7 @@ const BucketView = ({ bucket, collections = [] }) => {
             .slice(0, 5);
           const lastRecord = lastRecords.length && lastRecords[0];
           return (
-            <Col xs={12} sm={6} key={collection.records.id}>
+            <Col xs={12} sm={6} key={collection.id}>
               <Card style={{ marginTop: 15 }}>
                 <CardBody>
                   <Row>
@@ -109,7 +109,7 @@ const BucketView = ({ bucket, collections = [] }) => {
                       </CardText>
                     </Col>
                   </Row>
-                  <ListGroup flush style={{ marginTop: 20 }}>
+                  <ListGroup flush style={{ marginTop: 30 }}>
                     {lastRecords.map(rec => (
                       <Link
                         href={`/bucket/${bucket}/collection/${collection.id}/record/${rec.id}`}
@@ -121,6 +121,7 @@ const BucketView = ({ bucket, collections = [] }) => {
                           href="#"
                           title={rec.title}
                           style={{ padding: ".5rem 1.25rem" }}
+                          className="text-truncate"
                         >
                           <ProgressIndicator
                             score={getScore(collection.id, rec)}

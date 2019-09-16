@@ -24,18 +24,25 @@ export const ListRecords = ({ records, router }) => {
             glossaire: { title: "", abbrs: [], definition: "", refs: [{}] },
             ccns: { title: "", groups: {}, intro: "" },
             themes: { title: "", parent: null, position: null, refs: [{}] },
-            responses: { title: "", variants: "", markdown: "", refs: [{}] }
+            reponses: { title: "", variants: "", markdown: "", refs: [{}] }
           };
           const result = await client
             .bucket(bucket, { headers: {} })
             .collection(collection, { headers: {} })
-            .createRecord(defaultRecordData[collection], {
-              headers: {}
-            });
-
+            .createRecord(
+              defaultRecordData[collection] || { title: "nouveau" },
+              {
+                headers: {}
+              }
+            );
           router.push(
+            `/bucket/[bucket]/collection/[collection]/record/[record]`,
             `/bucket/${bucket}/collection/${collection}/record/${result.data.id}`
           );
+          setTimeout(() => {
+            const target = document.querySelector("input[name='title']");
+            if (target) target.focus();
+          }, 200);
         }}
         intro="Restant à compléter"
       />
