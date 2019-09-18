@@ -21,7 +21,7 @@ export const ListRecords = ({ records, router }) => {
         onAddClick={async ({ client }) => {
           const defaultRecordData = {
             requetes: { title: "", intro: "", theme: null, refs: [{}] },
-            glossaire: { title: "", abbrs: [], definition: "", refs: [{}] },
+            glossaire: { title: "", abbrs: "", definition: "", refs: [{}] },
             ccns: { title: "", groups: {}, intro: "" },
             themes: { title: "", parent: null, position: null, refs: [{}] },
             reponses: { title: "", variants: "", markdown: "", refs: [{}] }
