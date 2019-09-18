@@ -21,7 +21,7 @@ const getScore = (collection, item) => {
     score += item.definition ? Math.min(40, item.definition.length * 5) : 0;
     score += Math.min(50, refs * 10);
     score +=  Math.min(30, variants * 10);
-    score +=  Math.min(30, item.abbrs && item.abbrs.split("\n").length * 10,0);
+    score +=  Math.min(30, item.abbrs && item.abbrs.split && item.abbrs.split("\n").length * 10, 0);
   }
    if (collection === "ccns") {
     score +=
