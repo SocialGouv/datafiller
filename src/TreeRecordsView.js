@@ -7,15 +7,7 @@ import ListRecords from "./kinto/ListRecords";
 import KintoContext from "./kinto/KintoContext";
 import ThemeLink from "./ThemeLink";
 import ProgressIndicator from "./forms/components/ProgressIndicator";
-
-const getThemeScore = item => {
-  let score = 0;
-  score +=
-    (item.refs && Math.min(10, item.refs.filter(r => r.url).length) * 10) || 0;
-  score += item.intro ? 20 : 0;
-
-  return Math.min(100, Math.max(0, score));
-};
+import getScore from "./getScore";
 
 const renderChildren = ({
   parent,
@@ -43,10 +35,16 @@ const renderChildren = ({
           active={item.id === record}
           title={item.title}
           style={{
-            paddingLeft: 20 * (depth + 1)
+            paddingLeft: 20 * (depth + 1),
+            paddingTop: ".5rem",
+            paddingBottom: ".5rem",
+            overflow: "hidden",
+            whiteSpace: "nowrap",
+            textOverflow: "ellipsis",
+            width: 270
           }}
         >
-          <ProgressIndicator score={getThemeScore(item)} />
+          <ProgressIndicator score={getScore("themes", item)} />
           <ThemeLink
             bucket={bucket}
             collection={collection}

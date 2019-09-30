@@ -5,9 +5,7 @@ import Head from "next/head";
 import * as Sentry from "@sentry/browser";
 
 import KintoContext from "../src/kinto/KintoContext";
-import kintoClient from "../src/kinto/client";
-
-import ErrorPage from "./_error";
+import getClient from "../src/kinto/client";
 
 const {
   publicRuntimeConfig: { SENTRY_PUBLIC_DSN }
@@ -20,25 +18,6 @@ if (typeof window !== "undefined" && SENTRY_PUBLIC_DSN) {
 }
 
 class MyApp extends App {
-  static async getInitialProps({ Component, ctx }) {
-    let pageProps = {};
-
-    if (Component.getInitialProps) {
-      try {
-        pageProps = await Component.getInitialProps(ctx);
-      } catch (err) {
-        pageProps = { statusCode: 500, message: err.message };
-      }
-    }
-    // pageUrl and ogImage are only defined on serverside request
-    if (ctx.req) {
-      pageProps.pageUrl = `${ctx.req.protocol}://${ctx.req.headers.host}${ctx.req.path}`;
-      pageProps.ogImage = `${ctx.req.protocol}://${ctx.req.headers.host}/static/images/social-preview.png`;
-    }
-
-    return { pageProps };
-  }
-
   componentDidCatch(error, errorInfo) {
     Sentry.withScope(scope => {
       Object.keys(errorInfo).forEach(key => {
@@ -52,10 +31,7 @@ class MyApp extends App {
 
   render() {
     const { Component, pageProps } = this.props;
-
-    if (pageProps.statusCode) {
-      return <ErrorPage statusCode={pageProps.statusCode} />;
-    }
+    const kintoClient = getClient();
     return (
       <Container>
         <Head>

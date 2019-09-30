@@ -1,47 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
-import { ListGroup, ListGroupItem } from "reactstrap";
+import { ListGroup, ListGroupItem, Input } from "reactstrap";
 import { PlusSquare, Home } from "react-feather";
 import KintoContext from "./kinto/KintoContext";
 import ThemeLink from "./ThemeLink";
 import ProgressIndicator from "./forms/components/ProgressIndicator";
+import getScore from "./getScore";
 
-// item
-const getRequeteScore = (collection, item) => {
-  let score = 0;
-  if (collection === "requetes") {
-    score +=
-      (item.refs &&
-        Math.min(10, item.refs.filter(r => r.url && r.relevance).length)) ||
-      0;
-    score +=
-      (item.variants && Math.min(20, item.variants.split("\n").length)) || 0;
-    if (item.theme) {
-      score += 50;
-    } else {
-      score -= 80;
-    }
-  }
-  if (collection === "glossaire") {
-    score += item.definition ? Math.min(50, item.definition.length * 5) : 0;
-    score +=
-      (item.refs && Math.min(50, item.refs.filter(r => r.url).length * 10)) ||
-      0;
-    score +=
-      (item.variants && Math.min(30, item.variants.split("\n").length * 10)) ||
-      0;
-    score +=
-      (item.abbrs && Math.min(20, item.abbrs.split("\n").length * 10)) || 0;
-  }
-  if (collection === "ccns") {
-    score +=
-      (item.groups &&
-        item.groups.filter &&
-        item.groups.filter(group => group.selection.length).length * 8) ||
-      0;
-  }
-  return Math.min(100, Math.max(0, score));
-};
+const normalize = str => str.toLowerCase().trim();
+
+const matchQuery = query => record =>
+  !query || normalize(record.title).includes(normalize(query));
 
 const ListRecordsView = ({
   records,
@@ -50,6 +19,7 @@ const ListRecordsView = ({
   record,
   onAddClick
 }) => {
+  const [query, setQuery] = useState("");
   return (
     <React.Fragment>
       <ListGroup
@@ -82,16 +52,30 @@ const ListRecordsView = ({
           </KintoContext.Consumer>
         </ListGroupItem>
 
+        <ListGroupItem style={{ flex: "0 0 auto" }}>
+          <Input
+            onChange={e => setQuery(e.target.value)}
+            value={query}
+            placeholder="Filtrer"
+          />
+        </ListGroupItem>
+
         <div style={{ overflow: "scroll" }}>
-          {records.map(item => (
+          {records.filter(matchQuery(query)).map(item => (
             <ListGroupItem
               action
               active={item.id === record}
               title={item.title}
               key={item.id}
-              style={{ padding: ".5rem 1.25rem" }}
+              style={{
+                padding: ".5rem 1.25rem",
+                overflow: "hidden",
+                whiteSpace: "nowrap",
+                textOverflow: "ellipsis",
+                width: 270
+              }}
             >
-              <ProgressIndicator score={getRequeteScore(collection, item)} />
+              <ProgressIndicator score={getScore(collection, item)} />
               <ThemeLink
                 bucket={bucket}
                 collection={collection}

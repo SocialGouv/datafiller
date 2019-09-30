@@ -8,7 +8,8 @@ const forms = {
   requetes: require("./forms/Requete").default,
   ccns: require("./forms/CCN").default,
   themes: require("./forms/Theme").default,
-  glossaire: require("./forms/Glossaire").default
+  glossaire: require("./forms/Glossaire").default,
+  reponses: require("./forms/Reponse").default
 };
 
 const onSubmit = ({ client, bucket, collection, data }) =>
