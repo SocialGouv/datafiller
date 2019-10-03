@@ -25,7 +25,6 @@ class SuggestionState extends React.Component {
       this.setState({ query, hits: [] }, () => {
         this.props
           .fetchSuggestions(query)
-          .then(results => results.hits.hits)
           .then(hits => this.setState({ hits }));
       });
     }
