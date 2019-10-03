@@ -1,8 +1,7 @@
 import memoizee from "memoizee";
 
 const API_URL =
-  "http://api.master.code-du-travail-numerique.dev.factory.social.gouv.fr/api/v1";
-//"https://api.code-du-travail-numerique.incubateur.social.gouv.fr/api/v1";
+  "https://api.code-du-travail-numerique.incubateur.social.gouv.fr/api/v1";
 //"https://cdtn-api.num.social.gouv.fr/api/v1";
 //"https://api.code-du-travail-numerique.incubateur.social.gouv.fr/api/v1";
 
