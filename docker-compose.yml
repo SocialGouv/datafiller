@@ -11,7 +11,7 @@ services:
       - KINTO_PERMISSION_URL=postgresql://postgres:postgres@db/postgres
       - KINTO_BUCKET_CREATE_PRINCIPALS=system.Everyone
   db:
-    image: postgres:10.3
+    image: postgres:10.10
     restart: always
     environment:
       # master password
