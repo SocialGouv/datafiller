@@ -8,6 +8,7 @@ import Layout from "../../src/Layout";
 import getClient from "../../src/kinto/client";
 import dump from "../../src/dump.data.json";
 import { getRouteBySource } from "../../src/sources";
+
 import ThemePicker from "../../src/forms/components/ThemePicker";
 
 const addToTheme = async (content, theme) => {
