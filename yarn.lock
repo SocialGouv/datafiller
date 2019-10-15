@@ -994,18 +994,18 @@
     node-fetch "^2.6.0"
     simple-oauth2 "^2.2.1"
 
-"@socialgouv/eslint-config-react@0.9.3":
-  version "0.9.3"
-  resolved "https://registry.yarnpkg.com/@socialgouv/eslint-config-react/-/eslint-config-react-0.9.3.tgz#da94de4e9eabaed0b57dfb13a8c25ff29ef5f0a4"
-  integrity sha512-kneX4DdQUrBjkxD7vZKYzj/7VzpJrOKQi8YjckUZMFFIHnEM1/axa3Fm0aWt/ZIlCATr18yb708RTCFDq4q9bQ==
+"@socialgouv/eslint-config-react@0.10.0":
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/@socialgouv/eslint-config-react/-/eslint-config-react-0.10.0.tgz#0f29f1e07bbd9e43d73f32c658ca80fd50b80d4f"
+  integrity sha512-DSqy0O4ir9XPcNlHiR3/MeWGp6ZdGsW0cUQJzszOf9uY5Rzl5ULZW4c4HY9G7qNSLvYPB2vt0V4Krozna3WbEA==
   dependencies:
-    "@socialgouv/eslint-config-recommended" "^0.9.3"
-    babel-eslint "^10.0.2"
+    "@socialgouv/eslint-config-recommended" "^0.10.0"
+    babel-eslint "^10.0.3"
     eslint-plugin-jsx-a11y "~6.2.3"
     eslint-plugin-react "~7.14.3"
-    eslint-plugin-react-hooks "~1.6.1"
+    eslint-plugin-react-hooks "~2.0.1"
 
-"@socialgouv/eslint-config-recommended@0.9.3", "@socialgouv/eslint-config-recommended@^0.9.3":
+"@socialgouv/eslint-config-recommended@0.9.3":
   version "0.9.3"
   resolved "https://registry.yarnpkg.com/@socialgouv/eslint-config-recommended/-/eslint-config-recommended-0.9.3.tgz#c824e800e7a1c24defe78bcbec24ddbd7fc458d0"
   integrity sha512-xJTJgFCc4wajNsV06UfWCscLDCcFp8YRjZYb8xM6kHDhlJI1+e5XzAK311r3FUcNgLVNTEubVZWyIH+pd5OWkA==
@@ -1013,6 +1013,16 @@
     eslint-config-prettier "~6.0.0"
     eslint-plugin-import "~2.18.2"
     eslint-plugin-jest "^22.13.6"
+    eslint-plugin-prettier "~3.1.0"
+
+"@socialgouv/eslint-config-recommended@^0.10.0":
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/@socialgouv/eslint-config-recommended/-/eslint-config-recommended-0.10.0.tgz#acb687a7ad0b0d7375808dbc0548981250e3e23e"
+  integrity sha512-G4WxwHPFGKbtnye5NweKUaRCUi31B/H7LllywytO1aC+Cco0EYzc/2kxD7ckD0SSom5dsjOjXqO/Pf4R3pR8cw==
+  dependencies:
+    eslint-config-prettier "~6.3.0"
+    eslint-plugin-import "~2.18.2"
+    eslint-plugin-jest "^22.17.0"
     eslint-plugin-prettier "~3.1.0"
 
 "@socialgouv/kali-data@1.0.0":
@@ -1538,17 +1548,17 @@ babel-core@7.0.0-bridge.0:
   resolved "https://registry.yarnpkg.com/babel-core/-/babel-core-7.0.0-bridge.0.tgz#95a492ddd90f9b4e9a4a1da14eb335b87b634ece"
   integrity sha512-poPX9mZH/5CSanm50Q+1toVci6pv5KSRv/5TWCwtzQS5XEwn40BcCrgIeMFWP9CKKIniKXNxoIOnOq4VVlGXhg==
 
-babel-eslint@^10.0.2:
-  version "10.0.2"
-  resolved "https://registry.yarnpkg.com/babel-eslint/-/babel-eslint-10.0.2.tgz#182d5ac204579ff0881684b040560fdcc1558456"
-  integrity sha512-UdsurWPtgiPgpJ06ryUnuaSXC2s0WoSZnQmEpbAH65XZSdwowgN5MvyP7e88nW07FYXv72erVtpBkxyDVKhH1Q==
+babel-eslint@^10.0.3:
+  version "10.0.3"
+  resolved "https://registry.yarnpkg.com/babel-eslint/-/babel-eslint-10.0.3.tgz#81a2c669be0f205e19462fed2482d33e4687a88a"
+  integrity sha512-z3U7eMY6r/3f3/JB9mTsLjyxrv0Yb1zb8PCWCLpguxfCzBIZUwy23R1t/XKewP+8mEN2Ck8Dtr4q20z6ce6SoA==
   dependencies:
     "@babel/code-frame" "^7.0.0"
     "@babel/parser" "^7.0.0"
     "@babel/traverse" "^7.0.0"
     "@babel/types" "^7.0.0"
-    eslint-scope "3.7.1"
     eslint-visitor-keys "^1.0.0"
+    resolve "^1.12.0"
 
 babel-loader@8.0.6:
   version "8.0.6"
@@ -2755,6 +2765,13 @@ eslint-config-prettier@~6.0.0:
   dependencies:
     get-stdin "^6.0.0"
 
+eslint-config-prettier@~6.3.0:
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-6.3.0.tgz#e73b48e59dc49d950843f3eb96d519e2248286a3"
+  integrity sha512-EWaGjlDAZRzVFveh2Jsglcere2KK5CJBhkNSa1xs3KfMUGdRiT7lG089eqPdvlzWHpAqaekubOsOMu8W8Yk71A==
+  dependencies:
+    get-stdin "^6.0.0"
+
 eslint-import-resolver-node@^0.3.2:
   version "0.3.2"
   resolved "https://registry.yarnpkg.com/eslint-import-resolver-node/-/eslint-import-resolver-node-0.3.2.tgz#58f15fb839b8d0576ca980413476aab2472db66a"
@@ -2795,6 +2812,13 @@ eslint-plugin-jest@^22.13.6:
   dependencies:
     "@typescript-eslint/experimental-utils" "^1.13.0"
 
+eslint-plugin-jest@^22.17.0:
+  version "22.19.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-jest/-/eslint-plugin-jest-22.19.0.tgz#0cf90946a8c927d40a2c64458c89bb635d0f2a0b"
+  integrity sha512-4zUc3rh36ds0SXdl2LywT4YWA3zRe8sfLhz8bPp8qQPIKvynTTkNGwmSCMpl5d9QiZE2JxSinGF+WD8yU+O0Lg==
+  dependencies:
+    "@typescript-eslint/experimental-utils" "^1.13.0"
+
 eslint-plugin-jsx-a11y@~6.2.3:
   version "6.2.3"
   resolved "https://registry.yarnpkg.com/eslint-plugin-jsx-a11y/-/eslint-plugin-jsx-a11y-6.2.3.tgz#b872a09d5de51af70a97db1eea7dc933043708aa"
@@ -2817,10 +2841,10 @@ eslint-plugin-prettier@~3.1.0:
   dependencies:
     prettier-linter-helpers "^1.0.0"
 
-eslint-plugin-react-hooks@~1.6.1:
-  version "1.6.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-react-hooks/-/eslint-plugin-react-hooks-1.6.1.tgz#3c66a5515ea3e0a221ffc5d4e75c971c217b1a4c"
-  integrity sha512-wHhmGJyVuijnYIJXZJHDUF2WM+rJYTjulUTqF9k61d3BTk8etydz+M4dXUVH7M76ZRS85rqBTCx0Es/lLsrjnA==
+eslint-plugin-react-hooks@~2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-react-hooks/-/eslint-plugin-react-hooks-2.0.1.tgz#e898ec26a0a335af6f7b0ad1f0bedda7143ed756"
+  integrity sha512-xir+3KHKo86AasxlCV8AHRtIZPHljqCRRUYgASkbatmt0fad4+5GgC7zkT7o/06hdKM6MIwp8giHVXqBPaarHQ==
 
 eslint-plugin-react@~7.14.3:
   version "7.14.3"
@@ -2836,14 +2860,6 @@ eslint-plugin-react@~7.14.3:
     object.values "^1.1.0"
     prop-types "^15.7.2"
     resolve "^1.10.1"
-
-eslint-scope@3.7.1:
-  version "3.7.1"
-  resolved "https://registry.yarnpkg.com/eslint-scope/-/eslint-scope-3.7.1.tgz#3d63c3edfda02e06e01a452ad88caacc7cdcb6e8"
-  integrity sha1-PWPD7f2gLgbgGkUq2IyqzHzctug=
-  dependencies:
-    esrecurse "^4.1.0"
-    estraverse "^4.1.1"
 
 eslint-scope@^4.0.0:
   version "4.0.0"
@@ -6065,6 +6081,13 @@ resolve@^1.10.1, resolve@^1.11.0, resolve@^1.5.0:
   version "1.11.1"
   resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.11.1.tgz#ea10d8110376982fef578df8fc30b9ac30a07a3e"
   integrity sha512-vIpgF6wfuJOZI7KKKSP+HmiKggadPQAdsp5HiC1mvqnfp0gF1vdwgBWZIdrVft9pgqoMFQN+R7BSWZiBxx+BBw==
+  dependencies:
+    path-parse "^1.0.6"
+
+resolve@^1.12.0:
+  version "1.12.0"
+  resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.12.0.tgz#3fc644a35c84a48554609ff26ec52b66fa577df6"
+  integrity sha512-B/dOmuoAik5bKcD6s6nXDCjzUKnaDvdkRyAk6rsmsKLipWj4797iothd7jmmUhWTfinVMU+wc56rYKsit2Qy4w==
   dependencies:
     path-parse "^1.0.6"
 
