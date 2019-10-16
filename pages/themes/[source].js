@@ -89,10 +89,6 @@ const ContentPage = props => {
           <Link href="/">
             <a>Accueil</a>
           </Link>{" "}
-          &gt;{" "}
-          <Link href="/themes">
-            <a>Thèmes</a>
-          </Link>{" "}
           &gt; {records.length} {label} sans thème
         </h4>
         <ThemeItems records={records} />
