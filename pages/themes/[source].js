@@ -105,13 +105,11 @@ ContentPage.getInitialProps = async ({ query }) => {
     .collection("themes", { headers: {} })
     .listRecords({ limit: 1000 });
   const hasTheme = content => {
-    const contentSlug = `${getRouteBySource(source)}/${content.slug}`;
+    const contentSlug = `/${getRouteBySource(source)}/${content.slug}`;
     return themes.data.find(
       theme =>
         theme.refs &&
-        theme.refs
-          .filter(ref => !!ref.url)
-          .find(ref => ref.url.match(new RegExp(`^/?${contentSlug}`)))
+        theme.refs.filter(ref => !!ref.url).find(ref => ref.url === contentSlug)
     );
   };
   const hasNoTheme = content => !hasTheme(content);

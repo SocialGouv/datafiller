@@ -217,7 +217,7 @@ const fetchRecapThemes = async () => {
 
   const bySource = source => {
     const hasTheme = content => {
-      const contentSlug = `${getRouteBySource(source)}/${content.slug}`;
+      const contentSlug = `/${getRouteBySource(source)}/${content.slug}`;
       return themes.data.find(
         theme =>
           theme.refs &&
