@@ -109,7 +109,9 @@ ContentPage.getInitialProps = async ({ query }) => {
     return themes.data.find(
       theme =>
         theme.refs &&
-        theme.refs.find(ref => ref.url.match(new RegExp(`^/?${contentSlug}`)))
+        theme.refs
+          .filter(ref => !!ref.url)
+          .find(ref => ref.url.match(new RegExp(`^/?${contentSlug}`)))
     );
   };
   const hasNoTheme = content => !hasTheme(content);
