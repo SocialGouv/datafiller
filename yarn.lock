@@ -5812,10 +5812,10 @@ react-feather@2.0.3:
   dependencies:
     prop-types "^15.7.2"
 
-react-fetch-hook@1.6.4:
-  version "1.6.4"
-  resolved "https://registry.yarnpkg.com/react-fetch-hook/-/react-fetch-hook-1.6.4.tgz#8ebf4b2d405bc1c061dabc5aae9c0c582e86d65f"
-  integrity sha512-iTArOaNP7C1s4T3soD3SYey8pqabHrGmySaHxvK3buILGeLOLyYNmJudhxJCxtlZDR2x9DeoFBNB0tSRfXnf/w==
+react-fetch-hook@1.7.1:
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/react-fetch-hook/-/react-fetch-hook-1.7.1.tgz#d15d67ccab4087d461c6aaaf31f4cbcab7bb0f6e"
+  integrity sha512-VbDQKp1vVJoonH9wfgot3ayJdTZ6rAB5TQmqG40DE1SlJJ+UqhjlT+cynn/ofP5j1qYr5QLls87vqI2yuUoqYw==
 
 react-is@16.8.6:
   version "16.8.6"
