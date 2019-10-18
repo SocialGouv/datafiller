@@ -14,7 +14,7 @@
     "@socialgouv/kali-data": "1.0.0",
     "@zeit/next-css": "1.0.1",
     "btoa": "1.2.1",
-    "express": "4.16.4",
+    "express": "4.17.1",
     "formik": "1.5.8",
     "fuse.js": "3.4.5",
     "google-spreadsheets": "2.0.0",
