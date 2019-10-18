@@ -16,7 +16,7 @@
     "btoa": "1.2.1",
     "express": "4.16.4",
     "formik": "1.5.8",
-    "fuse.js": "3.4.4",
+    "fuse.js": "3.4.5",
     "google-spreadsheets": "2.0.0",
     "gradient2": "1.0.3",
     "http-proxy-middleware": "0.20.0",
