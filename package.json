@@ -19,7 +19,7 @@
     "fuse.js": "3.4.4",
     "google-spreadsheets": "2.0.0",
     "gradient2": "1.0.3",
-    "http-proxy-middleware": "0.19.1",
+    "http-proxy-middleware": "0.20.0",
     "kinto-http": "4.7.3",
     "memoizee": "0.4.14",
     "next": "9.0.4",
