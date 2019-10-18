@@ -8,9 +8,9 @@
     "start": "NODE_ENV=production node server"
   },
   "dependencies": {
-    "@sentry/browser": "5.5.0",
-    "@sentry/integrations": "5.5.0",
-    "@sentry/node": "5.5.0",
+    "@sentry/browser": "5.7.1",
+    "@sentry/integrations": "5.7.1",
+    "@sentry/node": "5.7.1",
     "@socialgouv/kali-data": "1.0.0",
     "@zeit/next-css": "1.0.1",
     "btoa": "1.2.1",
