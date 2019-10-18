@@ -15,7 +15,7 @@
     "@zeit/next-css": "1.0.1",
     "btoa": "1.2.1",
     "express": "4.16.4",
-    "formik": "1.5.1",
+    "formik": "1.5.8",
     "fuse.js": "3.4.4",
     "google-spreadsheets": "2.0.0",
     "gradient2": "1.0.3",
