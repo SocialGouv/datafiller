@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { Table } from "reactstrap";
+import { Edit } from "react-feather";
 
 import Layout from "../../src/Layout";
 import getClient from "../../src/kinto/client";
@@ -39,18 +40,20 @@ const addToTheme = async (content, theme) => {
 const ThemeSelector = ({ record }) => {
   const [theme, setTheme] = useState("");
   return (
-    (theme && theme.title) || (
-      <ThemePicker
-        name="theme"
-        value={theme}
-        onChange={theme => {
-          addToTheme(record, theme.id);
-          setTheme(theme);
-        }}
-      />
-    )
+    <ThemePicker
+      name="theme"
+      style={{ cursor: "pointer" }}
+      lazy={true}
+      title={theme.title || <Edit />}
+      value={theme && theme.id}
+      onChange={theme => {
+        addToTheme(record, theme.id);
+        setTheme(theme);
+      }}
+    />
   );
 };
+
 const ThemeItems = ({ records }) => (
   <Table padding="dense" striped>
     <thead>

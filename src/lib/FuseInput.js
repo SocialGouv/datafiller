@@ -16,8 +16,8 @@ const DEFAULT_FUSE_OPTIONS = {
   threshold: 0.75,
   location: 0,
   distance: 100,
-  maxPatternLength: 25,
-  minMatchCharLength: 4,
+  maxPatternLength: 20,
+  minMatchCharLength: 3,
   keys: ["labelNormalized"]
 };
 
@@ -47,27 +47,31 @@ const FuseHighLighter = ({ suggestion, query, style, labelKey }) => {
   let html = suggestion.item[labelKey];
   let offset = 0;
   let newHtml;
-  suggestion.matches.forEach(match => {
-    match.indices.forEach(indice => {
-      if (indice[1] - indice[0] > 1) {
-        newHtml = html.slice(0, indice[0] + offset);
-        newHtml += `<span class="fuse-highlighter">`;
-        newHtml += html.slice(indice[0] + offset, indice[1] + offset + 1);
-        newHtml += `</span>`;
-        newHtml += html.slice(indice[1] + offset + 1);
-        offset += newHtml.length - html.length;
-        html = newHtml;
-      }
+
+  if (html) {
+    suggestion.matches.forEach(match => {
+      match.indices.forEach(indice => {
+        if (indice[1] - indice[0] > 1) {
+          newHtml = html.slice(0, indice[0] + offset);
+          newHtml += `<span class="fuse-highlighter">`;
+          newHtml += html.slice(indice[0] + offset, indice[1] + offset + 1);
+          newHtml += `</span>`;
+          newHtml += html.slice(indice[1] + offset + 1);
+          offset += newHtml.length - html.length;
+          html = newHtml;
+        }
+      });
     });
-  });
-  return (
-    <SuggestionContainer
-      style={style}
-      dangerouslySetInnerHTML={{
-        __html: newHtml || html
-      }}
-    />
-  );
+    return (
+      <SuggestionContainer
+        style={style}
+        dangerouslySetInnerHTML={{
+          __html: newHtml || html
+        }}
+      />
+    );
+  }
+  return <div>{html}</div>;
 };
 
 const renderSuggestion = (query, labelKey) => suggestion => (
@@ -121,7 +125,6 @@ class FuseInput extends React.Component {
       },
       () => {
         if (this.props.onChange) {
-          console.log("onChange1", suggestion, suggestionValue);
           this.props.onChange(suggestion.item);
         }
       }
@@ -136,7 +139,6 @@ class FuseInput extends React.Component {
       onChange: this.onChange,
       placeholder: this.props.placeholder
     };
-    // console.log("title", this.props.getSuggestionValue({ title: "my title" }));
     return (
       <Autosuggest
         theme={this.props.theme}
