@@ -1,7 +1,7 @@
 const { fixUrl } = require("../fixUrl");
 
 jest.mock(
-  "../../src/dump.data2.json",
+  "../../src/dump.data.json",
   () => [
     { source: "modeles_de_courriers", slug: "modele-valide" },
     { source: "fiches_ministere_travail", slug: "fiche-mt-valide#Anchor" },

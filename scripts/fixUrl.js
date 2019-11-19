@@ -1,4 +1,4 @@
-const data = require("../src/dump.data2.json");
+const data = require("../src/dump.data.json");
 
 const fichesMT = data.filter(rec => rec.source === "fiches_ministere_travail");
 const fichesSP = data.filter(rec => rec.source === "fiches_service_public");
