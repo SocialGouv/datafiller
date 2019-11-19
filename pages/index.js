@@ -228,7 +228,18 @@ const fetchRecapThemes = async () => {
     };
     const hasNoTheme = content => !hasTheme(content);
     const allContent = dump.filter(content => content.source === source);
-    const noThemeContents = allContent.filter(hasNoTheme);
+    const noThemeContents = allContent
+      .filter(hasNoTheme)
+      .reduce((acc, content) => {
+        if (
+          source === "fiches_ministere_travail" &&
+          acc.find(c => c.slug.split("#")[0] === content.slug.split("#")[0])
+        ) {
+          return acc;
+        }
+        acc.push(content);
+        return acc;
+      }, []);
 
     return {
       total: allContent.length,

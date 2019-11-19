@@ -59,7 +59,7 @@ const ThemeItems = ({ records }) => (
     <thead>
       <tr>
         <td>Titre</td>
-        <td>Thème</td>
+        <td width="400">Thème</td>
       </tr>
     </thead>
     <tbody>
@@ -70,7 +70,7 @@ const ThemeItems = ({ records }) => (
               {record.title}
             </a>
           </td>
-          <td>
+          <td width="400">
             <ThemeSelector record={record} />
           </td>
         </tr>
@@ -118,7 +118,17 @@ ContentPage.getInitialProps = async ({ query }) => {
   const hasNoTheme = content => !hasTheme(content);
   const noThemeContents = dump
     .filter(content => content.source === source)
-    .filter(hasNoTheme);
+    .filter(hasNoTheme)
+    .reduce((acc, content) => {
+      if (
+        source === "fiches_ministere_travail" &&
+        acc.find(c => c.slug.split("#")[0] === content.slug.split("#")[0])
+      ) {
+        return acc;
+      }
+      acc.push(content);
+      return acc;
+    }, []);
 
   return {
     records: noThemeContents,
