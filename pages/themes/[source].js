@@ -58,20 +58,20 @@ const ThemeItems = ({ records }) => (
   <Table padding="dense" striped>
     <thead>
       <tr>
-        <td>Titre</td>
         <td width="400">Thème</td>
+        <td>Titre</td>
       </tr>
     </thead>
     <tbody>
       {records.map(record => (
         <tr key={record.title}>
+          <td width="400">
+            <ThemeSelector record={record} />
+          </td>
           <td>
             <a href={record.url} target="_blank" rel="noopener noreferrer">
               {record.title}
             </a>
-          </td>
-          <td width="400">
-            <ThemeSelector record={record} />
           </td>
         </tr>
       ))}
