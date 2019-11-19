@@ -118,7 +118,7 @@ ContentPage.getInitialProps = async ({ query }) => {
   const hasNoTheme = content => !hasTheme(content);
   const noThemeContents = dump
     .filter(content => content.source === source)
-    .filter(hasNoTheme)
+    //.filter(hasNoTheme)
     .reduce((acc, content) => {
       if (
         source === "fiches_ministere_travail" &&
