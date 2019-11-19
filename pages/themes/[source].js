@@ -26,7 +26,7 @@ const addToTheme = async (content, theme) => {
       .filter(r => r.slug.split("#")[0] === content.slug.split("#")[0])
       .map(r => ({
         title: r.title,
-        url: `/${getRouteBySource(content.source)}/${content.slug}`
+        url: `/${getRouteBySource(content.source)}/${r.slug}`
       }));
     newRefs.push(...siblings);
   } else {
