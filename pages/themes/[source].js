@@ -17,19 +17,32 @@ const addToTheme = async (content, theme) => {
     .collection("themes", { headers: {} })
     .getRecord(theme);
 
+  const newRefs = [
+    {
+      title: content.title,
+      url: `/${getRouteBySource(content.source)}/${content.slug}`
+    }
+  ];
+
+  // select all fiches MT with same slug
+  if (content.source === "fiches_ministere_travail") {
+    const siblings = dump
+      .filter(r => r.source === "fiches_ministere_travail")
+      .filter(r => r.slug.split("#")[0] === content.slug.split("#")[0])
+      .map(r => ({
+        title: r.title,
+        url: `/${getRouteBySource(content.source)}/${content.slug}`
+      }));
+    newRefs.push(...siblings);
+  }
+
   await client
     .bucket("datasets", { headers: {} })
     .collection("themes", { headers: {} })
     .updateRecord(
       {
         id: theme,
-        refs: [
-          ...(themeRecord.data.refs || []),
-          {
-            title: content.title,
-            url: `/${getRouteBySource(content.source)}/${content.slug}`
-          }
-        ]
+        refs: [...(themeRecord.data.refs || []), ...newRefs]
       },
       {
         patch: true
@@ -118,7 +131,7 @@ ContentPage.getInitialProps = async ({ query }) => {
   const hasNoTheme = content => !hasTheme(content);
   const noThemeContents = dump
     .filter(content => content.source === source)
-    //.filter(hasNoTheme)
+    .filter(hasNoTheme)
     .reduce((acc, content) => {
       if (
         source === "fiches_ministere_travail" &&
