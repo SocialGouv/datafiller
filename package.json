@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "node server",
     "build": "next build",
-    "start": "NODE_ENV=production node server"
+    "start": "NODE_ENV=production node server",
+    "test": "jest"
   },
   "dependencies": {
     "@sentry/browser": "5.9.1",
@@ -45,6 +46,7 @@
     "@socialgouv/eslint-config-recommended": "0.10.3",
     "eslint": "6.6.0",
     "esm": "3.2.25",
-    "prettier": "1.19.1"
+    "prettier": "1.19.1",
+    "jest-cli": "^24.9.0"
   }
 }
