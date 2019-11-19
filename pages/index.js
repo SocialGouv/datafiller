@@ -3,10 +3,11 @@ import getConfig from "next/config";
 import Link from "next/link";
 
 import ProgressIndicator from "../src/forms/components/ProgressIndicator";
-import KintoFetch from "../src/kinto/KintoFetch";
 import sortByKey from "../src/sortByKey";
 import getScore from "../src/getScore";
 import getClient from "../src/kinto/client";
+import { sources, getRouteBySource } from "../src/sources";
+import dump from "../src/dump.data.json";
 
 import { Eye, Database, Plus, Star } from "react-feather";
 
@@ -21,7 +22,9 @@ import {
   Container,
   Button,
   Row,
-  Col
+  Col,
+  Table,
+  Progress
 } from "reactstrap";
 
 const { publicRuntimeConfig } = getConfig();
@@ -58,7 +61,7 @@ const ButtonRecord = ({ bucket, collection, record, text, Icon }) => (
   </Link>
 );
 
-const BucketView = ({ bucket, collections = [] }) => {
+const BucketView = ({ bucket, collections = [], themes }) => {
   return (
     <Container>
       <Row>
@@ -116,7 +119,6 @@ const BucketView = ({ bucket, collections = [] }) => {
                         key={rec.id}
                       >
                         <ListGroupItem
-                          key={rec.id}
                           tag="a"
                           href="#"
                           title={rec.title}
@@ -136,6 +138,52 @@ const BucketView = ({ bucket, collections = [] }) => {
             </Col>
           );
         })}
+        <Col xs={12} sm={6} key="themes">
+          <Card style={{ marginTop: 15 }}>
+            <CardBody>
+              <div style={{ fontSize: "1.5em", marginBottom: 35 }}>
+                Contenus à thémer
+              </div>
+              <Table>
+                <tbody>
+                  {themes
+                    .filter(item => item.items.length)
+                    .map(item => (
+                      <tr key={item.source}>
+                        <td>
+                          <Link
+                            href={`/themes/[source]`}
+                            as={`/themes/${item.source}`}
+                            passHref
+                          >
+                            <a>{getRouteBySource(item.source)}</a>
+                          </Link>
+                        </td>
+                        <td>
+                          <div>
+                            <Progress
+                              value={
+                                ((item.total - item.items.length) /
+                                  item.total) *
+                                100
+                              }
+                            >
+                              {parseInt(
+                                ((item.total - item.items.length) /
+                                  item.total) *
+                                  100
+                              )}
+                              %
+                            </Progress>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                </tbody>
+              </Table>
+            </CardBody>
+          </Card>
+        </Col>
       </Row>
     </Container>
   );
@@ -160,20 +208,57 @@ const fetchAllCollections = async () => {
   );
 };
 
+const fetchRecapThemes = async () => {
+  const client = getClient();
+  const themes = await client
+    .bucket("datasets", { headers: {} })
+    .collection("themes", { headers: {} })
+    .listRecords({ limit: 1000 });
+
+  const bySource = source => {
+    const hasTheme = content => {
+      const contentSlug = `/${getRouteBySource(source)}/${content.slug}`;
+      return themes.data.find(
+        theme =>
+          theme.refs &&
+          theme.refs
+            .filter(ref => !!ref.url)
+            .find(ref => ref.url === contentSlug)
+      );
+    };
+    const hasNoTheme = content => !hasTheme(content);
+    const allContent = dump.filter(content => content.source === source);
+    const noThemeContents = allContent.filter(hasNoTheme);
+
+    return {
+      total: allContent.length,
+      items: noThemeContents
+    };
+  };
+
+  return sources
+    .filter(source => source !== "themes")
+    .map(source => ({
+      source,
+      ...bySource(source)
+    }));
+};
+
 // by default we list the process.env.KINTO_BUCKET
 class Home extends React.Component {
   static async getInitialProps({ query }) {
     const collections = await fetchAllCollections();
-    return { query: query.query, collections };
+    const themes = await fetchRecapThemes();
+    return { query: query.query, collections, themes };
   }
   render() {
     const bucket = publicRuntimeConfig.KINTO_BUCKET;
-    const { collections } = this.props;
+    const { collections, themes } = this.props;
     const total = sum(collections.map(c => c.records.length));
     return (
       <Container>
         <BucketIntro count={total} />
-        <BucketView bucket={bucket} collections={collections} />
+        <BucketView bucket={bucket} collections={collections} themes={themes} />
       </Container>
     );
   }

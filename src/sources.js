@@ -7,6 +7,7 @@ const routeBySource = {
   code_du_travail: "code-du-travail",
   conventions_collectives: "convention-collective",
   modeles_de_courriers: "modeles-de-courriers",
+  contributions: "contributions",
   themes: "themes",
   outils: "outils",
   idcc: "idcc",
@@ -22,6 +23,7 @@ const labelBySource = {
   code_du_travail: "Code du travail",
   conventions_collectives: "Legifrance",
   modeles_de_courriers: "Courrier Type",
+  contributions: "Contributions",
   themes: "themes",
   outils: "outils",
   idcc: "Legifrance",
@@ -31,8 +33,10 @@ const labelBySource = {
 export const getLabelBySource = src => labelBySource[src] || "";
 export const getRouteBySource = src => routeBySource[src];
 
-const sources = Object.keys(routeBySource);
+export const sources = Object.keys(routeBySource);
+
 export const getExcludeSources = value => {
   if (Boolean(value) === false) return "";
   return sources.filter(source => source.startsWith(value) === false).join(",");
 };
+

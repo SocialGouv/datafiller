@@ -9,10 +9,12 @@ const ListRecordsRouter = withRouter(ListRecords);
 
 const Layout = ({ records, RightComponent, children }) => (
   <Row>
-    <Col xs={3}>
-      <ListRecordsRouter records={records} />
-    </Col>
-    <Col xs={9}>
+    {records && (
+      <Col xs={3}>
+        <ListRecordsRouter records={records} />
+      </Col>
+    )}
+    <Col xs={records ? 9 : 12}>
       <Container>
         {RightComponent && <RightComponent />}
         {children}
