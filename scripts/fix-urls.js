@@ -29,7 +29,14 @@ const fixRefs = refs =>
         url: fixedUrl,
         valid: true
       };
-    });
+    })
+    .reduce((acc, cur) => {
+      // prevent doublons
+      if (!acc.find(r => r.url === cur.url)) {
+        acc.push(cur);
+      }
+      return acc;
+    }, []);
 
 const getAllRefs = records =>
   records.reduce((acc, record) => [...acc, ...record.refs], []);
@@ -48,7 +55,7 @@ const fixCollection = async collection => {
           .forEach(ref => {
             console.error(`Wrong url in ${collection} ${record.id}`, ref.url);
           });
-        //await updateRecord(collection, record.id, { refs: newRefs });
+        await updateRecord(collection, record.id, { refs: newRefs });
         return {
           ...record,
           refs: newRefs
@@ -58,7 +65,7 @@ const fixCollection = async collection => {
   const allRefs = getAllRefs(validRecords);
   console.log(
     `${collection} : ${allRefs.filter(r => !r.valid).length}/${
-      allRefs.filter(r => r.valid).length
+      allRefs.length
     } wrong references`
   );
 };
