@@ -217,13 +217,15 @@ const fetchRecapThemes = async () => {
 
   const bySource = source => {
     const hasTheme = content => {
-      const contentSlug = `/${getRouteBySource(source)}/${content.slug}`;
+      const contentSlug = `/${getRouteBySource(source)}/${
+        content.slug.split("#")[0]
+      }`;
       return themes.data.find(
         theme =>
           theme.refs &&
           theme.refs
             .filter(ref => !!ref.url)
-            .find(ref => ref.url === contentSlug)
+            .find(ref => ref.url.split("#")[0] === contentSlug)
       );
     };
     const hasNoTheme = content => !hasTheme(content);

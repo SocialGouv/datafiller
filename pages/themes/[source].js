@@ -17,12 +17,7 @@ const addToTheme = async (content, theme) => {
     .collection("themes", { headers: {} })
     .getRecord(theme);
 
-  const newRefs = [
-    {
-      title: content.title,
-      url: `/${getRouteBySource(content.source)}/${content.slug}`
-    }
-  ];
+  const newRefs = [];
 
   // select all fiches MT with same slug
   if (content.source === "fiches_ministere_travail") {
@@ -34,6 +29,11 @@ const addToTheme = async (content, theme) => {
         url: `/${getRouteBySource(content.source)}/${content.slug}`
       }));
     newRefs.push(...siblings);
+  } else {
+    newRefs.push({
+      title: content.title,
+      url: `/${getRouteBySource(content.source)}/${content.slug}`
+    });
   }
 
   await client
@@ -121,11 +121,15 @@ ContentPage.getInitialProps = async ({ query }) => {
     .collection("themes", { headers: {} })
     .listRecords({ limit: 1000 });
   const hasTheme = content => {
-    const contentSlug = `/${getRouteBySource(source)}/${content.slug}`;
+    const contentSlug = `/${getRouteBySource(source)}/${
+      content.slug.split("#")[0]
+    }`;
     return themes.data.find(
       theme =>
         theme.refs &&
-        theme.refs.filter(ref => !!ref.url).find(ref => ref.url === contentSlug)
+        theme.refs
+          .filter(ref => !!ref.url)
+          .find(ref => ref.url.split("#")[0] === contentSlug)
     );
   };
   const hasNoTheme = content => !hasTheme(content);
@@ -133,6 +137,7 @@ ContentPage.getInitialProps = async ({ query }) => {
     .filter(content => content.source === source)
     .filter(hasNoTheme)
     .reduce((acc, content) => {
+      // return only une fiche MT per slug (group documents)
       if (
         source === "fiches_ministere_travail" &&
         acc.find(c => c.slug.split("#")[0] === content.slug.split("#")[0])
