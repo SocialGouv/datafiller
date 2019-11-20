@@ -32,3 +32,8 @@ Get a dump of the bucket `datasets` and collection `requetes` :
 ```sh
 curl https://xxxxxx/kinto/v1/buckets/datasets/collections/requetes/records > bckp-(date +%y-%m-%d-%H-%M).json
 ```
+
+## Scripts
+
+ - `./scripts/download-dump.sh` get latest dump from CDTN master
+ - `DATAFILLER_URL=xxxx node ./scripts/fix-urls` fix datafiller urls based on current dump
