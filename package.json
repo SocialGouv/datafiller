@@ -18,7 +18,7 @@
     "express": "4.17.1",
     "formik": "1.5.8",
     "fuse.js": "3.4.5",
-    "fuzzball": "^1.3.0",
+    "fuzzball": "1.3.0",
     "google-spreadsheets": "2.0.0",
     "gradient2": "1.0.3",
     "http-proxy-middleware": "0.20.0",
@@ -47,7 +47,7 @@
     "@socialgouv/eslint-config-recommended": "0.10.3",
     "eslint": "6.6.0",
     "esm": "3.2.25",
-    "jest-cli": "^24.9.0",
+    "jest-cli": "24.9.0",
     "prettier": "1.19.1"
   }
 }
