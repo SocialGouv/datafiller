@@ -13,6 +13,7 @@
     "@sentry/integrations": "5.8.0",
     "@sentry/node": "5.9.0",
     "@socialgouv/kali-data": "1.0.0",
+    "@socialgouv/react-ui": "^3.8.0",
     "@zeit/next-css": "1.0.1",
     "btoa": "1.2.1",
     "express": "4.17.1",
