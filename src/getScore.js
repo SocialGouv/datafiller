@@ -13,9 +13,12 @@ const getScore = (collection, item) => {
     score += Math.min(50, refs * 10);
     score += Math.min(50, variants * 10);
     if (item.theme) {
-      score += 50;
+      score += 20;
     } else {
       score -= 80;
+    }
+    if (refs === 0 || variants === 0 || !item.theme) {
+      score = 0;
     }
   }
   if (collection === "glossaire") {
@@ -40,6 +43,7 @@ const getScore = (collection, item) => {
     score += Math.min(70, refs * 10);
     score += item.subTitle ? 20 : 0;
     score += item.intro ? 20 : 0;
+    score += item.icon ? 20 : 0;
   }
   if (collection === "reponses") {
     score += Math.min(50, refs * 10);
@@ -50,7 +54,8 @@ const getScore = (collection, item) => {
     score += item.intro ? 20 : 0;
   }
 
-  return Math.min(100, Math.max(0, score));
+  score = Math.min(100, Math.max(0, score));
+  return score;
 };
 
 export default getScore;
