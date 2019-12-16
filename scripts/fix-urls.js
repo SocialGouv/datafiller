@@ -1,5 +1,5 @@
 const { updateRecord, getCollection } = require("./utils");
-
+const pAll = require("p-all");
 const { fixUrl } = require("./fixUrl");
 
 const isValidUrl = url => {
@@ -45,30 +45,41 @@ const getAllRefs = records =>
 const fixCollection = async collection => {
   const records = await getCollection(collection);
 
-  const validRecords = await Promise.all(
+  console.log("Status | url | correction");
+  console.log("------ | --- | ----------");
+
+  const validRecords = await pAll(
     records
       .filter(req => req.refs && req.refs.length)
-      .map(async record => {
+      .map(record => () => {
         const newRefs = fixRefs(record.refs);
         newRefs
           .filter(ref => !ref.valid)
           .forEach(ref => {
-            console.error(`Wrong url in ${collection} ${record.id}`, ref.url);
+            console.log(
+              `Error in [${collection} ${record.id}](https://datafiller.num.social.gouv.fr/bucket/datasets/collection/${collection}/record/${record.id}) | ${ref.url} | `
+            );
           });
-        await updateRecord(collection, record.id, { refs: newRefs });
-        return {
-          ...record,
-          refs: newRefs
-        };
-      })
+        return updateRecord(collection, record.id, { refs: newRefs }).then(
+          () => {
+            return {
+              ...record,
+              refs: newRefs
+            };
+          }
+        );
+      }),
+    { concurrency: 5 }
   );
+
   const allRefs = getAllRefs(validRecords);
   console.log(
-    `${collection} : ${allRefs.filter(r => !r.valid).length}/${
+    `\n## ${collection} : ${allRefs.filter(r => !r.valid).length}/${
       allRefs.length
-    } wrong references`
+    } wrong references\n`
   );
 };
 
-fixCollection("requetes");
-fixCollection("themes");
+pAll([() => fixCollection("requetes"), () => fixCollection("themes")], {
+  concurrency: 1
+});
