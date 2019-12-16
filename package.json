@@ -44,7 +44,7 @@
   "license": "ISC",
   "devDependencies": {
     "@socialgouv/eslint-config-react": "0.10.3",
-    "@socialgouv/eslint-config-recommended": "0.10.3",
+    "@socialgouv/eslint-config-recommended": "0.11.1",
     "eslint": "6.6.0",
     "esm": "3.2.25",
     "jest-cli": "^24.9.0",
