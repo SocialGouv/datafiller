@@ -61,12 +61,10 @@ const fixCollection = async collection => {
             );
           });
         return updateRecord(collection, record.id, { refs: newRefs }).then(
-          () => {
-            return {
-              ...record,
-              refs: newRefs
-            };
-          }
+          () => ({
+            ...record,
+            refs: newRefs
+          })
         );
       }),
     { concurrency: 5 }
