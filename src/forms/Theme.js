@@ -19,6 +19,7 @@ import {
 import ThemePicker from "./components/ThemePicker";
 import CDTNReferences from "./components/CDTNReferences";
 import MarkdownLink from "./components/MarkdownLink";
+import IconPicker from "./components/IconPicker";
 
 const DataSchema = Yup.object().shape({
   title: Yup.string()
@@ -102,6 +103,17 @@ const ThemeForm = ({ data, onSubmit, onDelete }) => (
                 </FormGroup>
               </Col>
             </Row>
+            <FormGroup row>
+              <Label>Icône</Label>
+              <IconPicker
+                name="icon"
+                value={values.icon}
+                onChange={icon => {
+                  setFieldValue("icon", icon);
+                  setFieldTouched("icon");
+                }}
+              />
+            </FormGroup>
             <FormGroup row>
               <Label>Thème parent</Label>
               <ThemePicker

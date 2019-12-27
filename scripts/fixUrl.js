@@ -5,7 +5,10 @@ const data = require("../src/dump.data.json");
 const fichesMT = data.filter(rec => rec.source === "fiches_ministere_travail");
 const fichesSP = data.filter(rec => rec.source === "fiches_service_public");
 const themes = data.filter(rec => rec.source === "themes");
+const contributions = data.filter(rec => rec.source === "contributions");
 const modeles = data.filter(rec => rec.source === "modeles_de_courriers");
+
+const FUZZ_RATIO = 90;
 
 const findFicheMTBySlug = slug => {
   const results = fuzz.extract(
@@ -14,13 +17,17 @@ const findFicheMTBySlug = slug => {
     {
       scorer: fuzz.ratio,
       processor: choice => choice.slug,
-      cutoff: 90,
+      cutoff: FUZZ_RATIO,
       limit: 1
     }
   );
   if (results.length) {
     return results[0][0].slug;
   }
+};
+
+const logFix = (original, fixed) => {
+  console.log(`Fixed | ${original} | ${fixed}`);
 };
 
 const findFicheMTByAnchor = slug => {
@@ -32,7 +39,7 @@ const findFicheMTByAnchor = slug => {
     {
       scorer: fuzz.ratio,
       processor: choice => choice.anchor,
-      cutoff: 90,
+      cutoff: FUZZ_RATIO,
       limit: 1
     }
   );
@@ -49,7 +56,7 @@ const findModeleBySlug = slug => {
     {
       scorer: fuzz.ratio,
       processor: choice => choice.slug,
-      cutoff: 90,
+      cutoff: FUZZ_RATIO,
       limit: 1
     }
   );
@@ -65,13 +72,15 @@ const fixUrl = url => {
       url.includes("code.travail.gouv.fr") ||
       url.includes("code-du-travail-numerique")
     ) {
-      const relativeUrl = url
-        .replace(/^https?:\/\/[^/]+(?:\/(.*))?/, "/$1")
-        .split("?")[0];
-      console.log(`Fixed relative url in CDTN link`, url, relativeUrl);
-      return relativeUrl;
+      // keep relative path and anchor only
+      url = url.replace(
+        /^https?:\/\/[^/]+\/([^?]+)(?:\?[^#]+)?(#.*)?/gis,
+        "/$1$2"
+      );
+    } else {
+      //external urls
+      return url;
     }
-    return url;
   }
   if (url.match(/^\/code-du-travail\//)) {
     return url;
@@ -88,7 +97,7 @@ const fixUrl = url => {
       const match = findModeleBySlug(modeleMatch[1]);
       if (match) {
         if (match !== modeleMatch[1]) {
-          console.log("Fixed", url, `/modeles-de-courriers/${match}`);
+          logFix(url, `/modeles-de-courriers/${match}`);
         }
         return `/modeles-de-courriers/${match}`;
       }
@@ -104,7 +113,7 @@ const fixUrl = url => {
         "modeles_de_courriers",
         "modeles-de-courriers"
       );
-      console.log("Fixed", url, fixedUrl);
+      logFix(url, fixedUrl);
       return fixedUrl;
     }
     return false;
@@ -120,24 +129,32 @@ const fixUrl = url => {
         .replace("#", "-")
         .replace(/-039-/, "")
         .toLowerCase();
-    const foundFiche = fichesMT.find(
-      fiche => fixSlug(fiche.slug) === slug || fiche.slug === fullSlug
-    );
-    if (foundFiche) {
-      console.log("Fixed", url, `/fiche-ministere-travail/${foundFiche.slug}`);
-      return `/fiche-ministere-travail/${foundFiche.slug}`;
+
+    const foundFiche1 = fichesMT.find(fiche => fiche.slug === fullSlug);
+    if (foundFiche1) {
+      // perfect match
+      return `/fiche-ministere-travail/${foundFiche1.slug}`;
+    }
+
+    const foundFiche2 = fichesMT.find(fiche => fixSlug(fiche.slug) === slug);
+
+    if (foundFiche2) {
+      logFix(url, `/fiche-ministere-travail/${foundFiche2.slug}`);
+      return `/fiche-ministere-travail/${foundFiche2.slug}`;
     } else {
+      // match full slug
       const match = findFicheMTBySlug(fullSlug);
       if (match) {
         if (match !== fullSlug) {
-          console.log("Fixed", url, `/fiche-ministere-travail/${match}`);
+          logFix(url, `/fiche-ministere-travail/${match}`);
         }
         return `/fiche-ministere-travail/${match}`;
       } else {
+        // match on anchor
         const match = findFicheMTByAnchor(fullSlug);
         if (match) {
           if (match !== fullSlug) {
-            console.log("Fixed", url, `/fiche-ministere-travail/${match}`);
+            logFix(url, `/fiche-ministere-travail/${match}`);
           }
           return `/fiche-ministere-travail/${match}`;
         }
@@ -160,6 +177,16 @@ const fixUrl = url => {
   if (themeMatch) {
     const slug = themeMatch[1];
     const found = themes.find(fiche => fiche.slug === slug);
+    if (found) {
+      return url;
+    }
+    return false;
+  }
+
+  const contributionsMatch = url.match(/^\/contributions\/(.*)\/?/);
+  if (contributionsMatch) {
+    const slug = contributionsMatch[1];
+    const found = contributions.find(fiche => fiche.slug === slug);
     if (found) {
       return url;
     }

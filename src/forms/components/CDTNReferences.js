@@ -246,7 +246,8 @@ const CDTNReferences = ({
       const res = await searchResults(values.title);
       // concat with current selection, removing duplicates
       const hits =
-        (res.hits.hits &&
+        (res.hits &&
+          res.hits.hits &&
           res.hits.hits
             .filter(hit =>
               values.refs
