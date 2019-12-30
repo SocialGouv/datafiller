@@ -5,7 +5,7 @@ const data = require("../src/dump.data.json");
 const fichesMT = data.filter(rec => rec.source === "fiches_ministere_travail");
 const fichesSP = data.filter(rec => rec.source === "fiches_service_public");
 const themes = data.filter(rec => rec.source === "themes");
-const contributions = data.filter(rec => rec.source === "contributions");
+const contributions = data.filter(rec => rec.source === "contribution");
 const modeles = data.filter(rec => rec.source === "modeles_de_courriers");
 
 const FUZZ_RATIO = 90;
@@ -183,7 +183,7 @@ const fixUrl = url => {
     return false;
   }
 
-  const contributionsMatch = url.match(/^\/contributions\/(.*)\/?/);
+  const contributionsMatch = url.match(/^\/contribution\/(.*)\/?/);
   if (contributionsMatch) {
     const slug = contributionsMatch[1];
     const found = contributions.find(fiche => fiche.slug === slug);
