@@ -5,7 +5,7 @@ const data = require("../src/dump.data.json");
 const fichesMT = data.filter(rec => rec.source === "fiches_ministere_travail");
 const fichesSP = data.filter(rec => rec.source === "fiches_service_public");
 const themes = data.filter(rec => rec.source === "themes");
-const contributions = data.filter(rec => rec.source === "contribution");
+const contributions = data.filter(rec => rec.source === "contributions");
 const modeles = data.filter(rec => rec.source === "modeles_de_courriers");
 
 const FUZZ_RATIO = 90;
@@ -85,6 +85,9 @@ const fixUrl = url => {
   if (url.match(/^\/code-du-travail\//)) {
     return url;
   }
+  // if (url.match(/^\/contributions\//)) {
+  //   return url.replace("/contributions/", "/contribution/");
+  // }
   if (url.match(/^\/outils\//)) {
     return url;
   }
