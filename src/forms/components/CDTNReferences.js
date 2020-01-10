@@ -82,7 +82,7 @@ const ReferenceRow = SortableElement(
           style={{ cursor: "pointer" }}
           onClick={() => {
             const CDTN_URL =
-              "https://code-du-travail-numerique.incubateur.social.gouv.fr";
+              "https://master-code-travail.dev.fabrique.social.gouv.fr";
             const url = row.url[0] === "/" ? `${CDTN_URL}${row.url}` : row.url;
             window.open(url);
           }}
@@ -96,7 +96,6 @@ const ReferenceRow = SortableElement(
             padding: 0,
             verticalAlign: "middle"
           }}
-          align="center"
         >
           <Relevance
             value={row.relevance}
