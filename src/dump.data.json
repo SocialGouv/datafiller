@@ -139,8 +139,8 @@
   },
   {
     "source": "fiches_service_public",
-    "title": "Quels sont les moyens d'action du comité d'entreprise (CE) ?",
-    "slug": "quels-sont-les-moyens-daction-du-comite-dentreprise-ce",
+    "title": "Quels sont les moyens d'action du comité social et économique (CSE) ?",
+    "slug": "quels-sont-les-moyens-daction-du-comite-social-et-economique-cse",
     "url": "https://www.service-public.fr/particuliers/vosdroits/F100"
   },
   {
@@ -211,8 +211,8 @@
   },
   {
     "source": "fiches_service_public",
-    "title": "Cure thermale du salarié : quelles sont les règles (date, rémunération) ?",
-    "slug": "cure-thermale-du-salarie-quelles-sont-les-regles-date-remuneration",
+    "title": "Cure thermale du salarié : quelles sont les règles ?",
+    "slug": "cure-thermale-du-salarie-quelles-sont-les-regles",
     "url": "https://www.service-public.fr/particuliers/vosdroits/F150"
   },
   {
@@ -235,8 +235,8 @@
   },
   {
     "source": "fiches_service_public",
-    "title": "Pause déjeuner : quelles sont les règles ?",
-    "slug": "pause-dejeuner-quelles-sont-les-regles",
+    "title": "Pause déjeuner du salarié : quelles sont les règles ?",
+    "slug": "pause-dejeuner-du-salarie-quelles-sont-les-regles",
     "url": "https://www.service-public.fr/particuliers/vosdroits/F34555"
   },
   {
@@ -355,8 +355,8 @@
   },
   {
     "source": "fiches_service_public",
-    "title": "Compte personnel de formation (CPF)",
-    "slug": "compte-personnel-de-formation-cpf",
+    "title": "Compte personnel de formation (CPF) - Secteur privé",
+    "slug": "compte-personnel-de-formation-cpf-secteur-prive",
     "url": "https://www.service-public.fr/particuliers/vosdroits/F10705"
   },
   {
@@ -415,7 +415,7 @@
   },
   {
     "source": "fiches_service_public",
-    "title": "Retraite dans le privé : qu'est ce que la décote ?",
+    "title": "Retraite dans le privé : qu'est-ce que la décote ?",
     "slug": "retraite-dans-le-prive-quest-ce-que-la-decote",
     "url": "https://www.service-public.fr/particuliers/vosdroits/F19666"
   },
@@ -457,8 +457,8 @@
   },
   {
     "source": "fiches_service_public",
-    "title": "Hygiène et sécurité : quand faut-il consulter le CHSCT (ou le CSE) ?",
-    "slug": "hygiene-et-securite-quand-faut-il-consulter-le-chsct-ou-le-cse",
+    "title": "Hygiène et sécurité : quand faut-il consulter le CSE (ex-CHSCT) ?",
+    "slug": "hygiene-et-securite-quand-faut-il-consulter-le-cse-ex-chsct",
     "url": "https://www.service-public.fr/particuliers/vosdroits/F2355"
   },
   {
@@ -607,8 +607,8 @@
   },
   {
     "source": "fiches_service_public",
-    "title": "Le salarié et l'employeur peuvent-ils régler un différend à l'amiable ?",
-    "slug": "le-salarie-et-lemployeur-peuvent-ils-regler-un-differend-a-lamiable",
+    "title": "Le salarié et l'employeur peuvent-ils régler un conflit à l'amiable ?",
+    "slug": "le-salarie-et-lemployeur-peuvent-ils-regler-un-conflit-a-lamiable",
     "url": "https://www.service-public.fr/particuliers/vosdroits/F33833"
   },
   {
@@ -637,8 +637,8 @@
   },
   {
     "source": "fiches_service_public",
-    "title": "Retraite du salarié : durée d'assurance",
-    "slug": "retraite-du-salarie-duree-dassurance",
+    "title": "Durée d'assurance retraite du salarié du secteur privé",
+    "slug": "duree-dassurance-retraite-du-salarie-du-secteur-prive",
     "url": "https://www.service-public.fr/particuliers/vosdroits/F1761"
   },
   {
@@ -661,8 +661,8 @@
   },
   {
     "source": "fiches_service_public",
-    "title": "Peut-on encore profiter du CE si on ne travaille plus dans l'entreprise ?",
-    "slug": "peut-on-encore-profiter-du-ce-si-on-ne-travaille-plus-dans-lentreprise",
+    "title": "Peut-on encore profiter du CSE si on ne travaille plus dans l'entreprise ?",
+    "slug": "peut-on-encore-profiter-du-cse-si-on-ne-travaille-plus-dans-lentreprise",
     "url": "https://www.service-public.fr/particuliers/vosdroits/F13479"
   },
   {
@@ -751,8 +751,8 @@
   },
   {
     "source": "fiches_service_public",
-    "title": "Autorisation d'absence du salarié pour décès d'un membre de la famille",
-    "slug": "autorisation-dabsence-du-salarie-pour-deces-dun-membre-de-la-famille",
+    "title": "Autorisation d'absence pour décès d'un membre de la famille (salarié du privé)",
+    "slug": "autorisation-dabsence-pour-deces-dun-membre-de-la-famille-salarie-du-prive",
     "url": "https://www.service-public.fr/particuliers/vosdroits/F2278"
   },
   {
@@ -793,8 +793,8 @@
   },
   {
     "source": "fiches_service_public",
-    "title": "Comment se déroulent les réunions du comité d'entreprise (CE) ?",
-    "slug": "comment-se-deroulent-les-reunions-du-comite-dentreprise-ce",
+    "title": "Comment se déroulent les réunions du comité social et économique (CSE) ?",
+    "slug": "comment-se-deroulent-les-reunions-du-comite-social-et-economique-cse",
     "url": "https://www.service-public.fr/particuliers/vosdroits/F33778"
   },
   {
@@ -832,12 +832,6 @@
     "title": "Peut-on démissionner pendant un arrêt maladie ?",
     "slug": "peut-on-demissionner-pendant-un-arret-maladie",
     "url": "https://www.service-public.fr/particuliers/vosdroits/F31679"
-  },
-  {
-    "source": "fiches_service_public",
-    "title": "Comment se déroulent les réunions du CHSCT ?",
-    "slug": "comment-se-deroulent-les-reunions-du-chsct",
-    "url": "https://www.service-public.fr/particuliers/vosdroits/F2349"
   },
   {
     "source": "fiches_service_public",
@@ -1111,8 +1105,8 @@
   },
   {
     "source": "fiches_service_public",
-    "title": "Le salarié bénéficie-t-il d'heures de recherche d'emploi pendant son préavis ?",
-    "slug": "le-salarie-beneficie-t-il-dheures-de-recherche-demploi-pendant-son-preavis",
+    "title": "Peut-on bénéficier d'heures de recherche d'emploi pendant le préavis de licenciement ?",
+    "slug": "peut-on-beneficier-dheures-de-recherche-demploi-pendant-le-preavis-de-licenciement",
     "url": "https://www.service-public.fr/particuliers/vosdroits/F1054"
   },
   {
@@ -1147,8 +1141,8 @@
   },
   {
     "source": "fiches_service_public",
-    "title": "Comité d'entreprise (CE)",
-    "slug": "comite-dentreprise-ce",
+    "title": "Le comité d'entreprise (CE) existe-t-il toujours ?",
+    "slug": "le-comite-dentreprise-ce-existe-t-il-toujours",
     "url": "https://www.service-public.fr/particuliers/vosdroits/F96"
   },
   {
@@ -1351,6 +1345,12 @@
   },
   {
     "source": "fiches_service_public",
+    "title": "Qu'est-ce que l'index de l'égalité professionnelle ?",
+    "slug": "quest-ce-que-lindex-de-legalite-professionnelle",
+    "url": "https://www.service-public.fr/particuliers/vosdroits/F35103"
+  },
+  {
+    "source": "fiches_service_public",
     "title": "Droit de grève d'un salarié du secteur privé",
     "slug": "droit-de-greve-dun-salarie-du-secteur-prive",
     "url": "https://www.service-public.fr/particuliers/vosdroits/F117"
@@ -1417,8 +1417,8 @@
   },
   {
     "source": "fiches_service_public",
-    "title": "Comité d'hygiène, de sécurité et des conditions de travail (CHSCT)",
-    "slug": "comite-dhygiene-de-securite-et-des-conditions-de-travail-chsct",
+    "title": "Le comité d'hygiène, de sécurité et des conditions de travail (CHSCT) existe-t-il toujours ?",
+    "slug": "le-comite-dhygiene-de-securite-et-des-conditions-de-travail-chsct-existe-t-il-toujours",
     "url": "https://www.service-public.fr/particuliers/vosdroits/F32085"
   },
   {
@@ -1891,8 +1891,8 @@
   },
   {
     "source": "fiches_service_public",
-    "title": "Retraite du salarié : calcul de la pension de retraite",
-    "slug": "retraite-du-salarie-calcul-de-la-pension-de-retraite",
+    "title": "Calcul de la retraite du salarié du secteur privé",
+    "slug": "calcul-de-la-retraite-du-salarie-du-secteur-prive",
     "url": "https://www.service-public.fr/particuliers/vosdroits/F21552"
   },
   {
@@ -2005,8 +2005,8 @@
   },
   {
     "source": "fiches_service_public",
-    "title": "Instance unique des représentants du personnel",
-    "slug": "instance-unique-des-representants-du-personnel",
+    "title": "L'instance unique des représentants du personnel (IRP) existe-t-elle toujours ?",
+    "slug": "linstance-unique-des-representants-du-personnel-irp-existe-t-elle-toujours",
     "url": "https://www.service-public.fr/particuliers/vosdroits/F33481"
   },
   {
@@ -2137,8 +2137,8 @@
   },
   {
     "source": "fiches_service_public",
-    "title": "Délégué du personnel (DP)",
-    "slug": "delegue-du-personnel-dp",
+    "title": "Le délégué du personnel (DP) existe-t-il toujours ?",
+    "slug": "le-delegue-du-personnel-dp-existe-t-il-toujours",
     "url": "https://www.service-public.fr/particuliers/vosdroits/F1972"
   },
   {
@@ -2275,8 +2275,8 @@
   },
   {
     "source": "fiches_service_public",
-    "title": "Retraite dans le privé : majoration d'assurance pour enfant",
-    "slug": "retraite-dans-le-prive-majoration-dassurance-pour-enfant",
+    "title": "Retraite dans le privé : majoration d'assurance retraite pour enfant",
+    "slug": "retraite-dans-le-prive-majoration-dassurance-retraite-pour-enfant",
     "url": "https://www.service-public.fr/particuliers/vosdroits/F16336"
   },
   {
@@ -2311,8 +2311,8 @@
   },
   {
     "source": "fiches_service_public",
-    "title": "Délégation unique du personnel (DUP)",
-    "slug": "delegation-unique-du-personnel-dup",
+    "title": "La délégation unique du personnel (DUP) existe-t-elle toujours ?",
+    "slug": "la-delegation-unique-du-personnel-dup-existe-t-elle-toujours",
     "url": "https://www.service-public.fr/particuliers/vosdroits/F1775"
   },
   {
@@ -2323,8 +2323,8 @@
   },
   {
     "source": "fiches_service_public",
-    "title": "Jours d'absence pour la survenue du handicap d'un enfant (salarié du privé)",
-    "slug": "jours-dabsence-pour-la-survenue-du-handicap-dun-enfant-salarie-du-prive",
+    "title": "Jours d'absence à l'annonce d'un handicap chez l'enfant (salarié du privé)",
+    "slug": "jours-dabsence-a-lannonce-dun-handicap-chez-lenfant-salarie-du-prive",
     "url": "https://www.service-public.fr/particuliers/vosdroits/F34158"
   },
   {
@@ -2335,8 +2335,8 @@
   },
   {
     "source": "fiches_service_public",
-    "title": "Retraite du salarié : majoration d'assurance pour congé parental d'éducation",
-    "slug": "retraite-du-salarie-majoration-dassurance-pour-conge-parental-deducation",
+    "title": "Retraite du salarié : majoration d'assurance retraite pour congé parental d'éducation",
+    "slug": "retraite-du-salarie-majoration-dassurance-retraite-pour-conge-parental-deducation",
     "url": "https://www.service-public.fr/particuliers/vosdroits/F32126"
   },
   {
@@ -2521,6 +2521,12 @@
   },
   {
     "source": "fiches_service_public",
+    "title": "Bénéficie-t-on d'heures de recherche d'emploi pendant le préavis de démission ?",
+    "slug": "beneficie-t-on-dheures-de-recherche-demploi-pendant-le-preavis-de-demission",
+    "url": "https://www.service-public.fr/particuliers/vosdroits/F35123"
+  },
+  {
+    "source": "fiches_service_public",
     "title": "Licenciement économique : quelles indemnités peut percevoir un salarié ?",
     "slug": "licenciement-economique-quelles-indemnites-peut-percevoir-un-salarie",
     "url": "https://www.service-public.fr/particuliers/vosdroits/F15189"
@@ -2677,8 +2683,8 @@
   },
   {
     "source": "fiches_service_public",
-    "title": "Retraite du salarié : majoration d'assurance pour enfant handicapé",
-    "slug": "retraite-du-salarie-majoration-dassurance-pour-enfant-handicape",
+    "title": "Retraite du salarié : majoration d'assurance retraite pour enfant handicapé",
+    "slug": "retraite-du-salarie-majoration-dassurance-retraite-pour-enfant-handicape",
     "url": "https://www.service-public.fr/particuliers/vosdroits/F32127"
   },
   {
@@ -2725,8 +2731,8 @@
   },
   {
     "source": "fiches_service_public",
-    "title": "En quoi consiste le droit d'alerte du comité d'entreprise (CE) ?",
-    "slug": "en-quoi-consiste-le-droit-dalerte-du-comite-dentreprise-ce",
+    "title": "En quoi consiste le droit d'alerte du comité social et économique (CSE) ?",
+    "slug": "en-quoi-consiste-le-droit-dalerte-du-comite-social-et-economique-cse",
     "url": "https://www.service-public.fr/particuliers/vosdroits/F33779"
   },
   {
@@ -2932,6 +2938,12 @@
     "title": "Portage salarial",
     "slug": "portage-salarial",
     "url": "https://www.service-public.fr/professionnels-entreprises/vosdroits/F31620"
+  },
+  {
+    "source": "fiches_service_public",
+    "title": "Gratification minimale d'un stagiaire",
+    "slug": "gratification-minimale-dun-stagiaire",
+    "url": "https://www.service-public.fr/particuliers/vosdroits/F32131"
   },
   {
     "source": "fiches_service_public",
@@ -3159,7 +3171,7 @@
     "source": "fiches_service_public",
     "title": "Saisie sur salaire : les obligations de l'employeur",
     "slug": "saisie-sur-salaire-les-obligations-de-lemployeur",
-    "url": "https://www.service-public.fr/professionnels-entreprises/vosdroits/F32951"
+    "url": "https://www.service-public.fr/particuliers/vosdroits/F32951"
   },
   {
     "source": "fiches_service_public",
@@ -4501,6 +4513,12 @@
   },
   {
     "source": "fiches_ministere_travail",
+    "title": "Le harcèlement sexuel : un guide pour s’y retrouver",
+    "slug": "le-harcelement-sexuel#Un-guide-pour-s-y-retrouver",
+    "url": null
+  },
+  {
+    "source": "fiches_ministere_travail",
     "title": "Les recours face à une discrimination à l’embauche : recours civil",
     "slug": "les-recours-face-a-une-discrimination-a-lembauche#Recours-civil",
     "url": null
@@ -4543,14 +4561,14 @@
   },
   {
     "source": "fiches_ministere_travail",
-    "title": "Index de l’égalité professionnelle : questions - réponses sur le calcul de l’index",
-    "slug": "index-de-legalite-professionnelle-calcul-et-questions-reponses#Questions-reponses-sur-le-calcul-de-l-Index",
+    "title": "Accompagnement des entreprises pour leur calcul de l’Index de l’égalité professionnelle",
+    "slug": "index-de-legalite-professionnelle-calcul-et-questions-reponses#Accompagnement-des-entreprises-pour-leur-calcul-de-l-Index-de-l-egalite-nbsp",
     "url": null
   },
   {
     "source": "fiches_ministere_travail",
-    "title": "Index de l’égalité professionnelle : accompagnement des entreprises",
-    "slug": "index-de-legalite-professionnelle-calcul-et-questions-reponses#ACCOMPAGNEMENT-DES-ENTREPRISES",
+    "title": "Index de l’égalité professionnelle : questions - réponses sur le calcul de l’index",
+    "slug": "index-de-legalite-professionnelle-calcul-et-questions-reponses#Questions-reponses-sur-le-calcul-de-l-Index",
     "url": null
   },
   {
@@ -5419,38 +5437,38 @@
   },
   {
     "source": "fiches_ministere_travail",
-    "title": "La rupture conventionnelle collective",
-    "slug": "la-rupture-conventionnelle-collective",
+    "title": "Rupture conventionnelle collective",
+    "slug": "rupture-conventionnelle-collective",
     "url": null
   },
   {
     "source": "fiches_ministere_travail",
-    "title": "La rupture conventionnelle collective : comment est mise en place la rupture conventionnelle collective ?",
-    "slug": "la-rupture-conventionnelle-collective#Comment-est-mise-en-place-la-rupture-conventionnelle-collective-nbsp",
+    "title": "Rupture conventionnelle collective : comment est mise en place la rupture conventionnelle collective ?",
+    "slug": "rupture-conventionnelle-collective#Comment-est-mise-en-place-la-rupture-conventionnelle-collective-nbsp",
     "url": null
   },
   {
     "source": "fiches_ministere_travail",
-    "title": "La rupture conventionnelle collective : comment la rupture conventionnelle collective est-elle mise en œuvre ?",
-    "slug": "la-rupture-conventionnelle-collective#Comment-la-rupture-conventionnelle-collective-est-elle-mise-en-oeuvre-nbsp",
+    "title": "Rupture conventionnelle collective : comment la rupture conventionnelle collective est-elle mise en œuvre ?",
+    "slug": "rupture-conventionnelle-collective#Comment-la-rupture-conventionnelle-collective-est-elle-mise-en-oeuvre-nbsp",
     "url": null
   },
   {
     "source": "fiches_ministere_travail",
-    "title": "La rupture conventionnelle collective : quel est le suivi de mise en œuvre de l’accord de rupture conventionnelle ?",
-    "slug": "la-rupture-conventionnelle-collective#Quel-est-le-suivi-de-mise-en-oeuvre-de-l-accord-de-rupture-conventionnelle-nbsp",
+    "title": "Rupture conventionnelle collective : quel est le suivi de mise en œuvre de l’accord de rupture conventionnelle ?",
+    "slug": "rupture-conventionnelle-collective#Quel-est-le-suivi-de-mise-en-oeuvre-de-l-accord-de-rupture-conventionnelle-nbsp",
     "url": null
   },
   {
     "source": "fiches_ministere_travail",
-    "title": "La rupture conventionnelle collective : l’obligation de revitalisation des territoires s’applique-t-elle dans le cadre des accords portant rupture conventionnelle collective ?",
-    "slug": "la-rupture-conventionnelle-collective#L-obligation-de-revitalisation-des-territoires-s-applique-t-elle-dans-le-nbsp",
+    "title": "Rupture conventionnelle collective : l’obligation de revitalisation des territoires s’applique-t-elle dans le cadre des accords portant rupture conventionnelle collective ?",
+    "slug": "rupture-conventionnelle-collective#L-obligation-de-revitalisation-des-territoires-s-applique-t-elle-dans-le-nbsp",
     "url": null
   },
   {
     "source": "fiches_ministere_travail",
-    "title": "La rupture conventionnelle collective : l’accord de rupture conventionnelle collective peut-il être contesté ?",
-    "slug": "la-rupture-conventionnelle-collective#L-accord-de-rupture-conventionnelle-collective-peut-il-etre-conteste-nbsp",
+    "title": "Rupture conventionnelle collective : l’accord de rupture conventionnelle collective peut-il être contesté ?",
+    "slug": "rupture-conventionnelle-collective#L-accord-de-rupture-conventionnelle-collective-peut-il-etre-conteste-nbsp",
     "url": null
   },
   {
@@ -6097,8 +6115,8 @@
   },
   {
     "source": "fiches_ministere_travail",
-    "title": "Le conseil de prud’hommes : à quel conseil de prud'hommes s'adresser ?",
-    "slug": "le-conseil-de-prudhommes#A-quel-conseil-de-prud-039-hommes-s-039-adresser",
+    "title": "Le conseil de prud’hommes : à quel conseil de prud’hommes s’adresser ?",
+    "slug": "le-conseil-de-prudhommes#A-quel-conseil-de-prud-hommes-s-adresser",
     "url": null
   },
   {
@@ -6211,6 +6229,12 @@
   },
   {
     "source": "fiches_ministere_travail",
+    "title": "Le règlement intérieur : dans quel cas faut-il établir un règlement intérieur ?",
+    "slug": "le-reglement-interieur#Dans-quel-cas-faut-il-etablir-un-reglement-interieur",
+    "url": null
+  },
+  {
+    "source": "fiches_ministere_travail",
     "title": "Le règlement intérieur : comment est établi le règlement intérieur ?",
     "slug": "le-reglement-interieur#Comment-est-etabli-le-reglement-interieur",
     "url": null
@@ -6219,6 +6243,12 @@
     "source": "fiches_ministere_travail",
     "title": "Le règlement intérieur : quelles sont les clauses obligatoires ?",
     "slug": "le-reglement-interieur#Quelles-sont-les-clauses-obligatoires",
+    "url": null
+  },
+  {
+    "source": "fiches_ministere_travail",
+    "title": "Le règlement intérieur : quelles sont les clauses pouvant figurer dans le règlement intérieur ?",
+    "slug": "le-reglement-interieur#Quelles-sont-les-clauses-pouvant-figurer-dans-le-reglement-interieur-nbsp",
     "url": null
   },
   {
@@ -8329,8 +8359,8 @@
   },
   {
     "source": "fiches_ministere_travail",
-    "title": "ARE : dans quelles conditions l’allocation peut elle être supprimée ou réduite ?",
-    "slug": "allocation-daide-au-retour-a-lemploi-are#Dans-quelles-conditions-l-allocation-peut-elle-etre-supprimee-ou-reduite-nbsp",
+    "title": "ARE : dans quelles conditions l’allocation peut elle être supprimée ?",
+    "slug": "allocation-daide-au-retour-a-lemploi-are#Dans-quelles-conditions-l-allocation-peut-elle-etre-supprimee-nbsp",
     "url": null
   },
   {
@@ -8343,12 +8373,6 @@
     "source": "fiches_ministere_travail",
     "title": "ARE : quelles sont les professions soumises à des règles spécifiques ?",
     "slug": "allocation-daide-au-retour-a-lemploi-are#Quelles-sont-les-professions-soumises-a-des-regles-specifiques-nbsp",
-    "url": null
-  },
-  {
-    "source": "fiches_ministere_travail",
-    "title": "ARE : en quoi consiste le principe des droits \"rechargeables\" ?",
-    "slug": "allocation-daide-au-retour-a-lemploi-are#En-quoi-consiste-le-principe-des-droits-rechargeables",
     "url": null
   },
   {
@@ -9597,6 +9621,48 @@
     "source": "fiches_ministere_travail",
     "title": "Contrat de professionnalisation : quelles sont les modalités de rupture du contrat de professionnalisation et quelles sont les démarches à effectuer ?",
     "slug": "contrat-de-professionnalisation#Quelles-sont-les-modalites-de-rupture-du-contrat-de-professionnalisation-et-nbsp",
+    "url": null
+  },
+  {
+    "source": "fiches_ministere_travail",
+    "title": "Projet de transition professionnelle : qu’est-ce que le projet de transition professionnelle ?",
+    "slug": "projet-de-transition-professionnelle#Qu-est-ce-que-le-projet-de-transition-professionnelle",
+    "url": null
+  },
+  {
+    "source": "fiches_ministere_travail",
+    "title": "Projet de transition professionnelle : quelles sont les formations financées par le projet de transition professionnelle ?",
+    "slug": "projet-de-transition-professionnelle#Quelles-sont-les-formations-financees-par-le-projet-de-transition-nbsp",
+    "url": null
+  },
+  {
+    "source": "fiches_ministere_travail",
+    "title": "Projet de transition professionnelle : quelles conditions dois-je remplir pour pouvoir utiliser mon projet de transition professionnelle ?",
+    "slug": "projet-de-transition-professionnelle#Quelles-conditions-dois-je-remplir-pour-pouvoir-utiliser-mon-projet-de-nbsp",
+    "url": null
+  },
+  {
+    "source": "fiches_ministere_travail",
+    "title": "Projet de transition professionnelle : quelles sont les démarches à accomplir auprès de l’employeur ?",
+    "slug": "projet-de-transition-professionnelle#Quelles-sont-les-demarches-a-accomplir-aupres-de-l-employeur-nbsp",
+    "url": null
+  },
+  {
+    "source": "fiches_ministere_travail",
+    "title": "Projet de transition professionnelle : l’employeur peut-il refuser une demande de congé pour projet de transition professionnelle ?",
+    "slug": "projet-de-transition-professionnelle#L-employeur-peut-il-refuser-une-demande-de-conge-pour-projet-de-transition-nbsp",
+    "url": null
+  },
+  {
+    "source": "fiches_ministere_travail",
+    "title": "Projet de transition professionnelle : la rémunération pendant le congé de transition professionnelle",
+    "slug": "projet-de-transition-professionnelle#La-remuneration-pendant-le-conge-de-transition-professionnelle",
+    "url": null
+  },
+  {
+    "source": "fiches_ministere_travail",
+    "title": "Projet de transition professionnelle : quelles sont les incidences du projet de transition professionnelle sur le contrat de travail ?",
+    "slug": "projet-de-transition-professionnelle#Quelles-sont-les-incidences-du-projet-de-transition-professionnelle-sur-le-nbsp",
     "url": null
   },
   {
@@ -11329,8 +11395,8 @@
   },
   {
     "source": "fiches_ministere_travail",
-    "title": "L’interdiction de fumer et de vapoter dans les lieux de travail : quelle sont les sanctions ?",
-    "slug": "linterdiction-de-fumer-et-de-vapoter-dans-les-lieux-de-travail#Quelle-sont-les-sanctions",
+    "title": "L’interdiction de fumer et de vapoter dans les lieux de travail : quelles sont les sanctions ?",
+    "slug": "linterdiction-de-fumer-et-de-vapoter-dans-les-lieux-de-travail#Quelles-sont-les-sanctions",
     "url": null
   },
   {
@@ -11613,24 +11679,6 @@
     "source": "fiches_ministere_travail",
     "title": "De nouveaux droits pour les salariés démissionnaires",
     "slug": "de-nouveaux-droits-pour-les-salaries-demissionnaires",
-    "url": null
-  },
-  {
-    "source": "fiches_ministere_travail",
-    "title": "De nouveaux droits pour les salariés démissionnaires : avant la démission",
-    "slug": "de-nouveaux-droits-pour-les-salaries-demissionnaires#Avant-la-demission",
-    "url": null
-  },
-  {
-    "source": "fiches_ministere_travail",
-    "title": "De nouveaux droits pour les salariés démissionnaires : après sa démission",
-    "slug": "de-nouveaux-droits-pour-les-salaries-demissionnaires#Apres-sa-demission",
-    "url": null
-  },
-  {
-    "source": "fiches_ministere_travail",
-    "title": "De nouveaux droits pour les salariés démissionnaires : à la suite de l’inscription à pôle emploi",
-    "slug": "de-nouveaux-droits-pour-les-salaries-demissionnaires#A-la-suite-de-l-inscription-a-Pole-emploi",
     "url": null
   },
   {
@@ -12116,13 +12164,13 @@
   {
     "source": "themes",
     "title": "Jeunes travailleurs",
-    "slug": "525-jeunes-travailleurs",
+    "slug": "641-jeunes-travailleurs",
     "url": null
   },
   {
     "source": "themes",
     "title": "Jeunes travailleurs",
-    "slug": "641-jeunes-travailleurs",
+    "slug": "525-jeunes-travailleurs",
     "url": null
   },
   {
@@ -12624,6 +12672,12 @@
     "url": null
   },
   {
+    "source": "outils",
+    "title": "Heures pour recherche d’emploi",
+    "slug": "heures-recherche-emploi",
+    "url": null
+  },
+  {
     "source": "external",
     "title": "TéléAccords",
     "slug": "teleaccords",
@@ -12747,6 +12801,12 @@
     "source": "contributions",
     "title": "Faut-il respecter un délai de carence entre deux contrats de mission (intérim) ? ",
     "slug": "faut-il-respecter-un-delai-de-carence-entre-deux-contrats-de-mission-interim",
+    "url": null
+  },
+  {
+    "source": "contributions",
+    "title": "Dans le cadre d’un contrat de mission (intérim), quel est le montant de l’indemnité de fin de contrat ? ",
+    "slug": "dans-le-cadre-dun-contrat-de-mission-interim-quel-est-le-montant-de-lindemnite-de-fin-de-contrat",
     "url": null
   },
   {
