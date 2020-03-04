@@ -39,7 +39,7 @@
     "reactstrap": "8.4.1",
     "sentry-testkit": "2.2.1",
     "speakingurl": "14.0.1",
-    "styled-components": "4.4.1",
+    "styled-components": "5.0.1",
     "yup": "0.28.1"
   },
   "license": "ISC",
