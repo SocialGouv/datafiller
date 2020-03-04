@@ -7830,10 +7830,10 @@ react-feather@2.0.3, react-feather@^2.0.3:
   dependencies:
     prop-types "^15.7.2"
 
-react-fetch-hook@1.7.1:
-  version "1.7.1"
-  resolved "https://registry.yarnpkg.com/react-fetch-hook/-/react-fetch-hook-1.7.1.tgz#d15d67ccab4087d461c6aaaf31f4cbcab7bb0f6e"
-  integrity sha512-VbDQKp1vVJoonH9wfgot3ayJdTZ6rAB5TQmqG40DE1SlJJ+UqhjlT+cynn/ofP5j1qYr5QLls87vqI2yuUoqYw==
+react-fetch-hook@1.8.0:
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/react-fetch-hook/-/react-fetch-hook-1.8.0.tgz#90f0bed39096ae3ee52ed3c070b73ae64fe476e3"
+  integrity sha512-DAbCvBCmncXqZrLTxlERITea21UJ1WuvHZN+m0uq2wBl8zcVTCAUJfX5XKQDW1tceD3qv2OkNt5zHR5bbr2CIg==
 
 react-focus-lock@^2.2.1:
   version "2.2.1"
