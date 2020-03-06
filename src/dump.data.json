@@ -2113,6 +2113,12 @@
   },
   {
     "source": "fiches_service_public",
+    "title": "Congé du salarié pour le mariage de son enfant",
+    "slug": "conge-du-salarie-pour-le-mariage-de-son-enfant",
+    "url": "https://www.service-public.fr/particuliers/vosdroits/F35134"
+  },
+  {
+    "source": "fiches_service_public",
     "title": "Allocation chômage d'aide au retour à l'emploi (ARE) d'un salarié du privé",
     "slug": "allocation-chomage-daide-au-retour-a-lemploi-are-dun-salarie-du-prive",
     "url": "https://www.service-public.fr/particuliers/vosdroits/F14860"
@@ -2671,8 +2677,8 @@
   },
   {
     "source": "fiches_service_public",
-    "title": "Compte épargne-temps (CET)",
-    "slug": "compte-epargne-temps-cet",
+    "title": "Compte épargne-temps (CET) du salarié",
+    "slug": "compte-epargne-temps-cet-du-salarie",
     "url": "https://www.service-public.fr/particuliers/vosdroits/F1907"
   },
   {
@@ -2866,12 +2872,6 @@
     "title": "Liquidation judiciaire",
     "slug": "liquidation-judiciaire",
     "url": "https://www.service-public.fr/professionnels-entreprises/vosdroits/F22330"
-  },
-  {
-    "source": "fiches_service_public",
-    "title": "Titres d'embauche simplifiés (Tese, Tesa, TEF)",
-    "slug": "titres-dembauche-simplifies-tese-tesa-tef",
-    "url": "https://www.service-public.fr/professionnels-entreprises/vosdroits/F23154"
   },
   {
     "source": "fiches_service_public",
@@ -3127,6 +3127,12 @@
   },
   {
     "source": "fiches_service_public",
+    "title": "Guichet unique du spectacle occasionnel (Guso)",
+    "slug": "guichet-unique-du-spectacle-occasionnel-guso",
+    "url": "https://www.service-public.fr/professionnels-entreprises/vosdroits/F1928"
+  },
+  {
+    "source": "fiches_service_public",
     "title": "Rémunération d'un salarié placé en activité partielle",
     "slug": "remuneration-dun-salarie-place-en-activite-partielle",
     "url": "https://www.service-public.fr/professionnels-entreprises/vosdroits/F13898"
@@ -3193,12 +3199,6 @@
   },
   {
     "source": "fiches_service_public",
-    "title": "Adhésion d'une association à un groupement d'employeurs",
-    "slug": "adhesion-dune-association-a-un-groupement-demployeurs",
-    "url": "https://www.service-public.fr/professionnels-entreprises/vosdroits/F153"
-  },
-  {
-    "source": "fiches_service_public",
     "title": "Une association employeur doit-elle appliquer une convention collective ?",
     "slug": "une-association-employeur-doit-elle-appliquer-une-convention-collective",
     "url": "https://www.service-public.fr/professionnels-entreprises/vosdroits/F2607"
@@ -3217,8 +3217,8 @@
   },
   {
     "source": "fiches_service_public",
-    "title": "Congé de représentation",
-    "slug": "conge-de-representation",
+    "title": "Congé de représentation pour un représentant d'une association",
+    "slug": "conge-de-representation-pour-un-representant-dune-association",
     "url": "https://www.service-public.fr/professionnels-entreprises/vosdroits/F2335"
   },
   {
@@ -3232,12 +3232,6 @@
     "title": "Peut-on utiliser son véhicule personnel pour les besoins d'une association ?",
     "slug": "peut-on-utiliser-son-vehicule-personnel-pour-les-besoins-dune-association",
     "url": "https://www.service-public.fr/professionnels-entreprises/vosdroits/F1125"
-  },
-  {
-    "source": "fiches_service_public",
-    "title": "Guichet unique du spectacle occasionnel (Guso)",
-    "slug": "guichet-unique-du-spectacle-occasionnel-guso",
-    "url": "https://www.service-public.fr/professionnels-entreprises/vosdroits/F1928"
   },
   {
     "source": "fiches_ministere_travail",
@@ -4549,14 +4543,14 @@
   },
   {
     "source": "fiches_ministere_travail",
-    "title": "Index de l’égalité professionnelle : accéder au formulaire de transmission de l’index à l’inspection du travail pour l’année 2020",
-    "slug": "index-de-legalite-professionnelle-calcul-et-questions-reponses#Acceder-au-formulaire-de-transmission-de-l-Index-a-l-inspection-du-travail-nbsp",
+    "title": "Index de l’égalité professionnelle : accéder au formulaire de déclaration de l’index à l’inspection du travail pour l’année 2020",
+    "slug": "index-de-legalite-professionnelle-calcul-et-questions-reponses#Acceder-au-formulaire-de-declaration-de-l-Index-a-l-inspection-du-travail-nbsp",
     "url": null
   },
   {
     "source": "fiches_ministere_travail",
-    "title": "Index de l’égalité professionnelle : accéder au formulaire de transmission de l’index à l’inspection du travail pour l’année 2019",
-    "slug": "index-de-legalite-professionnelle-calcul-et-questions-reponses#Acceder-au-formulaire-de-transmission-de-l-Index-a-l-inspection-du-travail-nbsp-21b1",
+    "title": "Index de l’égalité professionnelle : accéder au formulaire de déclaration de l’index à l’inspection du travail pour l’année 2019",
+    "slug": "index-de-legalite-professionnelle-calcul-et-questions-reponses#Acceder-au-formulaire-de-declaration-de-l-Index-a-l-inspection-du-travail-nbsp-98ba",
     "url": null
   },
   {
@@ -11671,7 +11665,7 @@
   },
   {
     "source": "fiches_ministere_travail",
-    "title": "Obligation d’emploi des travailleurs handicapés, ce qui change en 2020.",
+    "title": "Obligation d’emploi des travailleurs handicapés, ce qui change en 2020",
     "slug": "obligation-demploi-des-travailleurs-handicapes-ce-qui-change-en-2020",
     "url": null
   },
@@ -11793,6 +11787,24 @@
     "source": "fiches_ministere_travail",
     "title": "La prime exceptionnelle de pouvoir d’achat : en quoi consiste l’exonération sociale et fiscale ?",
     "slug": "la-prime-exceptionnelle-de-pouvoir-dachat#En-quoi-consiste-l-exoneration-sociale-et-fiscale",
+    "url": null
+  },
+  {
+    "source": "fiches_ministere_travail",
+    "title": "Coronavirus : Questions/réponses pour les entreprises et les salariés",
+    "slug": "coronavirus-questions-reponses-pour-les-entreprises-et-les-salaries",
+    "url": null
+  },
+  {
+    "source": "fiches_ministere_travail",
+    "title": "Coronavirus : je suis salarié",
+    "slug": "coronavirus-questions-reponses-pour-les-entreprises-et-les-salaries#Je-suis-salarie",
+    "url": null
+  },
+  {
+    "source": "fiches_ministere_travail",
+    "title": "Coronavirus : je suis employeur",
+    "slug": "coronavirus-questions-reponses-pour-les-entreprises-et-les-salaries#Je-suis-employeur",
     "url": null
   },
   {
@@ -12110,13 +12122,13 @@
   {
     "source": "themes",
     "title": "Handicap",
-    "slug": "118-handicap",
+    "slug": "644-handicap",
     "url": null
   },
   {
     "source": "themes",
     "title": "Handicap",
-    "slug": "644-handicap",
+    "slug": "118-handicap",
     "url": null
   },
   {
@@ -12164,13 +12176,13 @@
   {
     "source": "themes",
     "title": "Jeunes travailleurs",
-    "slug": "641-jeunes-travailleurs",
+    "slug": "525-jeunes-travailleurs",
     "url": null
   },
   {
     "source": "themes",
     "title": "Jeunes travailleurs",
-    "slug": "525-jeunes-travailleurs",
+    "slug": "641-jeunes-travailleurs",
     "url": null
   },
   {
@@ -12669,12 +12681,6 @@
     "source": "outils",
     "title": "Préavis de licenciement",
     "slug": "preavis-licenciement",
-    "url": null
-  },
-  {
-    "source": "outils",
-    "title": "Heures pour recherche d’emploi",
-    "slug": "heures-recherche-emploi",
     "url": null
   },
   {
