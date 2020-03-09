@@ -5,7 +5,7 @@ const DATAFILLER_URL = process.env.DATAFILLER_URL || `http://127.0.0.1:3003`;
 const wait = () => new Promise(resolve => setTimeout(resolve, 500));
 
 const updateRecord = async (collection, id, data) => {
-  console.log("updateRecord", id);
+  console.log("updateRecord", DATAFILLER_URL, id);
   await fetch(
     `${DATAFILLER_URL}/kinto/v1/buckets/datasets/collections/${collection}/records/${id}`,
     {
@@ -19,9 +19,10 @@ const updateRecord = async (collection, id, data) => {
       })
     }
   )
-    .then(r => wait().then(() => r))
+    // .then(r => wait().then(() => r))
     .then(r => r.json())
     .then(d => d.data)
+    //.then(console.log)
     .catch(console.log);
 };
 

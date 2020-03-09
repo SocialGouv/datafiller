@@ -130,6 +130,7 @@ const RequeteForm = ({ data, onSubmit, onDelete }) => {
               <FormGroup row>
                 <Label>Résultats à afficher</Label>
                 <CDTNReferences
+                  sortable={true}
                   values={values}
                   setFieldValue={setFieldValue}
                   setFieldTouched={setFieldTouched}
