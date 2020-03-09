@@ -5,11 +5,12 @@ import withKinto from "./kinto/withKinto";
 import { withRouter } from "next/router";
 
 const forms = {
-  requetes: require("./forms/Requete").default,
   ccns: require("./forms/CCN").default,
-  themes: require("./forms/Theme").default,
   glossaire: require("./forms/Glossaire").default,
-  reponses: require("./forms/Reponse").default
+  highlights: require("./forms/Highlights").default,
+  reponses: require("./forms/Reponse").default,
+  requetes: require("./forms/Requete").default,
+  themes: require("./forms/Theme").default
 };
 
 const onSubmit = ({ client, bucket, collection, data }) =>

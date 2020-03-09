@@ -20,11 +20,12 @@ export const ListRecords = ({ records, router }) => {
         record={record}
         onAddClick={async ({ client }) => {
           const defaultRecordData = {
-            requetes: { title: "", intro: "", theme: null, refs: [{}] },
-            glossaire: { title: "", abbrs: "", definition: "", refs: [{}] },
             ccns: { title: "", groups: {}, intro: "" },
-            themes: { title: "", parent: null, position: null, refs: [{}] },
-            reponses: { title: "", variants: "", markdown: "", refs: [{}] }
+            glossaire: { title: "", abbrs: "", definition: "", refs: [{}] },
+            highlights: { title: "", refs: [{}] },
+            reponses: { title: "", variants: "", markdown: "", refs: [{}] },
+            requetes: { title: "", intro: "", theme: null, refs: [{}] },
+            themes: { title: "", parent: null, position: null, refs: [{}] }
           };
           const result = await client
             .bucket(bucket, { headers: {} })
