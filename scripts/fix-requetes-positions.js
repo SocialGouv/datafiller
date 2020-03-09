@@ -62,7 +62,7 @@ const fixCollection = async collection => {
   return await pAll(
     records
       .filter(req => req.refs && req.refs.length)
-      .slice(0, 10)
+      //.slice(0, 10)
       .map(record => async () => {
         const newRefs = reorderPositions(record.refs);
         // apply changes
