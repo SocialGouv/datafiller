@@ -22,7 +22,6 @@ export const ListRecords = ({ records, router }) => {
           const defaultRecordData = {
             ccns: { title: "", groups: {}, intro: "" },
             glossaire: { title: "", abbrs: "", definition: "", refs: [{}] },
-            highlights: { title: "", refs: [{}] },
             reponses: { title: "", variants: "", markdown: "", refs: [{}] },
             requetes: { title: "", intro: "", theme: null, refs: [{}] },
             themes: { title: "", parent: null, position: null, refs: [{}] }

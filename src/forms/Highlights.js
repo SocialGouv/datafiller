@@ -5,18 +5,7 @@ import * as Yup from "yup";
 import useFetch from "react-fetch-hook";
 import { CheckCircle } from "react-feather";
 
-import {
-  Alert,
-  Button,
-  Container,
-  Col,
-  Form,
-  FormGroup,
-  Input,
-  Label,
-  Row,
-  Table
-} from "reactstrap";
+import { Alert, Button, Container, Form, FormGroup, Table } from "reactstrap";
 
 import CDTNReferences from "./components/CDTNReferences";
 
@@ -38,11 +27,12 @@ const StyledForm = styled(Form)`
   }
 `;
 
-const HighlightsForm = ({ data, onSubmit, onDelete }) => {
-  const { isLoading, data: populars } = useFetch(`/api/populars`);
+const HighlightsForm = ({ data, onSubmit }) => {
+  const { isLoading: isPopularLoading, data: populars } = useFetch(
+    `/api/populars`
+  );
   return (
     <React.Fragment>
-      <h1 style={{ margin: "1em 0" }}>Highlights</h1>
       <Container>
         <Formik
           key={JSON.stringify(data)}
@@ -62,94 +52,14 @@ const HighlightsForm = ({ data, onSubmit, onDelete }) => {
             status,
             touched,
             setFieldValue,
-            handleBlur,
-            handleChange,
             handleSubmit,
             setFieldTouched,
             isSubmitting
           }) => (
             <StyledForm onSubmit={handleSubmit}>
+              <h1 style={{ margin: "1em 0" }}>Highlights - {values.title}</h1>
               <FormGroup row>
-                <Label>Page concernée</Label>
-                <Input
-                  name="title"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  defaultValue={(values && values.title) || ""}
-                />
-              </FormGroup>
-              {isLoading ? (
-                <FormGroup row>...</FormGroup>
-              ) : (
-                <>
-                  <FormGroup row>
-                    <h2>Tandances du mois précédent</h2>
-                    <div
-                      style={{
-                        maxHeight: "300px",
-                        overflowY: "scroll"
-                      }}
-                    >
-                      <Table size="sm">
-                        <thead>
-                          <tr>
-                            <th>Score</th>
-                            <th>Url</th>
-                            <th>Croissance</th>
-                            <th>Vues</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {populars.month.map(
-                            ({ growth, score, url, views }) => (
-                              <tr key={url}>
-                                <td>{score}</td>
-                                <td>{url}</td>
-                                <td>{growth}</td>
-                                <td>{views}</td>
-                              </tr>
-                            )
-                          )}
-                        </tbody>
-                      </Table>
-                    </div>
-                  </FormGroup>
-                  <FormGroup row>
-                    <h2>Tandance de la semaine précédente</h2>
-                    <div
-                      style={{
-                        maxHeight: "300px",
-                        overflowY: "scroll"
-                      }}
-                    >
-                      <Table size="sm">
-                        <thead>
-                          <tr>
-                            <th>Score</th>
-                            <th>Url</th>
-                            <th>Croissance</th>
-                            <th>Vues</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {populars.week.map(
-                            ({ growth, score, url, views }) => (
-                              <tr key={url}>
-                                <td>{score}</td>
-                                <td>{url}</td>
-                                <td>{growth}</td>
-                                <td>{views}</td>
-                              </tr>
-                            )
-                          )}
-                        </tbody>
-                      </Table>
-                    </div>
-                  </FormGroup>
-                </>
-              )}
-              <FormGroup row>
-                <h2>Résultats à afficher (maximum 6 résultats)</h2>
+                <h2>Tendances à afficher (6 résultats)</h2>
                 <CDTNReferences
                   sortable={true}
                   values={values}
@@ -157,7 +67,6 @@ const HighlightsForm = ({ data, onSubmit, onDelete }) => {
                   setFieldTouched={setFieldTouched}
                 />
               </FormGroup>
-
               {/* show formik errors */}
               {(Object.keys(errors).length && (
                 <Alert color="danger" style={{ margin: "15px 0" }}>
@@ -178,11 +87,15 @@ const HighlightsForm = ({ data, onSubmit, onDelete }) => {
                 </Alert>
               )}
 
-              <Row spacing={24}>
-                <Col xs={6}>
+              <FormGroup row style={{ justifyContent: "space-around" }}>
+                <div>
                   <Button
                     color="primary"
-                    style={{ whiteSpace: "nowrap", marginTop: 20 }}
+                    style={{
+                      marginTop: "15px",
+                      marginBottom: "15px",
+                      whiteSpace: "nowrap"
+                    }}
                     variant="contained"
                     type="submit"
                     disabled={
@@ -194,22 +107,48 @@ const HighlightsForm = ({ data, onSubmit, onDelete }) => {
                   >
                     Enregistrer
                   </Button>
-                </Col>
-                <Col xs={6} style={{ textAlign: "right" }}>
-                  <Button
-                    style={{
-                      marginLeft: 20,
-                      whiteSpace: "nowrap",
-                      marginTop: 20
-                    }}
-                    color="danger"
-                    type="button"
-                    onClick={onDelete}
-                  >
-                    Supprimer
-                  </Button>
-                </Col>
-              </Row>
+                </div>
+              </FormGroup>
+              {isPopularLoading ? (
+                <FormGroup row>...</FormGroup>
+              ) : (
+                <>
+                  {Object.entries(populars).map(([key, populars]) => (
+                    <FormGroup row key={key}>
+                      <h2>{`Tendances ${
+                        key === "month" ? "du mois" : "de la semaine"
+                      }`}</h2>
+                      <div
+                        style={{
+                          maxHeight: "300px",
+                          overflowY: "scroll"
+                        }}
+                      >
+                        <Table size="sm">
+                          <thead>
+                            <tr>
+                              <th>Score</th>
+                              <th>Url</th>
+                              <th>Croissance</th>
+                              <th>Vues</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {populars.map(({ growth, score, url, views }) => (
+                              <tr key={url}>
+                                <td>{score}</td>
+                                <td>{url}</td>
+                                <td>{growth}</td>
+                                <td>{views}</td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </Table>
+                      </div>
+                    </FormGroup>
+                  ))}
+                </>
+              )}
             </StyledForm>
           )}
         />

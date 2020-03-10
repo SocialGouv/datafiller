@@ -32,34 +32,37 @@ function mergePages(data) {
     );
 }
 
+const params = {
+  module: "API",
+  format: "Json",
+  idSite: 4,
+  method: "Actions.getPageUrls",
+  expanded: 1
+};
+
 async function getPopulars(period) {
-  console.log("Errrrrr");
-  const matomoParams = {
-    module: "API",
-    format: "Json",
-    idSite: 4,
-    method: "Actions.getPageUrls",
-    expanded: 1,
-    period
-  };
   const [data, previousPeriodData] = await Promise.all([
-    fetch(buildUrl({ ...matomoParams, date: getDate({ period }) })).then(data =>
-      data.json()
-    ),
     fetch(
-      buildUrl({ ...matomoParams, date: getDate({ period, previous: 2 }) })
+      buildUrl({ ...params, period, date: getDate({ period }) })
+    ).then(data => data.json()),
+    fetch(
+      buildUrl({
+        ...params,
+        period,
+        date: getDate({ period, previous: 2 })
+      })
     ).then(data => data.json())
   ]);
 
   const candidates = mergePages(data).filter(page => page.label !== "Others");
-  const previousWeekCandidates = mergePages(previousPeriodData);
+  const previousCandidates = mergePages(previousPeriodData);
 
   const poundedCandidates = candidates.map(
     ({ label, sum_daily_nb_uniq_visitors: views, url }) => {
       const {
         sum_daily_nb_uniq_visitors: previousViews
-      } = previousWeekCandidates.find(
-        previousWeekCandidate => candidates.url === previousWeekCandidate.url
+      } = previousCandidates.find(
+        previousCandidate => candidates.url === previousCandidate.url
       );
       const growth = views / previousViews;
       const score = Math.pow(growth, 2) * views;
