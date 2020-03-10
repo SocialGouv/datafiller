@@ -22,7 +22,36 @@ function buildUrl(params) {
   return `https://matomo.fabrique.social.gouv.fr/index.php?${qs.join("&")}`;
 }
 
-function mergePages(data) {
+/**
+ * Input :
+ [
+   {
+      "label": "/contribution",
+      "subtable": [
+        {
+          "label": "/en-cas-de-perte-de-marche-par-lemployeur-quel...",
+          "sum_daily_nb_uniq_visitors": 38,
+          "url": "https://code.travail.gouv.fr/contribution/en-cas-..."
+        },
+        ...
+      ]
+    },
+    ...
+ ]
+
+ * Output :
+  [
+    {
+      "label": "/en-cas-de-perte-de-marche-par-lemployeur-quel...",
+      "sum_daily_nb_uniq_visitors": 38,
+      "url": "https://code.travail.gouv.fr/contribution/en-cas-..."
+    },
+    ...
+  ]
+ 
+ */
+
+function pickSources(data) {
   return data
     .find(rootPage => rootPage.label === "fiche-service-public")
     .subtable.concat(
@@ -54,25 +83,27 @@ async function getPopulars(period) {
     ).then(data => data.json())
   ]);
 
-  const candidates = mergePages(data).filter(page => page.label !== "Others");
-  const previousCandidates = mergePages(previousPeriodData);
+  const candidates = pickSources(data).filter(page => page.label !== "Others");
+  const previousCandidates = pickSources(previousPeriodData);
 
   const poundedCandidates = candidates.map(
-    ({ label, sum_daily_nb_uniq_visitors: views, url }) => {
+    ({ label, sum_daily_nb_uniq_visitors: currentViews, url }) => {
       const {
         sum_daily_nb_uniq_visitors: previousViews
       } = previousCandidates.find(
         previousCandidate => candidates.url === previousCandidate.url
       );
-      const growth = views / previousViews;
-      const score = Math.pow(growth, 2) * views;
+
+      const growth = currentViews / previousViews;
+      // Growth is twice more important than views
+      const score = Math.pow(growth, 2) * currentViews;
 
       return {
         growth: growth.toFixed(2),
         label,
         score: score.toFixed(2),
         url,
-        views
+        views: currentViews
       };
     }
   );
