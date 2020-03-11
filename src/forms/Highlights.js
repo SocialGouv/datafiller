@@ -62,6 +62,7 @@ const HighlightsForm = ({ data, onSubmit }) => {
                 <h2>Tendances à afficher (6 résultats)</h2>
                 <CDTNReferences
                   sortable={true}
+                  loadable={false}
                   values={values}
                   setFieldValue={setFieldValue}
                   setFieldTouched={setFieldTouched}
