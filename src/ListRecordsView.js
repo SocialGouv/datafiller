@@ -38,27 +38,30 @@ const ListRecordsView = ({
             </a>
           </Link>
         </ListGroupItem>
+        {collection !== "highlights" && (
+          <>
+            <ListGroupItem style={{ flex: "0 0 auto" }}>
+              <KintoContext.Consumer>
+                {({ client }) => (
+                  <a href="#" onClick={() => onAddClick({ client })}>
+                    <PlusSquare
+                      style={{ marginRight: 5, verticalAlign: "middle" }}
+                    />
+                    Ajouter une entrée
+                  </a>
+                )}
+              </KintoContext.Consumer>
+            </ListGroupItem>
 
-        <ListGroupItem style={{ flex: "0 0 auto" }}>
-          <KintoContext.Consumer>
-            {({ client }) => (
-              <a href="#" onClick={() => onAddClick({ client })}>
-                <PlusSquare
-                  style={{ marginRight: 5, verticalAlign: "middle" }}
-                />
-                Ajouter une entrée
-              </a>
-            )}
-          </KintoContext.Consumer>
-        </ListGroupItem>
-
-        <ListGroupItem style={{ flex: "0 0 auto" }}>
-          <Input
-            onChange={e => setQuery(e.target.value)}
-            value={query}
-            placeholder="Filtrer"
-          />
-        </ListGroupItem>
+            <ListGroupItem style={{ flex: "0 0 auto" }}>
+              <Input
+                onChange={e => setQuery(e.target.value)}
+                value={query}
+                placeholder="Filtrer"
+              />
+            </ListGroupItem>
+          </>
+        )}
 
         <div style={{ overflow: "scroll" }}>
           {records.filter(matchQuery(query)).map(item => (
