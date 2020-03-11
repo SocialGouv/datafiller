@@ -58,7 +58,8 @@ function pickSources(data) {
       data.find(rootPage => rootPage.label === "fiche-ministere-travail")
         .subtable,
       data.find(rootPage => rootPage.label === "contribution").subtable
-    );
+    )
+    .filter(candidate => candidate.label !== "Others");
 }
 
 const params = {
@@ -83,25 +84,24 @@ async function getPopulars(period) {
     ).then(data => data.json())
   ]);
 
-  const candidates = pickSources(data).filter(page => page.label !== "Others");
+  const candidates = pickSources(data);
   const previousCandidates = pickSources(previousPeriodData);
 
   const poundedCandidates = candidates.map(
     ({ label, sum_daily_nb_uniq_visitors: currentViews, url }) => {
-      const {
-        sum_daily_nb_uniq_visitors: previousViews
-      } = previousCandidates.find(
-        previousCandidate => candidates.url === previousCandidate.url
-      );
+      const { sum_daily_nb_uniq_visitors: previousViews } =
+        previousCandidates.find(
+          previousCandidate => previousCandidate.url === url
+        ) || {};
 
       const growth = currentViews / previousViews;
       // Growth is twice more important than views
-      const score = Math.pow(growth, 2) * currentViews;
+      const score = growth * currentViews;
 
       return {
-        growth: growth.toFixed(2),
+        growth: Number.isNaN(growth) ? "-" : growth.toFixed(2),
         label,
-        score: score.toFixed(2),
+        score: Number.isNaN(score) ? "-" : score.toFixed(2),
         url,
         views: currentViews
       };
