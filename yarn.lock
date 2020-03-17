@@ -3290,15 +3290,10 @@ data-urls@^1.1.0:
     whatwg-mimetype "^2.2.0"
     whatwg-url "^7.0.0"
 
-date-fns@^2.10.0:
+date-fns@^2.10.0, date-fns@^2.4.1:
   version "2.10.0"
   resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.10.0.tgz#abd10604d8bafb0bcbd2ba2e9b0563b922ae4b6b"
   integrity sha512-EhfEKevYGWhWlZbNeplfhIU/+N+x0iCIx7VzKlXma2EdQyznVlZhCptXUY+BegNpPW2kjdx15Rvq503YcXXrcA==
-
-date-fns@^2.4.1:
-  version "2.8.1"
-  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.8.1.tgz#2109362ccb6c87c3ca011e9e31f702bc09e4123b"
-  integrity sha512-EL/C8IHvYRwAHYgFRse4MGAPSqlJVlOrhVYZ75iQBKrnv+ZedmYsgwH3t+BCDuZDXpoo07+q9j4qgSSOa7irJg==
 
 date-now@^0.1.4:
   version "0.1.4"
@@ -8249,10 +8244,10 @@ react-feather@2.0.3, react-feather@^2.0.3:
   dependencies:
     prop-types "^15.7.2"
 
-react-fetch-hook@1.8.0:
-  version "1.8.0"
-  resolved "https://registry.yarnpkg.com/react-fetch-hook/-/react-fetch-hook-1.8.0.tgz#90f0bed39096ae3ee52ed3c070b73ae64fe476e3"
-  integrity sha512-DAbCvBCmncXqZrLTxlERITea21UJ1WuvHZN+m0uq2wBl8zcVTCAUJfX5XKQDW1tceD3qv2OkNt5zHR5bbr2CIg==
+react-fetch-hook@1.8.2:
+  version "1.8.2"
+  resolved "https://registry.yarnpkg.com/react-fetch-hook/-/react-fetch-hook-1.8.2.tgz#7f102bfcc9784abae7522e88a7fee5a3578bee78"
+  integrity sha512-gUPk7sq7EtUjhuj3PUtpG5aTUbZijtG8Mhm0soQDHSALH4yKiwNR4kmpPw81gP+BjWgxjj9LqEFqyIGZTvNiig==
 
 react-focus-lock@^2.2.1:
   version "2.2.1"
