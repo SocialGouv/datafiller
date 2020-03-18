@@ -2125,8 +2125,8 @@
   },
   {
     "source": "fiches_service_public",
-    "title": "Un salarié saisonnier peut-il être dispensé d'un examen médical d'embauche ?",
-    "slug": "un-salarie-saisonnier-peut-il-etre-dispense-dun-examen-medical-dembauche",
+    "title": "Un salarié saisonnier est-il suivi par la médecine du travail ?",
+    "slug": "un-salarie-saisonnier-est-il-suivi-par-la-medecine-du-travail",
     "url": "https://www.service-public.fr/particuliers/vosdroits/F34084"
   },
   {
@@ -2917,8 +2917,8 @@
   },
   {
     "source": "fiches_service_public",
-    "title": "Mutuelle santé d'entreprise : les obligations de l'employeur",
-    "slug": "mutuelle-sante-dentreprise-les-obligations-de-lemployeur",
+    "title": "Mutuelle d'entreprise (complémentaire santé) : obligations de l'employeur",
+    "slug": "mutuelle-dentreprise-complementaire-sante-obligations-de-lemployeur",
     "url": "https://www.service-public.fr/professionnels-entreprises/vosdroits/F33754"
   },
   {
@@ -3106,12 +3106,6 @@
     "title": "Régime de retraite des travailleurs indépendants",
     "slug": "regime-de-retraite-des-travailleurs-independants",
     "url": "https://www.service-public.fr/professionnels-entreprises/vosdroits/F33841"
-  },
-  {
-    "source": "fiches_service_public",
-    "title": "Quel est le régime d'exonération de l'impôt sur les bénéfices dans les ZFU-TE avant 2015 ?",
-    "slug": "quel-est-le-regime-dexoneration-de-limpot-sur-les-benefices-dans-les-zfu-te-avant-2015",
-    "url": "https://www.service-public.fr/professionnels-entreprises/vosdroits/F34037"
   },
   {
     "source": "fiches_service_public",
@@ -3427,7 +3421,7 @@
   },
   {
     "source": "fiches_ministere_travail",
-    "title": "Apprentissage | Financement de l’apprentissage : apprentissage | financement de l’apprentissage",
+    "title": "Apprentissage | Financement de l’apprentissage",
     "slug": "apprentissage-financement-de-lapprentissage",
     "url": null
   },
@@ -5191,7 +5185,7 @@
   },
   {
     "source": "fiches_ministere_travail",
-    "title": "L’allocation temporaire dégressive : l’allocation temporaire dégressive",
+    "title": "L’allocation temporaire dégressive",
     "slug": "lallocation-temporaire-degressive",
     "url": null
   },
@@ -11808,6 +11802,48 @@
     "url": null
   },
   {
+    "source": "fiches_ministere_travail",
+    "title": "Coronavirus - COVID-19 et monde du Travail : 1. le télétravail est la règle impérative pour tous les postes qui le permettent",
+    "slug": "coronavirus-covid-19-et-monde-du-travail#t1-Le-teletravail-est-la-regle-imperative-pour-tous-les-postes-qui-le-nbsp",
+    "url": null
+  },
+  {
+    "source": "fiches_ministere_travail",
+    "title": "Coronavirus - COVID-19 et monde du Travail : 2. les règles de distanciation pour les emplois non éligibles au télétravail doivent impérativement être respectées",
+    "slug": "coronavirus-covid-19-et-monde-du-travail#t2-Les-regles-de-distanciation-pour-les-emplois-non-eligibles-au-nbsp",
+    "url": null
+  },
+  {
+    "source": "fiches_ministere_travail",
+    "title": "Coronavirus - COVID-19 et monde du Travail : 3. les restaurants d’entreprise peuvent rester ouverts, mais doivent être aménagés pour laisser un mètre de distance entre les places à table",
+    "slug": "coronavirus-covid-19-et-monde-du-travail#t3-Les-restaurants-d-entreprise-peuvent-rester-ouverts-mais-doivent-etre-nbsp",
+    "url": null
+  },
+  {
+    "source": "fiches_ministere_travail",
+    "title": "Coronavirus - COVID-19 et monde du Travail : 4. toutes les entreprises qui subissent une baisse partielle ou totale d’activité sont éligibles au chômage partiel",
+    "slug": "coronavirus-covid-19-et-monde-du-travail#t4-Toutes-les-entreprises-qui-subissent-une-baisse-partielle-ou-totale-nbsp",
+    "url": null
+  },
+  {
+    "source": "fiches_ministere_travail",
+    "title": "Coronavirus - COVID-19 et monde du Travail : 5. les solutions pour les parents d’enfants de moins de 16 ans",
+    "slug": "coronavirus-covid-19-et-monde-du-travail#t5-Les-solutions-pour-les-parents-d-enfants-de-moins-de-16-ans",
+    "url": null
+  },
+  {
+    "source": "fiches_ministere_travail",
+    "title": "Coronavirus - COVID-19 et monde du Travail : pour résumer",
+    "slug": "coronavirus-covid-19-et-monde-du-travail#Pour-resumer",
+    "url": null
+  },
+  {
+    "source": "fiches_ministere_travail",
+    "title": "CORONAVIRUS : suspension de l’accueil dans les CFA et les organismes de formation et continuité d’activité à distance",
+    "slug": "coronavirus-suspension-de-laccueil-dans-les-cfa-et-les-organismes-de-formation-et-continuite-dactivite-a-distance",
+    "url": null
+  },
+  {
     "source": "themes",
     "title": "Accident du travail et maladie professionnelle",
     "slug": "632-accident-du-travail-et-maladie-professionnelle",
@@ -12122,13 +12158,13 @@
   {
     "source": "themes",
     "title": "Handicap",
-    "slug": "644-handicap",
+    "slug": "118-handicap",
     "url": null
   },
   {
     "source": "themes",
     "title": "Handicap",
-    "slug": "118-handicap",
+    "slug": "644-handicap",
     "url": null
   },
   {
@@ -12176,13 +12212,13 @@
   {
     "source": "themes",
     "title": "Jeunes travailleurs",
-    "slug": "525-jeunes-travailleurs",
+    "slug": "641-jeunes-travailleurs",
     "url": null
   },
   {
     "source": "themes",
     "title": "Jeunes travailleurs",
-    "slug": "641-jeunes-travailleurs",
+    "slug": "525-jeunes-travailleurs",
     "url": null
   },
   {
@@ -12654,6 +12690,18 @@
     "url": null
   },
   {
+    "source": "modeles_de_courriers",
+    "title": "Attestation sur l’honneur : arrêt de travail pour la garde d’enfant",
+    "slug": "attestation-sur-lhonneur-arret-de-travail-pour-la-garde-denfant",
+    "url": null
+  },
+  {
+    "source": "modeles_de_courriers",
+    "title": "Attestation sur l’honneur : déplacement dérogatoire",
+    "slug": "attestation-sur-lhonneur-deplacement-derogatoire",
+    "url": null
+  },
+  {
     "source": "outils",
     "title": "Indemnité de licenciement",
     "slug": "indemnite-licenciement",
@@ -12751,7 +12799,7 @@
   },
   {
     "source": "contributions",
-    "title": " Quelles informations doivent figurer dans le contrat de travail ou la lettre d'engagement ?",
+    "title": "Quelles informations doivent figurer dans le contrat de travail ou la lettre d'engagement ?",
     "slug": "quelles-informations-doivent-figurer-dans-le-contrat-de-travail-ou-la-lettre-dengagement",
     "url": null
   },
@@ -12793,13 +12841,13 @@
   },
   {
     "source": "contributions",
-    "title": " Embauche en contrat d'extra (CDD d'usage)",
+    "title": "Embauche en contrat d'extra (CDD d'usage)",
     "slug": "embauche-en-contrat-dextra-cdd-dusage",
     "url": null
   },
   {
     "source": "contributions",
-    "title": " Quelle est la durée maximale du contrat de mission (intérim) ? ",
+    "title": "Quelle est la durée maximale du contrat de mission (intérim) ?",
     "slug": "quelle-est-la-duree-maximale-du-contrat-de-mission-interim",
     "url": null
   },
@@ -12823,25 +12871,25 @@
   },
   {
     "source": "contributions",
-    "title": " Quelle est la durée du préavis en cas de démission ?",
+    "title": "Quelle est la durée du préavis en cas de démission ?",
     "slug": "quelle-est-la-duree-du-preavis-en-cas-de-demission",
     "url": null
   },
   {
     "source": "contributions",
-    "title": " Quelle est la durée de préavis en cas de licenciement ?",
+    "title": "Quelle est la durée de préavis en cas de licenciement ?",
     "slug": "quelle-est-la-duree-de-preavis-en-cas-de-licenciement",
     "url": null
   },
   {
     "source": "contributions",
-    "title": " Quelle est la durée de préavis en cas de départ à la retraite ?",
+    "title": "Quelle est la durée de préavis en cas de départ à la retraite ?",
     "slug": "quelle-est-la-duree-de-preavis-en-cas-de-depart-a-la-retraite",
     "url": null
   },
   {
     "source": "contributions",
-    "title": " Quelle est la durée de préavis en cas de mise à la retraite ?",
+    "title": "Quelle est la durée de préavis en cas de mise à la retraite ?",
     "slug": "quelle-est-la-duree-de-preavis-en-cas-de-mise-a-la-retraite",
     "url": null
   },
