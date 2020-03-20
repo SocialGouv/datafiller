@@ -2065,8 +2065,8 @@
   },
   {
     "source": "fiches_service_public",
-    "title": "Qu'est-ce que la force majeure ?",
-    "slug": "quest-ce-que-la-force-majeure",
+    "title": "Droit du travail (secteur privé) : qu'est-ce que la force majeure ?",
+    "slug": "droit-du-travail-secteur-prive-quest-ce-que-la-force-majeure",
     "url": "https://www.service-public.fr/particuliers/vosdroits/F33790"
   },
   {
@@ -11844,6 +11844,48 @@
     "url": null
   },
   {
+    "source": "fiches_ministere_travail",
+    "title": "Le Contrat à durée déterminée d’usage",
+    "slug": "le-contrat-a-duree-determinee-dusage",
+    "url": null
+  },
+  {
+    "source": "fiches_ministere_travail",
+    "title": "Le Contrat à durée déterminée d’usage : dans quelles conditions peut-on conclure un cdd d’usage ?",
+    "slug": "le-contrat-a-duree-determinee-dusage#Dans-quelles-conditions-peut-on-conclure-un-CDD-d-usage",
+    "url": null
+  },
+  {
+    "source": "fiches_ministere_travail",
+    "title": "Le Contrat à durée déterminée d’usage : quelles sont les règles applicables aux cdd d’usage ?",
+    "slug": "le-contrat-a-duree-determinee-dusage#Quelles-sont-les-regles-applicables-aux-CDD-d-usage",
+    "url": null
+  },
+  {
+    "source": "fiches_ministere_travail",
+    "title": "Le Contrat à durée déterminée d’usage : quelles sont les dispositions visant à limiter le recours excessif aux cdd d’usage ?",
+    "slug": "le-contrat-a-duree-determinee-dusage#Quelles-sont-les-dispositions-visant-a-limiter-le-recours-excessif-aux-CDD-nbsp",
+    "url": null
+  },
+  {
+    "source": "fiches_ministere_travail",
+    "title": "Coronavirus – COVID-19 | Questions-réponses Mon Compte Formation",
+    "slug": "coronavirus-covid-19-questions-reponses-mon-compte-formation",
+    "url": null
+  },
+  {
+    "source": "fiches_ministere_travail",
+    "title": "Coronavirus – COVID-19 | Questions-réponses Formation professionnelle des salariés, alternants et personnes en recherche d’emploi",
+    "slug": "coronavirus-covid-19-questions-reponses-formation-professionnelle-des-salaries-alternants-et-personnes-en-recherche-demploi",
+    "url": null
+  },
+  {
+    "source": "fiches_ministere_travail",
+    "title": "Coronavirus – COVID-19 | Questions-réponses Apprentissage",
+    "slug": "coronavirus-covid-19-questions-reponses-apprentissage",
+    "url": null
+  },
+  {
     "source": "themes",
     "title": "Accident du travail et maladie professionnelle",
     "slug": "632-accident-du-travail-et-maladie-professionnelle",
@@ -12702,6 +12744,12 @@
     "url": null
   },
   {
+    "source": "modeles_de_courriers",
+    "title": "Justificatif de l’employeur de déplacement professionnel",
+    "slug": "justificatif-de-lemployeur-de-deplacement-professionnel",
+    "url": null
+  },
+  {
     "source": "outils",
     "title": "Indemnité de licenciement",
     "slug": "indemnite-licenciement",
@@ -12807,12 +12855,6 @@
     "source": "contributions",
     "title": "L'entreprise peut-elle embaucher dans le cadre d'un CDI de chantier ou d’opération ? ",
     "slug": "lentreprise-peut-elle-embaucher-dans-le-cadre-dun-cdi-de-chantier-ou-doperation",
-    "url": null
-  },
-  {
-    "source": "contributions",
-    "title": "Quelles sont les conditions de la clause de non-concurrence ?",
-    "slug": "quelles-sont-les-conditions-de-la-clause-de-non-concurrence",
     "url": null
   },
   {
@@ -13011,6 +13053,12 @@
     "source": "contributions",
     "title": "Travail du dimanche : quelle contrepartie ?",
     "slug": "travail-du-dimanche-quelle-contrepartie",
+    "url": null
+  },
+  {
+    "source": "dossiers",
+    "title": "Ministère du travail : notre dossier sur le coronavirus",
+    "slug": "ministere-du-travail-notre-dossier-sur-le-coronavirus",
     "url": null
   }
 ]
