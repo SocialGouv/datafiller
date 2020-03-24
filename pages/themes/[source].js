@@ -6,11 +6,19 @@ import { Edit } from "react-feather";
 
 import Layout from "../../src/Layout";
 import getClient from "../../src/kinto/client";
-import dump from "../../src/dump.data.json";
 import { getRouteBySource } from "../../src/sources";
 import ThemePicker from "../../src/forms/components/ThemePicker";
+import { getThemes, hasTheme } from "../../src/kinto/getThemes";
 
-const addToTheme = async (content, theme) => {
+import { getSitemapUrls, slugify, matchSource } from "../../src/cdtn-sitemap";
+
+// remove duplicates (ex: splitted content)
+const uniquify = arr => Array.from(new Set(arr));
+
+const removeProtocol = url => url.replace(/^https?:\/\/[^/]+/, "");
+
+// add to theme record
+const addToTheme = async (url, theme, allUrls) => {
   const client = getClient();
   const themeRecord = await client
     .bucket("datasets", { headers: {} })
@@ -20,21 +28,23 @@ const addToTheme = async (content, theme) => {
   const newRefs = [];
 
   // select all fiches MT with same slug
-  if (content.source === "fiches_ministere_travail") {
-    const siblings = dump
-      .filter(r => r.source === "fiches_ministere_travail")
-      .filter(r => r.slug.split("#")[0] === content.slug.split("#")[0])
-      .map(r => ({
-        title: r.title,
-        url: `/${getRouteBySource(content.source)}/${r.slug}`
+  if (url.match(/fiche-ministere-travail/)) {
+    const siblings = allUrls
+      .filter(url2 => slugify(url2) === slugify(url))
+      .map(url => ({
+        title: "",
+        // keep slug only
+        url: removeProtocol(url)
       }));
     newRefs.push(...siblings);
   } else {
     newRefs.push({
-      title: content.title,
-      url: `/${getRouteBySource(content.source)}/${content.slug}`
+      title: "",
+      url: removeProtocol(url)
     });
   }
+
+  const allRefs = [...(themeRecord.data.refs || []), ...newRefs];
 
   await client
     .bucket("datasets", { headers: {} })
@@ -42,7 +52,7 @@ const addToTheme = async (content, theme) => {
     .updateRecord(
       {
         id: theme,
-        refs: [...(themeRecord.data.refs || []), ...newRefs]
+        refs: allRefs
       },
       {
         patch: true
@@ -50,7 +60,7 @@ const addToTheme = async (content, theme) => {
     );
 };
 
-const ThemeSelector = ({ record }) => {
+const ThemeSelector = ({ addToTheme }) => {
   const [theme, setTheme] = useState("");
   return (
     <ThemePicker
@@ -60,41 +70,29 @@ const ThemeSelector = ({ record }) => {
       title={theme.title || <Edit />}
       value={theme && theme.id}
       onChange={theme => {
-        addToTheme(record, theme.id);
+        addToTheme(theme.id);
         setTheme(theme);
       }}
     />
   );
 };
 
-const ThemeItems = ({ records }) => (
-  <Table padding="dense" striped>
-    <thead>
-      <tr>
-        <td width="400">Thème</td>
-        <td>Titre</td>
-      </tr>
-    </thead>
-    <tbody>
-      {records.map(record => (
-        <tr key={record.title}>
-          <td width="400">
-            <ThemeSelector record={record} />
-          </td>
-          <td>
-            <a href={record.url} target="_blank" rel="noopener noreferrer">
-              {record.title}
-            </a>
-          </td>
-        </tr>
-      ))}
-    </tbody>
-  </Table>
-);
-
 const ContentPage = props => {
-  const { records, source } = props;
+  const { allUrls, unThemedUrls, source } = props;
   const label = getRouteBySource(source);
+  if (!unThemedUrls || unThemedUrls.length === 0) {
+    return (
+      <Layout>
+        <h4 style={{ margin: "40px 0" }}>
+          <Link href="/">
+            <a>Accueil</a>
+          </Link>{" "}
+        </h4>
+        Aucun contenu à thémer
+      </Layout>
+    );
+  }
+
   return (
     <div>
       <Head>
@@ -105,52 +103,64 @@ const ContentPage = props => {
           <Link href="/">
             <a>Accueil</a>
           </Link>{" "}
-          &gt; {records.length} {label} sans thème
+          &gt; {unThemedUrls.length} {label} sans thème
         </h4>
-        <ThemeItems records={records} />
+        <Table padding="dense" striped>
+          <thead>
+            <tr>
+              <td width="400">Thème</td>
+              <td>Titre</td>
+            </tr>
+          </thead>
+          <tbody>
+            {unThemedUrls.map(url => (
+              <tr key={url}>
+                <td width="400">
+                  <ThemeSelector
+                    addToTheme={theme => addToTheme(url, theme, allUrls)}
+                  />
+                </td>
+                <td>
+                  <a href={url} target="_blank" rel="noopener noreferrer">
+                    {slugify(url)}
+                  </a>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
       </Layout>
     </div>
   );
 };
 
-ContentPage.getInitialProps = async ({ query }) => {
+export const getServerSideProps = async ({ query }) => {
   const { source } = query;
-  const client = getClient();
-  const themes = await client
-    .bucket("datasets", { headers: {} })
-    .collection("themes", { headers: {} })
-    .listRecords({ limit: 1000 });
-  const hasTheme = content => {
-    const contentSlug = `/${getRouteBySource(source)}/${
-      content.slug.split("#")[0]
-    }`;
-    return themes.data.find(
-      theme =>
-        theme.refs &&
-        theme.refs
-          .filter(ref => !!ref.url)
-          .find(ref => ref.url.split("#")[0] === contentSlug)
-    );
-  };
-  const hasNoTheme = content => !hasTheme(content);
-  const noThemeContents = dump
-    .filter(content => content.source === source)
-    .filter(hasNoTheme)
-    .reduce((acc, content) => {
-      // return only une fiche MT per slug (group documents)
-      if (
-        source === "fiches_ministere_travail" &&
-        acc.find(c => c.slug.split("#")[0] === content.slug.split("#")[0])
-      ) {
-        return acc;
-      }
-      acc.push(content);
-      return acc;
-    }, []);
 
-  return {
-    records: noThemeContents,
-    source
+  const themes = await getThemes();
+
+  // fetch master sitemap content
+  const allUrls = await getSitemapUrls();
+
+  const hasNoTheme = url => !hasTheme(url, themes);
+
+  const unThemedUrls = uniquify(
+    allUrls
+      .filter(
+        url =>
+          // find same source contents
+          !source || matchSource(source)(url)
+      )
+      .filter(hasNoTheme)
+      .map(url => url.split("#")[0])
+  );
+
+  return await {
+    props: {
+      allUrls,
+      unThemedUrls,
+      source
+    }
   };
 };
 
