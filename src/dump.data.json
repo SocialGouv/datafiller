@@ -835,8 +835,8 @@
   },
   {
     "source": "fiches_service_public",
-    "title": "Salari�� étranger : qu'est-ce que l'opposabilité de la situation de l'emploi ?",
-    "slug": "salari-etranger-quest-ce-que-lopposabilite-de-la-situation-de-lemploi",
+    "title": "Salarié étranger : qu'est-ce que l'opposabilité de la situation de l'emploi ?",
+    "slug": "salarie-etranger-quest-ce-que-lopposabilite-de-la-situation-de-lemploi",
     "url": "https://www.service-public.fr/particuliers/vosdroits/F3100"
   },
   {
@@ -12744,18 +12744,6 @@
     "url": null
   },
   {
-    "source": "modeles_de_courriers",
-    "title": "Attestation sur l’honneur : déplacement dérogatoire",
-    "slug": "attestation-sur-lhonneur-deplacement-derogatoire",
-    "url": null
-  },
-  {
-    "source": "modeles_de_courriers",
-    "title": "Justificatif de l’employeur de déplacement professionnel",
-    "slug": "justificatif-de-lemployeur-de-deplacement-professionnel",
-    "url": null
-  },
-  {
     "source": "outils",
     "title": "Indemnité de licenciement",
     "slug": "indemnite-licenciement",
@@ -12784,6 +12772,24 @@
     "title": "Préavis de licenciement",
     "slug": "preavis-licenciement",
     "url": null
+  },
+  {
+    "source": "external",
+    "title": "Attestation sur l’honneur : déplacement dérogatoire",
+    "slug": "attestation-sur-lhonneur-deplacement-derogatoire",
+    "url": "https://www.interieur.gouv.fr/Actualites/L-actu-du-Ministere/Attestation-de-deplacement-derogatoire-et-justificatif-de-deplacement-professionnel"
+  },
+  {
+    "source": "external",
+    "title": "Justificatif de l’employeur de déplacement professionnel",
+    "slug": "justificatif-de-lemployeur-de-deplacement-professionnel",
+    "url": "https://www.interieur.gouv.fr/Actualites/L-actu-du-Ministere/Attestation-de-deplacement-derogatoire-et-justificatif-de-deplacement-professionnel"
+  },
+  {
+    "source": "external",
+    "title": "Coronavirus : obligations de l’employeur",
+    "slug": "coronavirus-obligations-de-lemployeur",
+    "url": "https://travail-emploi.gouv.fr/IMG/pdf/covid19_obligations_employeur.pdf"
   },
   {
     "source": "external",
