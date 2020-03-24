@@ -6,9 +6,9 @@ import ProgressIndicator from "../src/forms/components/ProgressIndicator";
 import sortByKey from "../src/sortByKey";
 import getScore from "../src/getScore";
 import getClient from "../src/kinto/client";
-import { sources, getRouteBySource } from "../src/sources";
-import dump from "../src/dump.data.json";
-
+import { themableRoutes } from "../src/sources";
+import { getSitemapUrls, slugify, matchSource } from "../src/cdtn-sitemap";
+import { getThemes, hasTheme } from "../src/kinto/getThemes";
 import { Eye, Database, Plus, Star } from "react-feather";
 
 import {
@@ -28,6 +28,9 @@ import {
 } from "reactstrap";
 
 const { publicRuntimeConfig } = getConfig();
+
+// remove duplicates (ex: splitted content)
+const uniquify = arr => Array.from(new Set(arr));
 
 const BucketIntro = ({ count }) => (
   <Jumbotron>
@@ -156,7 +159,7 @@ const BucketView = ({ bucket, collections = [], themes }) => {
                             as={`/themes/${item.source}`}
                             passHref
                           >
-                            <a>{getRouteBySource(item.source)}</a>
+                            <a>{item.source}</a>
                           </Link>
                         </td>
                         <td>
@@ -189,6 +192,7 @@ const BucketView = ({ bucket, collections = [], themes }) => {
   );
 };
 
+// recap for dashboard
 const fetchAllCollections = async () => {
   const client = getClient();
   const collectionList = await client
@@ -209,72 +213,43 @@ const fetchAllCollections = async () => {
 };
 
 const fetchRecapThemes = async () => {
-  const client = getClient();
-  const themes = await client
-    .bucket("datasets", { headers: {} })
-    .collection("themes", { headers: {} })
-    .listRecords({ limit: 1000 });
+  const themes = await getThemes();
 
-  const bySource = source => {
-    const hasTheme = content => {
-      const contentSlug = `/${getRouteBySource(source)}/${
-        content.slug.split("#")[0]
-      }`;
-      return themes.data.find(
-        theme =>
-          theme.refs &&
-          theme.refs
-            .filter(ref => !!ref.url)
-            .find(ref => ref.url.split("#")[0] === contentSlug)
-      );
-    };
-    const hasNoTheme = content => !hasTheme(content);
-    const allContent = dump.filter(content => content.source === source);
-    const noThemeContents = allContent
-      .filter(hasNoTheme)
-      .reduce((acc, content) => {
-        if (
-          source === "fiches_ministere_travail" &&
-          acc.find(c => c.slug.split("#")[0] === content.slug.split("#")[0])
-        ) {
-          return acc;
-        }
-        acc.push(content);
-        return acc;
-      }, []);
+  const cdtnContents = await getSitemapUrls();
 
+  const hasNoTheme = url => !hasTheme(url, themes);
+
+  const recap = themableRoutes.map(source => {
+    // recap of unthemed content for each source
+    const contents = uniquify(
+      cdtnContents.filter(matchSource(source)).map(slugify)
+    );
     return {
-      total: allContent.length,
-      items: noThemeContents
-    };
-  };
-
-  return sources
-    .filter(source => source !== "themes")
-    .map(source => ({
       source,
-      ...bySource(source)
-    }));
+      total: contents.length,
+      items: contents.filter(hasNoTheme)
+    };
+  });
+
+  return recap;
+};
+
+export const getServerSideProps = async () => {
+  const collections = await fetchAllCollections();
+  const themes = await fetchRecapThemes();
+  return { props: { collections, themes } };
 };
 
 // by default we list the process.env.KINTO_BUCKET
-class Home extends React.Component {
-  static async getInitialProps({ query }) {
-    const collections = await fetchAllCollections();
-    const themes = await fetchRecapThemes();
-    return { query: query.query, collections, themes };
-  }
-  render() {
-    const bucket = publicRuntimeConfig.KINTO_BUCKET;
-    const { collections, themes } = this.props;
-    const total = sum(collections.map(c => c.records.length));
-    return (
-      <Container>
-        <BucketIntro count={total} />
-        <BucketView bucket={bucket} collections={collections} themes={themes} />
-      </Container>
-    );
-  }
-}
+const Home = ({ collections, themes }) => {
+  const bucket = publicRuntimeConfig.KINTO_BUCKET;
+  const total = sum(collections.map(c => c.records.length));
+  return (
+    <Container>
+      <BucketIntro count={total} />
+      <BucketView bucket={bucket} collections={collections} themes={themes} />
+    </Container>
+  );
+};
 
 export default Home;
