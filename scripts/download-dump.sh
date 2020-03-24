@@ -3,7 +3,7 @@
 # download master version of CDTN data
 
 #`curl https://api.github.com/repos/SocialGouv/code-du-travail-numerique/branches/master | jq -r ".commit.sha" -`
-SHA=6fe2c16b1e241f27c4337ecf3b2de7e6baf57a39
+SHA=401178f48170d3603692188fe1dfcb2671555cff
 
 CDTN_REGISTRY=registry.gitlab.factory.social.gouv.fr/socialgouv/code-du-travail-numerique
 
