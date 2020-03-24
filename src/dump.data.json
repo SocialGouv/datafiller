@@ -835,8 +835,8 @@
   },
   {
     "source": "fiches_service_public",
-    "title": "Salarié étranger : qu'est-ce que l'opposabilité de la situation de l'emploi ?",
-    "slug": "salarie-etranger-quest-ce-que-lopposabilite-de-la-situation-de-lemploi",
+    "title": "Salari�� étranger : qu'est-ce que l'opposabilité de la situation de l'emploi ?",
+    "slug": "salari-etranger-quest-ce-que-lopposabilite-de-la-situation-de-lemploi",
     "url": "https://www.service-public.fr/particuliers/vosdroits/F3100"
   },
   {
@@ -1309,8 +1309,8 @@
   },
   {
     "source": "fiches_service_public",
-    "title": "Abandon de poste : quelles sont les règles dans le secteur privé ?",
-    "slug": "abandon-de-poste-quelles-sont-les-regles-dans-le-secteur-prive",
+    "title": "Qu'est-ce qu'un abandon de poste par un salarié dans le secteur privé ?",
+    "slug": "quest-ce-quun-abandon-de-poste-par-un-salarie-dans-le-secteur-prive",
     "url": "https://www.service-public.fr/particuliers/vosdroits/F31209"
   },
   {
@@ -3127,8 +3127,8 @@
   },
   {
     "source": "fiches_service_public",
-    "title": "Rémunération d'un salarié placé en activité partielle",
-    "slug": "remuneration-dun-salarie-place-en-activite-partielle",
+    "title": "Rémunération d'un salarié placé en activité partielle (chômage partiel)",
+    "slug": "remuneration-dun-salarie-place-en-activite-partielle-chomage-partiel",
     "url": "https://www.service-public.fr/professionnels-entreprises/vosdroits/F13898"
   },
   {
@@ -3577,32 +3577,26 @@
   },
   {
     "source": "fiches_ministere_travail",
-    "title": "CSE : définition, cadre et calendrier de mise en place",
-    "slug": "cse-definition-cadre-et-calendrier-de-mise-en-place",
+    "title": "CSE : définition et cadre de mise en place",
+    "slug": "cse-definition-et-cadre-de-mise-en-place",
     "url": null
   },
   {
     "source": "fiches_ministere_travail",
     "title": "Qu’est-ce que le comité social et économique (CSE) ?",
-    "slug": "cse-definition-cadre-et-calendrier-de-mise-en-place#Qu-est-ce-que-le-comite-social-et-economique-CSE",
+    "slug": "cse-definition-et-cadre-de-mise-en-place#Qu-est-ce-que-le-comite-social-et-economique-CSE",
     "url": null
   },
   {
     "source": "fiches_ministere_travail",
     "title": "Le CSE : obligatoire dans quelles entreprises ?",
-    "slug": "cse-definition-cadre-et-calendrier-de-mise-en-place#Le-CSE-obligatoire-dans-quelles-entreprises",
+    "slug": "cse-definition-et-cadre-de-mise-en-place#Le-CSE-obligatoire-dans-quelles-entreprises",
     "url": null
   },
   {
     "source": "fiches_ministere_travail",
     "title": "Dans quel cadre le CSE doit-il être mis en place ?",
-    "slug": "cse-definition-cadre-et-calendrier-de-mise-en-place#Dans-quel-cadre-le-CSE-doit-il-etre-mis-en-place",
-    "url": null
-  },
-  {
-    "source": "fiches_ministere_travail",
-    "title": "A quelle date va se mettre en place le CSE ?",
-    "slug": "cse-definition-cadre-et-calendrier-de-mise-en-place#A-quelle-date-va-se-mettre-en-place-le-CSE",
+    "slug": "cse-definition-et-cadre-de-mise-en-place#Dans-quel-cadre-le-CSE-doit-il-etre-mis-en-place",
     "url": null
   },
   {
@@ -11883,6 +11877,18 @@
     "source": "fiches_ministere_travail",
     "title": "Coronavirus – COVID-19 | Questions-réponses Apprentissage",
     "slug": "coronavirus-covid-19-questions-reponses-apprentissage",
+    "url": null
+  },
+  {
+    "source": "fiches_ministere_travail",
+    "title": "COVID-19 : situation des travailleurs frontaliers",
+    "slug": "covid-19-situation-des-travailleurs-frontaliers",
+    "url": null
+  },
+  {
+    "source": "fiches_ministere_travail",
+    "title": "Mesures exceptionnelles de soutien aux intermittents et salariés du secteur culturel dans le cadre de la crise sanitaire",
+    "slug": "mesures-exceptionnelles-de-soutien-aux-intermittents-et-salaries-du-secteur-culturel-dans-le-cadre-de-la-crise-sanitaire",
     "url": null
   },
   {

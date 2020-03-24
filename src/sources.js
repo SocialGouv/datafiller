@@ -11,7 +11,8 @@ const routeBySource = {
   themes: "themes",
   outils: "outils",
   idcc: "idcc",
-  kali: "kali"
+  kali: "kali",
+  dossiers: "dossiers"
 };
 
 // mapping elastic search source type -> source label
@@ -27,7 +28,8 @@ const labelBySource = {
   themes: "themes",
   outils: "outils",
   idcc: "Legifrance",
-  kali: "Legifrance"
+  kali: "Legifrance",
+  dossiers: "Dossiers"
 };
 
 export const getLabelBySource = src => labelBySource[src] || "";
@@ -39,4 +41,3 @@ export const getExcludeSources = value => {
   if (Boolean(value) === false) return "";
   return sources.filter(source => source.startsWith(value) === false).join(",");
 };
-
