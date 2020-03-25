@@ -155,7 +155,7 @@ export const getServerSideProps = async ({ query }) => {
       .map(url => url.split("#")[0])
   );
 
-  return await {
+  return {
     props: {
       allUrls,
       unThemedUrls,
