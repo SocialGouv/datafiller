@@ -32,6 +32,14 @@ const labelBySource = {
   dossiers: "Dossiers"
 };
 
+export const themableRoutes = [
+  "fiche-service-public",
+  "fiche-ministere-travail",
+  "modeles-de-courriers",
+  "outils",
+  "contribution"
+];
+
 export const getLabelBySource = src => labelBySource[src] || "";
 export const getRouteBySource = src => routeBySource[src];
 
