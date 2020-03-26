@@ -53,6 +53,9 @@ const getScore = (collection, item) => {
     score += item.subTitle ? 20 : 0;
     score += item.intro ? 20 : 0;
   }
+  if (collection === "fiches") {
+    score = (item.urls && item.urls.split("\n").length) || 0;
+  }
 
   score = Math.min(100, Math.max(0, score));
   return score;

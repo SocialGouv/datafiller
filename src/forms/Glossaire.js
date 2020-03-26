@@ -18,6 +18,7 @@ import {
 
 import CDTNReferences from "./components/CDTNReferences";
 import MarkdownLink from "./components/MarkdownLink";
+import { FormikErrors } from "./components/FormikErrors";
 
 const DataSchema = Yup.object().shape({
   title: Yup.string()
@@ -137,19 +138,8 @@ const GlossaireForm = ({ data, onSubmit, onDelete }) => (
               />
             </FormGroup>
 
-            {/* show formik errors */}
-            {(Object.keys(errors).length && (
-              <Alert color="danger" style={{ margin: "15px 0" }}>
-                {Object.keys(errors)
-                  .map(key => errors[key])
-                  .map(error => (
-                    <Alert key={error} color="error">
-                      {error}
-                    </Alert>
-                  ))}
-              </Alert>
-            )) ||
-              null}
+            <FormikErrors errors={errors} />
+
             {/* show submit status */}
             {status && status.msg && (
               <Alert color="success" style={{ margin: "15px 0" }}>
