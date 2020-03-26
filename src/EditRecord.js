@@ -10,7 +10,8 @@ const forms = {
   highlights: require("./forms/Highlights").default,
   reponses: require("./forms/Reponse").default,
   requetes: require("./forms/Requete").default,
-  themes: require("./forms/Theme").default
+  themes: require("./forms/Theme").default,
+  fiches: require("./forms/Fiches").default
 };
 
 const onSubmit = ({ client, bucket, collection, data }) =>
