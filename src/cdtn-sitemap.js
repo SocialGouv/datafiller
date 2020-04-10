@@ -4,6 +4,9 @@ import { themableRoutes } from "./sources";
 
 const httpPrefix = "https?://";
 
+const CDTN_URL = "https://master-code-travail.tmp.fabric.social.gouv.fr";
+// "http://master-code-travail.dev.fabrique.social.gouv.fr"
+
 export const slugify = url =>
   url.replace(/^https?:\/\/[^/]+/, "").split("#")[0];
 
@@ -29,7 +32,7 @@ export const matchSource = source => url =>
 
 // extract all valid urls from sitemap
 export const _getSitemapUrls = () =>
-  fetch("http://master-code-travail.dev.fabrique.social.gouv.fr/sitemap.xml")
+  fetch(`${CDTN_URL}/sitemap.xml`)
     .then(r => r.text())
     .then(text =>
       text
