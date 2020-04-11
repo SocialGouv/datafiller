@@ -68,6 +68,18 @@ const BucketView = ({ bucket, collections = [], themes }) => {
   return (
     <Container>
       <Row>
+        <Col xs={12} sm={6} key="themes">
+          <Card style={{ marginTop: 15 }}>
+            <CardBody>
+              <div style={{ fontSize: "1.5em", marginBottom: 35 }}>
+                ⚠️{" "}
+                <Link href={`/errors`} as={`/errors`} passHref>
+                  <a>Références incorrectes</a>
+                </Link>
+              </div>
+            </CardBody>
+          </Card>
+        </Col>
         {collections.map(collection => {
           const lastRecords = collection.records
             .filter(r => !!r.title)
