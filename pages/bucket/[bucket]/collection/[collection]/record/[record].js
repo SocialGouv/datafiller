@@ -6,6 +6,7 @@ import Layout from "../../../../../../src/Layout";
 
 import getClient from "../../../../../../src/kinto/client";
 import sortByKey from "../../../../../../src/sortByKey";
+import { getSitemapUrls } from "../../../../../../src/cdtn-sitemap";
 
 const RecordPage = props => {
   const { record, records, ...otherProps } = props;
@@ -23,6 +24,7 @@ const RecordPage = props => {
 
 RecordPage.getInitialProps = async ({ query }) => {
   const client = getClient();
+  const sitemapUrls = await getSitemapUrls()
 
   const recordsQuery = await client
     .bucket(query.bucket, { headers: {} })
@@ -49,6 +51,7 @@ RecordPage.getInitialProps = async ({ query }) => {
   }
 
   return {
+    sitemapUrls,
     record,
     records,
     query

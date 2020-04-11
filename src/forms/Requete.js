@@ -19,6 +19,7 @@ import {
 import MarkdownLink from "./components/MarkdownLink";
 import ThemePicker from "./components/ThemePicker";
 import CDTNReferences from "./components/CDTNReferences";
+import { isValidabledUrl } from "../cdtn-sitemap";
 
 const DataSchema = Yup.object().shape({
   title: Yup.string()
@@ -48,7 +49,22 @@ const StyledForm = styled(Form)`
   }
 `;
 
-const RequeteForm = ({ data, onSubmit, onDelete }) => {
+const markInvalidUrls = (values, sitemapUrls) => {
+  const isInvalidUrl = (url) =>
+    url &&
+    isValidabledUrl(url) &&
+    !sitemapUrls.includes("https://code.travail.gouv.fr" + url);
+
+  return ({
+    ...values,
+    refs: values.refs && values.refs.map(ref => ({
+      ...ref,
+      valid: !isInvalidUrl(ref.url)
+    })) || []
+  })
+}
+
+const RequeteForm = ({ data, onSubmit, onDelete, sitemapUrls }) => {
   return (
     <React.Fragment>
       <h1 style={{ margin: "1em 0" }}>Requêtes</h1>
@@ -131,7 +147,7 @@ const RequeteForm = ({ data, onSubmit, onDelete }) => {
                 <Label>Résultats à afficher</Label>
                 <CDTNReferences
                   sortable={true}
-                  values={values}
+                  values={markInvalidUrls(values, sitemapUrls)}
                   setFieldValue={setFieldValue}
                   setFieldTouched={setFieldTouched}
                 />

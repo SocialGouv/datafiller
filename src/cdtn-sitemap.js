@@ -49,3 +49,9 @@ export const getSitemapUrls = memoizee(_getSitemapUrls, {
   maxAge: 1000 * 60 * 10, // 10 minutes
   promise: true
 });
+
+export const isValidabledUrl = (url) =>
+  url.match(/^\/fiche-ministere-travail\//) ||
+  url.match(/^\/fiche-service-public\//) ||
+  url.match(/^\/contribution\//) ||
+  url.match(/^\/modeles-de-courriers\//);

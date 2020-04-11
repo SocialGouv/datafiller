@@ -20,6 +20,23 @@ import ThemePicker from "./components/ThemePicker";
 import CDTNReferences from "./components/CDTNReferences";
 import MarkdownLink from "./components/MarkdownLink";
 import IconPicker from "./components/IconPicker";
+import { isValidabledUrl } from "../cdtn-sitemap";
+
+
+const markInvalidUrls = (values, sitemapUrls) => {
+  const isInvalidUrl = (url) =>
+    url &&
+    isValidabledUrl(url) &&
+    !sitemapUrls.includes("https://code.travail.gouv.fr" + url);
+
+  return ({
+    ...values,
+    refs: values.refs && values.refs.map(ref => ({
+      ...ref,
+      valid: !isInvalidUrl(ref.url)
+    })) || []
+  })
+}
 
 const DataSchema = Yup.object().shape({
   title: Yup.string()
@@ -49,7 +66,7 @@ const StyledForm = styled(Form)`
   }
 `;
 
-const ThemeForm = ({ data, onSubmit, onDelete }) => (
+const ThemeForm = ({ data, onSubmit, onDelete, sitemapUrls }) => (
   <React.Fragment>
     <h1 style={{ margin: "1em 0" }}>Thèmes</h1>
     <Container>
@@ -163,7 +180,7 @@ const ThemeForm = ({ data, onSubmit, onDelete }) => (
               <CDTNReferences
                 sortable={true}
                 loadable={true}
-                values={values}
+                values={markInvalidUrls(values, sitemapUrls)}
                 setFieldValue={setFieldValue}
                 setFieldTouched={setFieldTouched}
               />

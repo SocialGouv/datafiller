@@ -34,7 +34,7 @@ const onDelete = ({ client, bucket, collection, id }) =>
       throw e;
     });
 
-const EditRecord = withKinto(({ client, query, record, router }) => {
+const EditRecord = withKinto(({ client, query, record, router,  sitemapUrls }) => {
   // todo: use json-schema-form when no schema defined
   const Component = forms[query.collection];
   if (!Component) {
@@ -47,6 +47,7 @@ const EditRecord = withKinto(({ client, query, record, router }) => {
 
   return (
     <Component
+      sitemapUrls={sitemapUrls}
       data={record.data}
       onSubmit={data =>
         onSubmit({

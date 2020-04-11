@@ -3,27 +3,21 @@ import getConfig from "next/config";
 import Link from "next/link";
 
 import Layout from "../src/Layout";
-import { getSitemapUrls } from "../src/cdtn-sitemap";
+import { getSitemapUrls, isValidabledUrl } from "../src/cdtn-sitemap";
 import ListRecords from "../src/kinto/ListRecords";
 
 const { publicRuntimeConfig } = getConfig();
 
 const bucket = publicRuntimeConfig.KINTO_BUCKET;
 
-const isValidabledUrl = (url) =>
-  url.match(/^\/fiche-ministere-travail\//) ||
-  url.match(/^\/fiche-service-public\//) ||
-  url.match(/^\/contribution\//) ||
-  url.match(/^\/modeles-de-courriers\//);
-
 const ListErrors = ({ sitemapUrls, collection }) => {
-  const isValidUrl = (url) =>
+  const isInvalidUrl = (url) =>
     url &&
     isValidabledUrl(url) &&
     !sitemapUrls.includes("https://code.travail.gouv.fr" + url);
 
   const hasInvalidRefs = (record) =>
-    record.refs.filter((ref) => isValidUrl(ref.url)).length;
+    record.refs.filter((ref) => isInvalidUrl(ref.url)).length;
 
   return (
     <ListRecords
@@ -49,7 +43,7 @@ const ListErrors = ({ sitemapUrls, collection }) => {
                 </li>
                 <ul style={{ marginBottom: 5 }}>
                   {record.refs
-                    .filter((ref) => isValidUrl(ref.url))
+                    .filter((ref) => isInvalidUrl(ref.url))
                     .map((ref) => (
                       <li key={ref.url}>{ref.url}</li>
                     ))}
