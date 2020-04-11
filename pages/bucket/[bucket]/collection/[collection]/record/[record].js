@@ -22,7 +22,9 @@ const RecordPage = props => {
   );
 };
 
-RecordPage.getInitialProps = async ({ query }) => {
+
+export const getServerSideProps = async ({query}) => {
+
   const client = getClient();
   const sitemapUrls = await getSitemapUrls()
 
@@ -51,10 +53,12 @@ RecordPage.getInitialProps = async ({ query }) => {
   }
 
   return {
-    sitemapUrls,
-    record,
-    records,
-    query
+    props: {
+      sitemapUrls,
+      record,
+      records,
+      query
+    }
   };
 };
 
