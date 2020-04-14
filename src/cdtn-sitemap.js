@@ -4,8 +4,7 @@ import { themableRoutes } from "./sources";
 
 const httpPrefix = "https?://";
 
-const CDTN_URL = "https://master-code-travail.tmp.fabric.social.gouv.fr";
-// "http://master-code-travail.dev.fabrique.social.gouv.fr"
+const CDTN_URL = "http://master-code-travail.dev.fabrique.social.gouv.fr"
 
 export const slugify = url =>
   url.replace(/^https?:\/\/[^/]+/, "").split("#")[0];

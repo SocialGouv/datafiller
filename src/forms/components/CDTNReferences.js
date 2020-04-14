@@ -14,8 +14,7 @@ import CDTNPicker from "./CDTNPicker";
 import Relevance from "./Relevance";
 import getRowId from "./getRowId";
 
-const CDTN_URL = "https://master-code-travail.tmp.fabric.social.gouv.fr";
-//"https://master-code-travail.dev.fabrique.social.gouv.fr";
+const CDTN_URL = "https://master-code-travail.dev.fabrique.social.gouv.fr";
 
 const MyTableFooter = ({ sortable, loadable, onAddClick, onRefreshClick }) => (
   <thead>
