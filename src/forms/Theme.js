@@ -142,20 +142,9 @@ const ThemeForm = ({ data, onSubmit, onDelete, sitemapUrls }) => (
                 }}
               />
             </FormGroup>
-            <FormGroup row>
-              <Label>Sous-Titre du thème</Label>
-              <Input
-                name="subTitle"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                defaultValue={(values && values.subTitle) || ""}
-              />
-            </FormGroup>
 
             <FormGroup row>
-              <Label>
-                Introduction <MarkdownLink />
-              </Label>
+              <Label>Introduction</Label>
               <MultiLineInput
                 name="introduction"
                 rows={3}
