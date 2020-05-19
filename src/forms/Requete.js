@@ -13,7 +13,7 @@ import {
   Label,
   Input,
   Row,
-  Col
+  Col,
 } from "reactstrap";
 
 import MarkdownLink from "./components/MarkdownLink";
@@ -22,12 +22,10 @@ import CDTNReferences from "./components/CDTNReferences";
 import { isValidabledUrl } from "../cdtn-sitemap";
 
 const DataSchema = Yup.object().shape({
-  title: Yup.string()
-    .min(3, "Titre trop court")
-    .required("Titre requis")
+  title: Yup.string().min(3, "Titre trop court").required("Titre requis"),
 });
 
-const MultiLineInput = props => (
+const MultiLineInput = (props) => (
   <Input
     type="textarea"
     style={{ fonSize: "1.4em" }}
@@ -53,16 +51,19 @@ const markInvalidUrls = (values, sitemapUrls) => {
   const isInvalidUrl = (url) =>
     url &&
     isValidabledUrl(url) &&
-    !sitemapUrls.includes("https://code.travail.gouv.fr" + url);
+    !sitemapUrls.includes("https://code.travail.gouv.fr" + url.split("#")[0]);
 
-  return ({
+  return {
     ...values,
-    refs: values.refs && values.refs.map(ref => ({
-      ...ref,
-      valid: !isInvalidUrl(ref.url)
-    })) || []
-  })
-}
+    refs:
+      (values.refs &&
+        values.refs.map((ref) => ({
+          ...ref,
+          valid: !isInvalidUrl(ref.url),
+        }))) ||
+      [],
+  };
+};
 
 const RequeteForm = ({ data, onSubmit, onDelete, sitemapUrls }) => {
   return (
@@ -91,7 +92,7 @@ const RequeteForm = ({ data, onSubmit, onDelete, sitemapUrls }) => {
             setFieldValue,
             handleSubmit,
             setFieldTouched,
-            isSubmitting
+            isSubmitting,
           }) => (
             <StyledForm onSubmit={handleSubmit}>
               <FormGroup row>
@@ -135,7 +136,7 @@ const RequeteForm = ({ data, onSubmit, onDelete, sitemapUrls }) => {
                 <ThemePicker
                   name="theme"
                   value={values.theme || ""}
-                  onChange={theme => {
+                  onChange={(theme) => {
                     console.log("onChange", theme);
                     setFieldValue("theme", theme.id);
                     setFieldTouched("theme");
@@ -157,8 +158,8 @@ const RequeteForm = ({ data, onSubmit, onDelete, sitemapUrls }) => {
               {(Object.keys(errors).length && (
                 <Alert color="danger" style={{ margin: "15px 0" }}>
                   {Object.keys(errors)
-                    .map(key => errors[key])
-                    .map(error => (
+                    .map((key) => errors[key])
+                    .map((error) => (
                       <Alert key={error} color="error">
                         {error}
                       </Alert>
@@ -195,7 +196,7 @@ const RequeteForm = ({ data, onSubmit, onDelete, sitemapUrls }) => {
                     style={{
                       marginLeft: 20,
                       whiteSpace: "nowrap",
-                      marginTop: 20
+                      marginTop: 20,
                     }}
                     color="danger"
                     type="button"
