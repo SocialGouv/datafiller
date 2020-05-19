@@ -14,7 +14,7 @@ const ListErrors = ({ sitemapUrls, collection }) => {
   const isInvalidUrl = (url) =>
     url &&
     isValidabledUrl(url) &&
-    !sitemapUrls.includes("https://code.travail.gouv.fr" + url.split("#");
+    !sitemapUrls.includes("https://code.travail.gouv.fr" + url.split("#")[0];
 
   const hasInvalidRefs = (record) =>
     record.refs.filter((ref) => isInvalidUrl(ref.url)).length;
