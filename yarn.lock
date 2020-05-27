@@ -864,10 +864,10 @@
   dependencies:
     regenerator-runtime "^0.13.2"
 
-"@babel/runtime@^7.0.0", "@babel/runtime@^7.1.2", "@babel/runtime@^7.2.0", "@babel/runtime@^7.4.5", "@babel/runtime@^7.6.3", "@babel/runtime@^7.8.7":
-  version "7.8.7"
-  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.8.7.tgz#8fefce9802db54881ba59f90bb28719b4996324d"
-  integrity sha512-+AATMUFppJDw6aiR5NVPHqIQBlV/Pj8wY/EZH+lmvRdUo9xBaz/rF3alAwFJQavvKfeOlPE7oaaDHVbcySbCsg==
+"@babel/runtime@^7.0.0", "@babel/runtime@^7.1.2", "@babel/runtime@^7.2.0", "@babel/runtime@^7.4.5", "@babel/runtime@^7.6.3", "@babel/runtime@^7.9.6":
+  version "7.10.0"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.10.0.tgz#2cdcd6d7a391c24f7154235134c830cfb58ac0b1"
+  integrity sha512-tgYb3zVApHbLHYOPWtVwg25sBqHhfBXRKeKoTIyoheIxln1nA7oBl7SfHfiTG2GhDPI8EUBkOD/0wJCP/3HN4Q==
   dependencies:
     regenerator-runtime "^0.13.4"
 
@@ -7976,10 +7976,10 @@ prop-types@15.7.2, prop-types@15.x, prop-types@^15.5.0, prop-types@^15.5.10, pro
     object-assign "^4.1.1"
     react-is "^16.8.1"
 
-property-expr@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/property-expr/-/property-expr-2.0.0.tgz#d0e97bb6800c2d07af0a84617f62e2862849f87f"
-  integrity sha512-BeLWlW3nAcD5KaCq7TOKcfnqpqk98mNhv3OeXKfzTVjmFOc1zQcpkdwP+DJdHv/J1TXrJedcD56ovqfRcmgJPg==
+property-expr@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/property-expr/-/property-expr-2.0.2.tgz#fff2a43919135553a3bc2fdd94bdb841965b2330"
+  integrity sha512-bc/5ggaYZxNkFKj374aLbEDqVADdYaLcFo8XBkishUWbaAdjlphaBFns9TvRA2pUseVL/wMFmui9X3IdNDU37g==
 
 proxy-addr@~2.0.5:
   version "2.0.5"
@@ -10348,15 +10348,15 @@ yargs@^15.0.0:
     y18n "^4.0.0"
     yargs-parser "^16.1.0"
 
-yup@0.28.3:
-  version "0.28.3"
-  resolved "https://registry.yarnpkg.com/yup/-/yup-0.28.3.tgz#1ca607405a8adf24a5ac51f54bd09d527555f0ba"
-  integrity sha512-amVkCgFWe5bGjrrUiODkbIzrSwtB8JpZrQYSrfj2YsbRdrV+tn9LquWdZDlfOx2HXyfEA8FGnlwidE/bFDxO7Q==
+yup@0.29.1:
+  version "0.29.1"
+  resolved "https://registry.yarnpkg.com/yup/-/yup-0.29.1.tgz#35d25aab470a0c3950f66040ba0ff4b1b6efe0d9"
+  integrity sha512-U7mPIbgfQWI6M3hZCJdGFrr+U0laG28FxMAKIgNvgl7OtyYuUoc4uy9qCWYHZjh49b8T7Ug8NNDdiMIEytcXrQ==
   dependencies:
-    "@babel/runtime" "^7.8.7"
+    "@babel/runtime" "^7.9.6"
     fn-name "~3.0.0"
     lodash "^4.17.15"
     lodash-es "^4.17.11"
-    property-expr "^2.0.0"
+    property-expr "^2.0.2"
     synchronous-promise "^2.0.10"
     toposort "^2.0.2"
