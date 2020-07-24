@@ -225,6 +225,8 @@ const CDTNReferences = ({
       const rowId = getRowId(value._source); //return source/slug or url
       values.refs[i].url = rowId;
       values.refs[i].title = value._source.title;
+      values.refs[i].source = value._source.source;
+      values.refs[i].slug = value._source.slug;
       values.refs[i].valid = true;
       setFieldValue("refs", values.refs);
       setFieldTouched("refs");
