@@ -172,6 +172,7 @@ const ThemeForm = ({ data, onSubmit, onDelete, sitemapUrls }) => (
                 values={markInvalidUrls(values, sitemapUrls)}
                 setFieldValue={setFieldValue}
                 setFieldTouched={setFieldTouched}
+                togglePageMode={true}
               />
             </FormGroup>
 

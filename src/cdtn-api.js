@@ -14,10 +14,10 @@ const sortByRelevance = (a, b) => {
   return 0;
 };
 
-const fetchResults = endpoint => (query = "", excludeSources = "") => {
+const fetchResults = endpoint => (query = "", excludeSources = "", togglePageMode=false) => {
   const url = `${API_URL}/${endpoint}?q=${encodeURIComponent(
     query
-  )}&excludeSources=${encodeURIComponent(excludeSources)}&size=25`;
+  )}&excludeSources=${encodeURIComponent(excludeSources)}&size=25&skipSavedResults&togglePageMode=${togglePageMode}`;
   return fetch(url)
     .then(response => {
       if (response.ok) {

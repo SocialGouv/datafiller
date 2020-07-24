@@ -46,11 +46,11 @@ const renderInputComponent = inputProps => (
 const getSuggestionValue = suggestion =>
   `${suggestion._source.source}/${suggestion._source.id}`;
 
-export const CDTNPicker = ({ query, onSelect }) => {
+export const CDTNPicker = ({ query, onSelect, togglePageMode=false }) => {
   const originalQuery = query;
   return (
     <SuggestionState
-      fetchSuggestions={searchResults}
+      fetchSuggestions={(str) => searchResults(str, "", togglePageMode)}
       query={originalQuery}
       render={({ query, hits, updateQuery, forceUpdate }) => {
         const _onChange = () => {};
