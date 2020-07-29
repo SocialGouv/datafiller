@@ -58,7 +58,7 @@ const DragHandle = SortableHandle(() => (
 ));
 
 const ReferenceRow = SortableElement(
-  ({ index, row, sortable, setRowValue, setRowRelevance, onRemoveClick }) => (
+  ({ index, row, sortable, setRowValue, setRowRelevance, onRemoveClick, togglePageMode=false }) => (
     <tr>
       {sortable && (
         <td width={50}>
@@ -68,6 +68,7 @@ const ReferenceRow = SortableElement(
       <td style={{ background: row.valid === false ? "#ff8a8a" : "" }}>
         <CDTNPicker
           query={getRowId(row) || ""}
+          togglePageMode={togglePageMode}
           onSelect={value => setRowValue(value)}
         />
       </td>
@@ -137,6 +138,7 @@ const References = SortableContainer(
     setRowRelevance,
     sortable,
     loadable,
+    togglePageMode=false,
     values,
     onAddClick,
     onRemoveClick,
@@ -167,6 +169,7 @@ const References = SortableContainer(
                         sortable={sortable}
                         index={index}
                         row={row}
+                        togglePageMode={togglePageMode}
                         setRowValue={value => setRowValue(index, value)}
                         setRowRelevance={relevance =>
                           setRowRelevance(index, relevance)
@@ -204,12 +207,14 @@ const CDTNReferences = ({
   loadable = true,
   values,
   setFieldValue,
-  setFieldTouched
+  setFieldTouched,
+  togglePageMode=false
 }) => (
   <References
     sortable={sortable}
     loadable={loadable}
     useDragHandle={true}
+    togglePageMode={togglePageMode}
     onSortEnd={({ oldIndex, newIndex }) => {
       const newRefs = moveItemAtIndex(values.refs, oldIndex, newIndex);
       setFieldValue("refs", newRefs);
@@ -242,7 +247,7 @@ const CDTNReferences = ({
       setFieldTouched("refs");
     }}
     onRefreshClick={async () => {
-      const res = await searchResults(values.title);
+      const res = await searchResults(values.title, "", togglePageMode);
       // concat with current selection, removing duplicates
       const hits =
         (res.hits &&
