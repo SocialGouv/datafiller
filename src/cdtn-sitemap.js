@@ -4,15 +4,16 @@ import { themableRoutes } from "./sources";
 
 const httpPrefix = "https?://";
 
-const CDTN_URL = "http://master-code-travail.dev.fabrique.social.gouv.fr"
+const CDTN_URL = "https://master-code-travail.dev2.fabrique.social.gouv.fr";
+// http://master-code-travail.dev.fabrique.social.gouv.fr"
 
-export const slugify = url =>
+export const slugify = (url) =>
   url.replace(/^https?:\/\/[^/]+/, "").split("#")[0];
 
 // only theme themableRoutes content
-const isThemableUrl = url => {
+const isThemableUrl = (url) => {
   let themable = false;
-  themableRoutes.forEach(path => {
+  themableRoutes.forEach((path) => {
     if (
       !themable &&
       url.match(new RegExp(`^${httpPrefix}[^/]+/${path}/.*$`, "g"))
@@ -24,20 +25,20 @@ const isThemableUrl = url => {
 };
 
 // remove duplicates (ex: splitted content)
-const uniquify = arr => Array.from(new Set(arr));
+const uniquify = (arr) => Array.from(new Set(arr));
 
-export const matchSource = source => url =>
+export const matchSource = (source) => (url) =>
   url.match(new RegExp(`^${httpPrefix}[^/]+/${source}/`));
 
 // extract all valid urls from sitemap
 export const _getSitemapUrls = () =>
   fetch(`${CDTN_URL}/sitemap.xml`)
-    .then(r => r.text())
-    .then(text =>
+    .then((r) => r.text())
+    .then((text) =>
       text
         .match(/<loc>[^<]+<\/loc>/gm)
         .map(
-          url => url.replace("<loc>", "").replace("</loc>", "")
+          (url) => url.replace("<loc>", "").replace("</loc>", "")
           // .replace(/^https:\/\/[^/]+(\/.*)$/, "$1")
         )
         .filter(isThemableUrl)
@@ -46,7 +47,7 @@ export const _getSitemapUrls = () =>
 
 export const getSitemapUrls = memoizee(_getSitemapUrls, {
   maxAge: 1000 * 60 * 10, // 10 minutes
-  promise: true
+  promise: true,
 });
 
 export const isValidabledUrl = (url) =>

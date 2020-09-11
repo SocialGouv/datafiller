@@ -5,7 +5,7 @@ import { Trash, ExternalLink, PlusSquare, RotateCw, Menu } from "react-feather";
 import {
   SortableContainer,
   SortableElement,
-  SortableHandle
+  SortableHandle,
 } from "react-sortable-hoc";
 
 import { searchResults } from "../../cdtn-api";
@@ -14,7 +14,8 @@ import CDTNPicker from "./CDTNPicker";
 import Relevance from "./Relevance";
 import getRowId from "./getRowId";
 
-const CDTN_URL = "https://master-code-travail.dev.fabrique.social.gouv.fr";
+const CDTN_URL = "https://master-code-travail.dev2.fabrique.social.gouv.fr";
+///recherche?q=salairehttps://master-code-travail.dev.fabrique.social.gouv.fr";
 
 const MyTableFooter = ({ sortable, loadable, onAddClick, onRefreshClick }) => (
   <thead>
@@ -27,7 +28,7 @@ const MyTableFooter = ({ sortable, loadable, onAddClick, onRefreshClick }) => (
           style={{
             whiteSpace: "nowrap",
             marginTop: 20,
-            marginRight: 20
+            marginRight: 20,
           }}
           variant="contained"
         >
@@ -58,7 +59,15 @@ const DragHandle = SortableHandle(() => (
 ));
 
 const ReferenceRow = SortableElement(
-  ({ index, row, sortable, setRowValue, setRowRelevance, onRemoveClick, togglePageMode=false }) => (
+  ({
+    index,
+    row,
+    sortable,
+    setRowValue,
+    setRowRelevance,
+    onRemoveClick,
+    togglePageMode = false,
+  }) => (
     <tr>
       {sortable && (
         <td width={50}>
@@ -69,7 +78,7 @@ const ReferenceRow = SortableElement(
         <CDTNPicker
           query={getRowId(row) || ""}
           togglePageMode={togglePageMode}
-          onSelect={value => setRowValue(value)}
+          onSelect={(value) => setRowValue(value)}
         />
       </td>
       <td
@@ -77,7 +86,7 @@ const ReferenceRow = SortableElement(
         width={50}
         style={{
           padding: 0,
-          verticalAlign: "middle"
+          verticalAlign: "middle",
         }}
       >
         <ExternalLink
@@ -95,12 +104,12 @@ const ReferenceRow = SortableElement(
           style={{
             width: 200,
             padding: 0,
-            verticalAlign: "middle"
+            verticalAlign: "middle",
           }}
         >
           <Relevance
             value={row.relevance}
-            onChange={value => setRowRelevance(value)}
+            onChange={(value) => setRowRelevance(value)}
           />
         </td>
       )}
@@ -109,7 +118,7 @@ const ReferenceRow = SortableElement(
         align="center"
         style={{
           padding: 0,
-          verticalAlign: "middle"
+          verticalAlign: "middle",
         }}
       >
         <Trash
@@ -138,11 +147,11 @@ const References = SortableContainer(
     setRowRelevance,
     sortable,
     loadable,
-    togglePageMode=false,
+    togglePageMode = false,
     values,
     onAddClick,
     onRemoveClick,
-    onRefreshClick
+    onRefreshClick,
   }) => (
     <FieldArray
       name="refs"
@@ -170,8 +179,8 @@ const References = SortableContainer(
                         index={index}
                         row={row}
                         togglePageMode={togglePageMode}
-                        setRowValue={value => setRowValue(index, value)}
-                        setRowRelevance={relevance =>
+                        setRowValue={(value) => setRowValue(index, value)}
+                        setRowRelevance={(relevance) =>
                           setRowRelevance(index, relevance)
                         }
                         onRemoveClick={() => onRemoveClick({ index })}
@@ -198,7 +207,7 @@ const moveItemAtIndex = (arr, oldIndex, newIndex) => {
   tmpArr.splice(newIndex, 0, ref);
   return tmpArr.map((ref, index) => ({
     ...ref,
-    position: index
+    position: index,
   }));
 };
 
@@ -208,7 +217,7 @@ const CDTNReferences = ({
   values,
   setFieldValue,
   setFieldTouched,
-  togglePageMode=false
+  togglePageMode = false,
 }) => (
   <References
     sortable={sortable}
@@ -253,16 +262,16 @@ const CDTNReferences = ({
         (res.hits &&
           res.hits.hits &&
           res.hits.hits
-            .filter(hit =>
+            .filter((hit) =>
               values.refs
                 ? values.refs
-                    .map(ref => ref.url)
+                    .map((ref) => ref.url)
                     .indexOf(getRowId(hit._source)) === -1
                 : true
             )
-            .map(hit => ({
+            .map((hit) => ({
               title: hit._source.title,
-              url: getRowId(hit._source)
+              url: getRowId(hit._source),
             }))) ||
         [];
       setFieldValue("refs", (values.refs || []).concat(hits));
