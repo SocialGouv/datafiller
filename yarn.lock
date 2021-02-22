@@ -2182,7 +2182,7 @@ bn.js@^5.1.1:
   resolved "https://registry.yarnpkg.com/bn.js/-/bn.js-5.1.3.tgz#beca005408f642ebebea80b042b4d18d2ac0ee6b"
   integrity sha512-GkTiFpjFtUzU9CbMeJ5iazkCzGL3jrhzerzZIuqLABjbwRaFt33I9tUdSNryIptM+RxDet6OKm2WnLXzW51KsQ==
 
-body-parser@1.19.0:
+body-parser@1.19.0, body-parser@^1.19.0:
   version "1.19.0"
   resolved "https://registry.yarnpkg.com/body-parser/-/body-parser-1.19.0.tgz#96b2709e57c9c4e09a6fd66a8fd979844f69f08a"
   integrity sha512-dhEPs72UPbDnAQJ9ZKMNTP6ptJaionhP5cBb541nXPlW60Jepo9RV/a4fX4XWW9CuFNK22krhrj1+rgzifNCsw==
@@ -4062,7 +4062,7 @@ expect@^25.5.0:
     jest-message-util "^25.5.0"
     jest-regex-util "^25.2.6"
 
-express@4.17.1:
+express@4.17.1, express@^4.17.1:
   version "4.17.1"
   resolved "https://registry.yarnpkg.com/express/-/express-4.17.1.tgz#4491fc38605cf51f8629d39c2b5d026f98a4c134"
   integrity sha512-mHJ9O79RqluphRrcw2X/GTh3k9tVv8YcoyY4Kkh4WDMUYKRZUq0h1o0w2rrrxBqM7VoeUVqgb27xlEMXTnYt4g==
@@ -8588,10 +8588,13 @@ send@0.17.1:
     range-parser "~1.2.1"
     statuses "~1.5.0"
 
-sentry-testkit@2.2.1:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/sentry-testkit/-/sentry-testkit-2.2.1.tgz#e4fa10c9747c231af498999353d053c0ce8d0a63"
-  integrity sha512-qCyTTdFQYds2v/SvMg7s/7tjY+puomlU7CGjXdo7l/1RhzdeNJx3hfhFBonhmBr4524cgKnIv5iUN2iBuaAv3w==
+sentry-testkit@3.3.2:
+  version "3.3.2"
+  resolved "https://registry.yarnpkg.com/sentry-testkit/-/sentry-testkit-3.3.2.tgz#220aab26ffa06513460ddf0368e714a0f8d89e7b"
+  integrity sha512-AONceIz+IjNp9r/PtMPDzNJC9/Ir0nosStYHfEq0nSz/NNhgwe1HLagUfo5zRjclr4R9QMFIOAI9aPez/65xbQ==
+  dependencies:
+    body-parser "^1.19.0"
+    express "^4.17.1"
 
 serialize-javascript@^4.0.0:
   version "4.0.0"
