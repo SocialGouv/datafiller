@@ -6010,13 +6010,12 @@ kind-of@^6.0.0, kind-of@^6.0.2:
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-6.0.3.tgz#07c05034a6c349fa06e24fa35aa76db4580ce4dd"
   integrity sha512-dcS1ul+9tmeD95T+x28/ehLgd9mENa3LsvDTtzm3vyBEO7RPptvAD+t44WVXaUjTBRcrpFeFlC8WCruUR456hw==
 
-kinto-http@4.7.3:
-  version "4.7.3"
-  resolved "https://registry.yarnpkg.com/kinto-http/-/kinto-http-4.7.3.tgz#d6083ce167daff710b2db13d9774c2cecb6537e9"
-  integrity sha512-1BA8HdG0+cnYJFjsrx8H/j3xEVVNFHSmIDUqwVCHo4D8nLtNeIi9S3IqHLoMYikid7yfPteys66BGNg4EX59DA==
+kinto-http@5.2.1:
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/kinto-http/-/kinto-http-5.2.1.tgz#387dfea7972043e578c065ab9e515df3afa3b0cc"
+  integrity sha512-rbvtiSGZKh5EpVIpiMbTW5+NZ3+U89Zh3+S5KFHTKiJxZMR/PFfinkioRk1DyP6EramshsFgHXx5EAkXGMmbqw==
   dependencies:
-    "@babel/runtime" "^7.0.0"
-    uuid "^3.0.1"
+    uuid "^8.0.0"
 
 kleur@^3.0.3:
   version "3.0.3"
@@ -9766,10 +9765,15 @@ utils-merge@1.0.1:
   resolved "https://registry.yarnpkg.com/utils-merge/-/utils-merge-1.0.1.tgz#9f95710f50a267947b2ccc124741c1028427e713"
   integrity sha1-n5VxD1CiZ5R7LMwSR0HBAoQn5xM=
 
-uuid@^3.0.1, uuid@^3.3.2:
+uuid@^3.3.2:
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.4.0.tgz#b23e4358afa8a202fe7a100af1f5f883f02007ee"
   integrity sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A==
+
+uuid@^8.0.0:
+  version "8.3.2"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.3.2.tgz#80d5b5ced271bb9af6c445f21a1a04c606cefbe2"
+  integrity sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==
 
 v8-compile-cache@^2.0.3:
   version "2.1.1"
