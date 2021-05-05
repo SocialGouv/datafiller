@@ -1,3 +1,22 @@
+:skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull:
+
+<br>
+<br>
+
+<h3 align=center>DEPRECATED</h3>
+
+<br>
+<br>
+
+:skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull::skull:
+
+<br>
+<br>
+<br>
+<br>
+
+---
+
 # datafiller
 
 Custom React forms to edit random data collections.
